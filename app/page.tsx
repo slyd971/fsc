@@ -8,7 +8,7 @@ import { VideoSection } from "@/components/site/VideoSection";
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="page-main">
       <HeroSection />
       <AboutSection />
       <DestinationPreviewSection />

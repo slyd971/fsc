@@ -17,17 +17,20 @@ export function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="section-divider relative overflow-hidden py-12 md:py-18">
+    <section className="press-section section-social relative overflow-hidden border-t border-white/12 px-5 py-14 sm:px-8 sm:py-18 lg:px-12 lg:py-24">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,14,12,0.96),rgba(10,9,9,0.42))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(196,149,111,0.16),transparent_22%),radial-gradient(circle_at_right,rgba(225,186,142,0.12),transparent_26%)]" />
+      <div className="grain-overlay" />
       <div className="section-shell">
         <Reveal>
-          <div className="max-w-3xl">
+          <div className="relative z-10 max-w-3xl">
             <div className="editorial-kicker">Testimonials</div>
             <h2 className="section-title mt-4">Trusted by the crew.</h2>
           </div>
         </Reveal>
 
         <Reveal>
-          <div className="editorial-panel mt-8 p-6 md:mt-10 md:p-8">
+          <div className="theme-panel relative z-10 mt-8 rounded-[2rem] border border-white/15 bg-[linear-gradient(135deg,rgba(255,248,239,0.18),rgba(255,255,255,0.08))] p-6 md:mt-10 md:p-8">
             <div className="mb-6 flex items-center justify-between gap-4">
               <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--accent)] md:text-[11px]">
                 Featured voice
@@ -57,12 +60,12 @@ export function TestimonialsSection() {
                 className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end"
               >
                 <div>
-                  <p className="text-[1.28rem] leading-[1.36] text-white md:text-[2.9rem]">
+                  <p className="text-[1.08rem] leading-[1.38] text-white md:text-[2.25rem]">
                     “{siteData.testimonials[activeIndex].quote}”
                   </p>
                 </div>
 
-                <div className="border-l border-white/14 pl-5 md:pl-7">
+                <div className="theme-overlay-panel rounded-[1.5rem] border border-white/12 bg-black/18 p-5 backdrop-blur-md md:pl-7">
                   <div className="display-font text-3xl uppercase md:text-4xl">
                     {siteData.testimonials[activeIndex].name}
                   </div>

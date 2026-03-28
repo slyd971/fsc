@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { NavItem } from "@/data/site";
 import { MobileMenu } from "@/components/site/MobileMenu";
@@ -49,21 +48,26 @@ export function Navbar({ navigation, brand }: NavbarProps) {
     >
       <div className="section-shell pt-4">
         <div
-          className={`premium-stroke relative border border-white/8 bg-black/[0.64] shadow-[0_18px_60px_rgba(0,0,0,0.24)] backdrop-blur-2xl transition-all duration-300 ${
+          className={`relative ml-auto transition-all duration-300 lg:premium-stroke lg:border lg:border-white/8 lg:bg-black/[0.64] lg:shadow-[0_18px_60px_rgba(0,0,0,0.24)] lg:backdrop-blur-2xl ${
             !visible
-              ? "ml-auto w-fit px-2 py-2 md:px-6"
+              ? "w-fit px-0 py-0 lg:px-2 lg:py-2 md:px-6"
               : compact
-                ? "px-4 py-3 md:px-6"
-                : "px-4 py-4 md:px-6"
+                ? "px-0 py-0 lg:px-4 lg:py-3 md:px-6"
+                : "px-0 py-0 lg:px-4 lg:py-4 md:px-6"
           }`}
-          style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px))" }}
+          style={{
+            clipPath:
+              "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px))",
+          }}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(214,185,139,0.14),transparent_28%)]" />
-          <div className="relative flex items-center justify-between gap-4">
+          <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_left,rgba(214,185,139,0.14),transparent_28%)] lg:block" />
+          <div className="relative flex items-center justify-end gap-4 lg:justify-between">
             <Link
               href="/"
-              className={`flex items-center gap-3 transition-all duration-300 ${
-                !visible ? "pointer-events-none w-0 overflow-hidden opacity-0 lg:pointer-events-auto lg:w-auto lg:overflow-visible lg:opacity-100" : "opacity-100"
+              className={`hidden items-center gap-3 transition-all duration-300 lg:flex ${
+                !visible
+                  ? "pointer-events-none w-0 overflow-hidden opacity-0 lg:pointer-events-auto lg:w-auto lg:overflow-visible lg:opacity-100"
+                  : "opacity-100"
               }`}
             >
               <div className="premium-chip flex h-11 w-11 items-center justify-center">
@@ -106,9 +110,25 @@ export function Navbar({ navigation, brand }: NavbarProps) {
                 type="button"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 onClick={() => setMenuOpen((current) => !current)}
-                className="flex h-11 w-11 items-center justify-center border border-white/10 bg-white/5 lg:hidden"
+                className="flex h-11 w-11 items-center justify-center lg:hidden"
               >
-                {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                <span className="relative block h-4 w-5">
+                  <span
+                    className={`absolute left-0 top-0 h-px w-5 bg-white transition-all duration-300 ${
+                      menuOpen ? "top-[7px] rotate-45" : ""
+                    }`}
+                  />
+                  <span
+                    className={`absolute left-0 top-[7px] h-px w-5 bg-white transition-all duration-300 ${
+                      menuOpen ? "opacity-0" : ""
+                    }`}
+                  />
+                  <span
+                    className={`absolute left-0 top-[14px] h-px w-5 bg-white transition-all duration-300 ${
+                      menuOpen ? "top-[7px] -rotate-45" : ""
+                    }`}
+                  />
+                </span>
               </button>
             </div>
           </div>

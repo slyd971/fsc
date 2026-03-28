@@ -20,13 +20,17 @@ export function GalleryPreviewSection() {
   }, [previewImages.length]);
 
   return (
-    <section id="gallery-preview" className="section-divider relative scroll-mt-24 overflow-hidden py-12 md:py-18">
+    <section id="gallery-preview" className="gallery-section relative scroll-mt-24 overflow-hidden border-t border-white/12 px-5 py-14 sm:px-8 sm:py-18 lg:px-12 lg:py-24">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,14,12,0.96),rgba(10,9,9,0.4))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(225,186,142,0.16),transparent_24%),radial-gradient(circle_at_bottom_left,rgba(118,82,58,0.14),transparent_24%)]" />
+      <div className="grain-overlay" />
+      <div className="paper-texture" />
       <div className="section-shell">
         <Reveal>
-          <div className="mb-7 flex flex-col items-start justify-between gap-4 md:mb-8 md:flex-row md:items-end">
+          <div className="relative z-10 mb-7 flex flex-col items-start justify-between gap-4 md:mb-8 md:flex-row md:items-end">
             <div>
               <div className="editorial-kicker mb-3 md:mb-4">Gallery</div>
-              <h2 className="section-title text-[clamp(2.6rem,6vw,5.5rem)]">Crew moments</h2>
+              <h2 className="section-title">Crew moments</h2>
             </div>
 
             <Link href="/gallery" className="button-editorial button-editorial-secondary">
@@ -35,9 +39,9 @@ export function GalleryPreviewSection() {
           </div>
         </Reveal>
 
-        <div className="grid gap-5 lg:grid-cols-[1.28fr_0.72fr] lg:items-start">
+        <div className="relative z-10 grid gap-5 lg:grid-cols-[1.28fr_0.72fr] lg:items-start">
           <Reveal>
-            <div className="media-cut relative overflow-hidden border border-white/10">
+            <div className="theme-panel relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={previewImages[activeIndex].id}
@@ -79,13 +83,9 @@ export function GalleryPreviewSection() {
                   onClick={() => setActiveIndex(index)}
                   className={`flex w-full items-center gap-3 border p-3 text-left transition md:p-4 ${
                     activeIndex === index
-                      ? "border-[var(--accent)]/40 bg-[linear-gradient(180deg,rgba(214,185,139,0.14),rgba(255,255,255,0.02))]"
-                      : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
+                      ? "theme-panel rounded-[1.5rem] border-[var(--accent)]/30 bg-[linear-gradient(180deg,rgba(214,185,139,0.16),rgba(255,255,255,0.03))]"
+                      : "theme-panel rounded-[1.5rem] border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
                   }`}
-                  style={{
-                    clipPath:
-                      "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))",
-                  }}
                 >
                   <img src={image.image} alt={image.alt} className="h-20 w-20 shrink-0 object-cover md:h-24 md:w-24" />
                   <div className="min-w-0">

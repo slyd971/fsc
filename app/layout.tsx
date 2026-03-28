@@ -1,21 +1,8 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Manrope } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/site/Footer";
 import { Navbar } from "@/components/site/Navbar";
 import { siteData } from "@/data/site";
-
-const displayFont = Bodoni_Moda({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["500", "600", "700", "800"],
-});
-
-const bodyFont = Manrope({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
   title: siteData.metadata.title,
@@ -29,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${displayFont.variable} ${bodyFont.variable}`}>
+      <body>
         <div className="site-shell">
           <Navbar navigation={siteData.navigation} brand={siteData.brand} />
           {children}
