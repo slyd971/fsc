@@ -27,8 +27,9 @@ export function TestimonialsSection() {
           <div className="grid gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
             <div>
               <div className="editorial-kicker">Testimonials</div>
-              <h2 className="section-title mt-4 max-w-[8ch] text-[clamp(1.9rem,4.2vw,3.3rem)]">
-                Voices from the road.
+              <h2 className="section-title mt-4 max-w-[12ch] text-[clamp(1.5rem,3vw,2.5rem)] leading-[0.92]">
+                <span className="block whitespace-nowrap">Voices from</span>
+                <span className="block whitespace-nowrap">the road.</span>
               </h2>
             </div>
             <p className="max-w-2xl text-sm leading-6 text-white/60 md:text-base md:leading-7">

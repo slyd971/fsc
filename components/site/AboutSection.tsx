@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { siteData } from "@/data/site";
 
@@ -18,7 +17,7 @@ export function AboutSection() {
             <div className="relative">
               <div className="overflow-hidden rounded-[2.2rem] border border-white/10 bg-black/30">
                 <img
-                  src="/fsc-crew2.jpg"
+                  src="/London/nhc1.jpg"
                   alt="French Soca Crew group moment"
                   className="h-[28rem] w-full object-cover sm:h-[36rem] lg:h-[48rem]"
                 />
@@ -84,16 +83,6 @@ export function AboutSection() {
                     </p>
                   </div>
                 ))}
-              </div>
-
-              <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6">
-                <div className="text-[10px] uppercase tracking-[0.32em] text-white/40">
-                  Identity note
-                </div>
-                <div className="flex items-center gap-2 text-sm text-white/78">
-                  French association for roads, carnival, travel, music and diaspora connection.
-                  <ArrowUpRight className="h-4 w-4 text-[var(--accent)]" />
-                </div>
               </div>
             </div>
           </Reveal>

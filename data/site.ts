@@ -50,7 +50,7 @@ export type Testimonial = {
 export type GalleryItem = {
   id: string;
   title: string;
-  category: "Trips" | "Carnival Moments" | "Parties" | "Crew Moments" | "Rotterdam";
+  category: "London" | "Rotterdam" | "Geneva" | "Paris" | "Parties";
   image: string;
   alt: string;
   size: "portrait" | "landscape" | "square";
@@ -144,7 +144,7 @@ export const siteData = {
       eyebrow: "Summer road energy",
       description:
         "A high-vibration city break built around parade moments, after-dark parties and a crew-first travel flow.",
-      image: "/fsc-crew-rotterdam-enhanced.jpg",
+      image: "/Rotterdam/fsc-rotterdam-road.jpg",
       imageAlt: "French Soca Crew group photo in Rotterdam",
       badge: "Carnival weekend",
     },
@@ -155,9 +155,8 @@ export const siteData = {
       eyebrow: "Diaspora capital energy",
       description:
         "A layered city experience mixing big-road emotion, iconic soundsystems, crew moments and premium group coordination.",
-      image:
-        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80",
-      imageAlt: "Festival crowd with raised hands and warm lighting",
+      image: "/London/nhc3.jpg",
+      imageAlt: "French Soca Crew road moment in London",
       badge: "Iconic destination",
     },
   ] satisfies DestinationPreview[],
@@ -216,7 +215,7 @@ export const siteData = {
       {
         id: "trip-1",
         title: "Departure mood",
-        category: "Trips",
+        category: "Paris",
         image:
           "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1000&q=80",
         alt: "Travelers arriving together with luggage in a bright terminal",
@@ -224,11 +223,10 @@ export const siteData = {
       },
       {
         id: "carnival-1",
-        title: "Road glow",
-        category: "Carnival Moments",
-        image:
-          "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1000&q=80",
-        alt: "Festival crowd in warm sunset light",
+        title: "West road",
+        category: "London",
+        image: "/London/nhc3.jpg",
+        alt: "French Soca Crew road moment in London",
         size: "landscape",
       },
       {
@@ -242,8 +240,8 @@ export const siteData = {
       },
       {
         id: "crew-1",
-        title: "Crew afterglow",
-        category: "Crew Moments",
+        title: "Lake side linkup",
+        category: "Geneva",
         image:
           "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1000&q=80",
         alt: "Group smiling together at an event",
@@ -252,7 +250,7 @@ export const siteData = {
       {
         id: "trip-2",
         title: "City touch-down",
-        category: "Trips",
+        category: "Paris",
         image:
           "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1000&q=80",
         alt: "Travelers overlooking a cityscape",
@@ -260,11 +258,10 @@ export const siteData = {
       },
       {
         id: "carnival-2",
-        title: "Color and motion",
-        category: "Carnival Moments",
-        image:
-          "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80",
-        alt: "Carnival performer in bright costume",
+        title: "Mas energy",
+        category: "London",
+        image: "/London/nhc1.jpg",
+        alt: "French Soca Crew carnival energy in London",
         size: "portrait",
       },
       {
@@ -278,8 +275,8 @@ export const siteData = {
       },
       {
         id: "crew-2",
-        title: "Shared moment",
-        category: "Crew Moments",
+        title: "Crew escape",
+        category: "Geneva",
         image:
           "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1000&q=80",
         alt: "Friends laughing together outdoors",
@@ -297,7 +294,7 @@ export const siteData = {
         id: "rotterdam-2",
         title: "Yellow energy",
         category: "Rotterdam",
-        image: "/Rotterdam/20250726_183459.jpg",
+        image: "/Rotterdam/fsc-rotterdam-road.jpg",
         alt: "French Soca Crew smiling together in Rotterdam",
         size: "portrait",
       },
@@ -365,7 +362,7 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
     eyebrow: "Destination feature",
     heroDescription:
       "A vibrant city escape where parade energy, crew logistics and after-hours atmosphere come together in one smooth experience.",
-    heroImage: "/fsc-crew-rotterdam-enhanced.jpg",
+    heroImage: "/Rotterdam/fsc-rotterdam-road.jpg",
     introTitle: "A weekend in motion.",
     introParagraphs: [
       "Rotterdam Carnival is the kind of destination that feels instantly alive. The city offers movement, diversity and a street energy that matches the excitement of a carnival weekend.",
@@ -439,8 +436,7 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
     eyebrow: "Destination feature",
     heroDescription:
       "An iconic carnival destination where soundsystems, diaspora culture and big-road emotion create a trip with real depth and scale.",
-    heroImage:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80",
+    heroImage: "/London/nhc3.jpg",
     introTitle: "Big road energy.",
     introParagraphs: [
       "London Carnival is not just an event. It is a cultural heartbeat. The sound, the streets and the people give the experience a density and emotion that makes every moment feel significant.",

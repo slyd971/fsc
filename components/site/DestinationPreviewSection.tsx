@@ -32,7 +32,11 @@ export function DestinationPreviewSection() {
                 <img
                   src={destination.image}
                   alt={destination.imageAlt}
-                  className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                  className={`absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04] ${
+                    destination.slug === "rotterdam-carnival"
+                      ? "brightness-[0.92] contrast-[1.12] saturate-[1.08] sepia-[0.08]"
+                      : ""
+                  }`}
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(8,8,8,0.82)_0%,rgba(8,8,8,0.28)_40%,rgba(8,8,8,0.82)_100%)]" />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.74))]" />

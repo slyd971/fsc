@@ -50,28 +50,32 @@ export function FontSwitcher() {
   }, [preset]);
 
   return (
-    <div className="fixed right-3 bottom-3 z-[80] sm:right-5 sm:bottom-5">
-      <div className="font-switcher-shell w-[min(78vw,15rem)] rounded-[1.1rem] border border-white/8 bg-black/52 p-1.5 backdrop-blur-lg">
+    <div className="fixed right-3 bottom-3 z-[80] sm:right-4 sm:bottom-4">
+      <div className={`font-switcher-shell rounded-[1rem] border border-white/8 bg-black/42 p-1.5 backdrop-blur-md ${open ? "w-[min(74vw,14rem)]" : "w-auto"}`}>
         <button
           type="button"
           onClick={() => setOpen((current) => !current)}
           aria-expanded={open}
           aria-label={open ? "Hide font options" : "Show font options"}
-          className="flex w-full items-center justify-between rounded-[0.9rem] px-2.5 py-2 text-left transition hover:bg-white/5"
+          className={`flex items-center rounded-[0.85rem] text-left transition hover:bg-white/5 ${open ? "w-full justify-between px-2.5 py-2" : "h-9 w-9 justify-center"}`}
         >
-          <div className="flex items-center gap-2.5">
+          <div className={`flex items-center ${open ? "gap-2.5" : ""}`}>
             <div className="flex h-7 w-7 items-center justify-center rounded-full border border-white/8 bg-white/5 text-[var(--accent)]">
               <Type className="h-3.5 w-3.5" />
             </div>
-            <div>
-              <div className="display-font text-[0.95rem] uppercase leading-none text-white/88">
-                {presets.find((option) => option.id === preset)?.label}
+            {open ? (
+              <div>
+                <div className="display-font text-[0.9rem] uppercase leading-none text-white/84">
+                  {presets.find((option) => option.id === preset)?.label}
+                </div>
               </div>
+            ) : null}
+          </div>
+          {open ? (
+            <div className="text-[9px] uppercase tracking-[0.18em] text-white/32">
+              Close
             </div>
-          </div>
-          <div className="text-[9px] uppercase tracking-[0.18em] text-white/36">
-            {open ? "Close" : "Fonts"}
-          </div>
+          ) : null}
         </button>
 
         {open ? (

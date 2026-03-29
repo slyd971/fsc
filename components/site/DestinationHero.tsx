@@ -1,4 +1,6 @@
+import { MessageCircle } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import { siteData } from "@/data/site";
 
 type DestinationHeroProps = {
   title: string;
@@ -8,10 +10,22 @@ type DestinationHeroProps = {
 };
 
 export function DestinationHero({ title, eyebrow, description, image }: DestinationHeroProps) {
+  const isRotterdamRoad = image.includes("/Rotterdam/fsc-rotterdam-road.jpg");
+  const whatsappHref =
+    siteData.contact.methods.find((method) => method.label === "WhatsApp")?.href ?? "/#contact";
+
   return (
     <section className="relative min-h-[86vh] overflow-hidden pt-28 md:pt-36">
       <div className="absolute inset-0">
-        <img src={image} alt={title} className="h-full w-full object-cover object-center" />
+        <img
+          src={image}
+          alt={title}
+          className={`h-full w-full object-cover object-center ${
+            isRotterdamRoad
+              ? "brightness-[0.92] contrast-[1.12] saturate-[1.08] sepia-[0.08]"
+              : ""
+          }`}
+        />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.8))]" />
       </div>
       <div className="section-shell relative flex min-h-[70vh] items-end pb-12 md:pb-16">
@@ -26,6 +40,13 @@ export function DestinationHero({ title, eyebrow, description, image }: Destinat
             <p className="mt-4 max-w-2xl text-base leading-7 text-white/74 md:text-xl md:leading-8">
               {description}
             </p>
+            <a
+              href={whatsappHref}
+              className="button-editorial button-editorial-primary premium-sheen mt-8 inline-flex"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Book now on WhatsApp
+            </a>
           </div>
         </Reveal>
       </div>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { siteData } from "@/data/site";
 
@@ -16,10 +16,12 @@ export function GalleryPreviewSection() {
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % previewImages.length);
-    }, 3400);
+    }, 3600);
 
     return () => window.clearInterval(interval);
   }, [previewImages.length]);
+
+  const activeImage = previewImages[activeIndex];
 
   return (
     <section id="gallery-preview" className="relative overflow-hidden border-t border-white/10 px-4 py-16 sm:px-8 sm:py-22 lg:px-12 lg:py-28">
@@ -50,90 +52,126 @@ export function GalleryPreviewSection() {
           </div>
         </Reveal>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-[0.78fr_1.22fr] lg:items-stretch">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-            {previewImages.map((image, index) => (
-              <Reveal key={image.id} delay={0.04 * index}>
-                <button
-                  type="button"
-                  onClick={() => setActiveIndex(index)}
-                  className={`group relative overflow-hidden rounded-[1.7rem] border text-left transition ${
-                    activeIndex === index
-                      ? "border-[var(--accent)]/30"
-                      : "border-white/10"
-                  }`}
-                >
-                  <img
-                    src={image.image}
-                    alt={image.alt}
-                    className="h-52 w-full object-cover transition duration-700 group-hover:scale-[1.04]"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.02),rgba(0,0,0,0.76))]" />
-                  <div className="absolute inset-x-4 bottom-4">
-                    <div className="text-[10px] uppercase tracking-[0.26em] text-[var(--accent)]">
-                      {image.category}
+        <Reveal delay={0.08}>
+          <div className="mt-10 overflow-hidden rounded-[2.4rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.015))]">
+            <div className="grid lg:grid-cols-[1.28fr_0.72fr]">
+              <div className="relative min-h-[28rem] sm:min-h-[38rem] lg:min-h-[46rem]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeImage.id}
+                    initial={{ opacity: 0, scale: 1.04 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.985 }}
+                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute inset-0"
+                  >
+                    <img
+                      src={activeImage.image}
+                      alt={activeImage.alt}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.84))]" />
+                  </motion.div>
+                </AnimatePresence>
+
+                <div className="absolute inset-x-5 top-5 flex items-start justify-between sm:inset-x-7 sm:top-7">
+                  <div className="rounded-full border border-white/10 bg-black/28 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-white/54 backdrop-blur-sm">
+                    Archive select
+                  </div>
+                  <div className="hidden text-[10px] uppercase tracking-[0.34em] text-white/34 sm:block">
+                    0{activeIndex + 1}
+                  </div>
+                </div>
+
+                <div className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
+                  <div className="max-w-3xl">
+                    <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--accent)] sm:text-[11px]">
+                      {activeImage.category}
                     </div>
-                    <div className="display-font mt-2 text-2xl uppercase leading-none text-white">
-                      {image.title}
+                    <div className="display-font mt-3 max-w-[10ch] text-[clamp(2.4rem,5vw,4.5rem)] uppercase leading-[0.88] text-white">
+                      {activeImage.title}
                     </div>
                   </div>
-                </button>
-              </Reveal>
-            ))}
-          </div>
+                </div>
+              </div>
 
-          <Reveal delay={0.08}>
-            <div className="relative overflow-hidden rounded-[2.4rem] border border-white/10 bg-black/30">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={previewImages[activeIndex].id}
-                  initial={{ opacity: 0, scale: 1.04 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.985 }}
-                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative min-h-[32rem] sm:min-h-[40rem] lg:min-h-[46rem]"
-                >
-                  <img
-                    src={previewImages[activeIndex].image}
-                    alt={previewImages[activeIndex].alt}
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.12),rgba(0,0,0,0.86))]" />
-                  <div className="absolute inset-x-5 top-5 flex items-start justify-between sm:inset-x-7 sm:top-7">
-                    <div className="rounded-full border border-white/10 bg-black/28 px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-white/54 backdrop-blur-sm">
-                      Archive select
-                    </div>
-                    <div className="hidden text-[10px] uppercase tracking-[0.34em] text-white/34 sm:block">
-                      0{activeIndex + 1}
-                    </div>
+              <div className="flex flex-col justify-between border-t border-white/10 p-5 sm:p-6 lg:border-t-0 lg:border-l">
+                <div>
+                  <div className="text-[10px] uppercase tracking-[0.28em] text-white/46">
+                    Mood note
                   </div>
+                  <p className="mt-3 max-w-md text-sm leading-7 text-white/72">
+                    The archive should feel like afterglow, movement and proof that every trip becomes a shared cultural memory.
+                  </p>
+                </div>
 
-                  <div className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
-                    <div className="grid gap-6 lg:grid-cols-[1fr_0.72fr] lg:items-end">
-                      <div>
-                        <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--accent)] sm:text-[11px]">
-                          {previewImages[activeIndex].category}
+                <div className="mt-8 grid grid-cols-2 gap-3">
+                  {previewImages.map((image, index) => (
+                    <button
+                      key={image.id}
+                      type="button"
+                      onClick={() => setActiveIndex(index)}
+                      className={`group overflow-hidden rounded-[1.4rem] border text-left transition ${
+                        activeIndex === index
+                          ? "border-[var(--accent)]/35 bg-white/[0.04]"
+                          : "border-white/10 bg-white/[0.02]"
+                      }`}
+                    >
+                      <img
+                        src={image.image}
+                        alt={image.alt}
+                        className="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                      />
+                      <div className="p-3">
+                        <div className="text-[9px] uppercase tracking-[0.24em] text-[var(--accent)]">
+                          {image.category}
                         </div>
-                        <div className="display-font mt-3 max-w-[8ch] text-[clamp(2.4rem,5.8vw,4.8rem)] uppercase leading-[0.88] text-white">
-                          {previewImages[activeIndex].title}
+                        <div className="display-font mt-2 text-[1.05rem] uppercase leading-none text-white">
+                          {image.title}
                         </div>
                       </div>
+                    </button>
+                  ))}
+                </div>
 
-                      <div className="rounded-[1.6rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.03))] p-5 backdrop-blur-md">
-                        <div className="text-[10px] uppercase tracking-[0.28em] text-white/46">
-                          Mood note
-                        </div>
-                        <p className="mt-3 text-sm leading-7 text-white/72">
-                          The archive should feel like afterglow, movement and proof that every trip becomes a shared cultural memory.
-                        </p>
-                      </div>
-                    </div>
+                <div className="mt-6 flex items-center justify-between gap-4">
+                  <div className="flex gap-2">
+                    {previewImages.map((image, index) => (
+                      <button
+                        key={image.id}
+                        type="button"
+                        onClick={() => setActiveIndex(index)}
+                        aria-label={`Go to slide ${index + 1}`}
+                        className={`h-[2px] transition-all ${
+                          activeIndex === index ? "w-10 bg-[var(--accent)]" : "w-4 bg-white/24"
+                        }`}
+                      />
+                    ))}
                   </div>
-                </motion.div>
-              </AnimatePresence>
+
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setActiveIndex((current) => (current - 1 + previewImages.length) % previewImages.length)}
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/72 transition hover:border-[var(--accent)]/30 hover:text-[var(--accent)]"
+                      aria-label="Previous gallery image"
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveIndex((current) => (current + 1) % previewImages.length)}
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/72 transition hover:border-[var(--accent)]/30 hover:text-[var(--accent)]"
+                      aria-label="Next gallery image"
+                    >
+                      <ArrowRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

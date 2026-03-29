@@ -1,12 +1,15 @@
-import { Check, Minus } from "lucide-react";
+import { Check, MessageCircle, Minus } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import type { Pack } from "@/data/site";
+import { siteData, type Pack } from "@/data/site";
 
 type PricingComparisonProps = {
   packs: Pack[];
 };
 
 export function PricingComparison({ packs }: PricingComparisonProps) {
+  const whatsappHref =
+    siteData.contact.methods.find((method) => method.label === "WhatsApp")?.href ?? "/#contact";
+
   return (
     <section className="relative py-16 md:py-28">
       <div className="section-shell">
@@ -18,6 +21,22 @@ export function PricingComparison({ packs }: PricingComparisonProps) {
             <h2 className="section-title mt-4">
               Choose your pack.
             </h2>
+          </div>
+        </Reveal>
+        <Reveal delay={0.04}>
+          <div className="editorial-panel mt-8 flex flex-col gap-5 border-[var(--accent)]/25 bg-[linear-gradient(180deg,rgba(216,194,163,0.14),rgba(255,255,255,0.03))] p-6 md:flex-row md:items-end md:justify-between md:p-7">
+            <div className="max-w-2xl">
+              <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--accent)]">
+                Costume reservation
+              </div>
+              <p className="mt-3 text-sm leading-7 text-white/72 md:text-base md:leading-8">
+                Costumes are reserved directly with the crew. To secure your booking, contact us on WhatsApp and we will guide you through availability, pack details and the next steps.
+              </p>
+            </div>
+            <a href={whatsappHref} className="button-editorial button-editorial-primary shrink-0">
+              <MessageCircle className="h-4 w-4" />
+              Book now on WhatsApp
+            </a>
           </div>
         </Reveal>
         <div className="mt-10 grid gap-5 xl:grid-cols-4">
@@ -53,14 +72,14 @@ export function PricingComparison({ packs }: PricingComparisonProps) {
                   ))}
                 </div>
                 <a
-                  href="/#contact"
+                  href={whatsappHref}
                   className={`button-editorial mt-8 ${
                     pack.featured
                       ? "button-editorial-primary"
                       : "button-editorial-secondary"
                   }`}
                 >
-                  Choose this pack
+                  Book now on WhatsApp
                 </a>
               </div>
             </Reveal>
