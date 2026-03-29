@@ -50,13 +50,6 @@ export function HeroSection() {
                 </h1>
               </motion.div>
 
-              <motion.div
-                className="h-px w-28 bg-white"
-                initial={reduceMotion ? undefined : { scaleX: 0, opacity: 0, transformOrigin: "left center" }}
-                animate={reduceMotion ? undefined : { scaleX: 1, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              />
-
               <div className="grid gap-5 md:grid-cols-[1.15fr_0.85fr] md:items-end md:gap-8">
                 <motion.div
                   initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
