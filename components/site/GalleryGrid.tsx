@@ -10,7 +10,7 @@ type GalleryGridProps = {
   items: GalleryItem[];
 };
 
-const filters = ["All", "Trips", "Carnival Moments", "Parties", "Crew Moments"] as const;
+const filters = ["All", "Trips", "Carnival Moments", "Parties", "Crew Moments", "Rotterdam"] as const;
 
 export function GalleryGrid({ items }: GalleryGridProps) {
   const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>("All");

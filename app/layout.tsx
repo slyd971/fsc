@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/components/site/Footer";
+import { FontSwitcher } from "@/components/site/FontSwitcher";
 import { Navbar } from "@/components/site/Navbar";
 import { siteData } from "@/data/site";
 
@@ -25,6 +26,7 @@ export default function RootLayout({
             navigation={siteData.navigation}
             contact={siteData.contact}
           />
+          <FontSwitcher />
         </div>
       </body>
     </html>

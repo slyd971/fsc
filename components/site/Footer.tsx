@@ -1,4 +1,10 @@
 import Link from "next/link";
+import {
+  Instagram,
+  Mail,
+  MessageCircle,
+  Phone,
+} from "lucide-react";
 import type { ContactMethod, NavItem } from "@/data/site";
 
 type FooterProps = {
@@ -12,6 +18,13 @@ type FooterProps = {
   contact: {
     methods: ContactMethod[];
   };
+};
+
+const iconMap: Record<ContactMethod["icon"], typeof Instagram> = {
+  instagram: Instagram,
+  "message-circle": MessageCircle,
+  phone: Phone,
+  mail: Mail,
 };
 
 export function Footer({ brand, navigation, contact }: FooterProps) {
@@ -45,16 +58,25 @@ export function Footer({ brand, navigation, contact }: FooterProps) {
           <div>
             <div className="editorial-kicker">Contact</div>
             <div className="mt-5 flex flex-col gap-3">
-              {contact.methods.map((method) => (
-                <a
-                  key={method.label}
-                  href={method.href}
-                  className="text-sm leading-6 text-white/72 transition hover:text-white"
-                >
-                  <span className="block uppercase tracking-[0.18em] text-white">{method.label}</span>
-                  <span>{method.value}</span>
-                </a>
-              ))}
+              {contact.methods.map((method) => {
+                const Icon = iconMap[method.icon];
+
+                return (
+                  <a
+                    key={method.label}
+                    href={method.href}
+                    className="flex items-start gap-3 text-sm leading-6 text-white/72 transition hover:text-white"
+                  >
+                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-[var(--accent)]">
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <span className="block uppercase tracking-[0.18em] text-white">{method.label}</span>
+                      <span>{method.value}</span>
+                    </div>
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>

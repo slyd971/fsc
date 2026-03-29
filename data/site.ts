@@ -50,7 +50,7 @@ export type Testimonial = {
 export type GalleryItem = {
   id: string;
   title: string;
-  category: "Trips" | "Carnival Moments" | "Parties" | "Crew Moments";
+  category: "Trips" | "Carnival Moments" | "Parties" | "Crew Moments" | "Rotterdam";
   image: string;
   alt: string;
   size: "portrait" | "landscape" | "square";
@@ -144,9 +144,8 @@ export const siteData = {
       eyebrow: "Summer road energy",
       description:
         "A high-vibration city break built around parade moments, after-dark parties and a crew-first travel flow.",
-      image:
-        "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1200&q=80",
-      imageAlt: "Crowd celebrating under confetti lights",
+      image: "/fsc-crew-rotterdam-enhanced.jpg",
+      imageAlt: "French Soca Crew group photo in Rotterdam",
       badge: "Carnival weekend",
     },
     {
@@ -219,9 +218,9 @@ export const siteData = {
         title: "Departure mood",
         category: "Trips",
         image:
-          "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1000&q=80",
-        alt: "Friends in an airport terminal preparing for a trip",
-        size: "portrait",
+          "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1000&q=80",
+        alt: "Travelers arriving together with luggage in a bright terminal",
+        size: "landscape",
       },
       {
         id: "carnival-1",
@@ -286,6 +285,38 @@ export const siteData = {
         alt: "Friends laughing together outdoors",
         size: "square",
       },
+      {
+        id: "rotterdam-1",
+        title: "Rotterdam crew",
+        category: "Rotterdam",
+        image: "/Rotterdam/20250726_183436.jpg",
+        alt: "French Soca Crew group moment in Rotterdam",
+        size: "portrait",
+      },
+      {
+        id: "rotterdam-2",
+        title: "Yellow energy",
+        category: "Rotterdam",
+        image: "/Rotterdam/20250726_183459.jpg",
+        alt: "French Soca Crew smiling together in Rotterdam",
+        size: "portrait",
+      },
+      {
+        id: "rotterdam-3",
+        title: "Road side",
+        category: "Rotterdam",
+        image: "/Rotterdam/20250727_162600(0).jpg",
+        alt: "French Soca Crew carnival day in Rotterdam",
+        size: "portrait",
+      },
+      {
+        id: "rotterdam-4",
+        title: "Carnival stop",
+        category: "Rotterdam",
+        image: "/Rotterdam/20250727_162632.jpg",
+        alt: "French Soca Crew road moment in Rotterdam",
+        size: "portrait",
+      },
     ] satisfies GalleryItem[],
   },
   contact: {
@@ -334,8 +365,7 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
     eyebrow: "Destination feature",
     heroDescription:
       "A vibrant city escape where parade energy, crew logistics and after-hours atmosphere come together in one smooth experience.",
-    heroImage:
-      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=80",
+    heroImage: "/fsc-crew-rotterdam-enhanced.jpg",
     introTitle: "A weekend in motion.",
     introParagraphs: [
       "Rotterdam Carnival is the kind of destination that feels instantly alive. The city offers movement, diversity and a street energy that matches the excitement of a carnival weekend.",

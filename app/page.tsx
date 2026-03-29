@@ -11,9 +11,9 @@ export default function HomePage() {
     <main className="page-main">
       <HeroSection />
       <AboutSection />
+      <VideoSection />
       <DestinationPreviewSection />
       <GalleryPreviewSection />
-      <VideoSection />
       <TestimonialsSection />
       <ContactSection />
     </main>

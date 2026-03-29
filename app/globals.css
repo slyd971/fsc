@@ -17,6 +17,27 @@
     "Suisse Intl", "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
 }
 
+html[data-font-preset="default"] {
+  --display-font:
+    "IvyPresto Display", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
+  --body-font:
+    "Suisse Intl", "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+}
+
+html[data-font-preset="salon"] {
+  --display-font:
+    Garamond, Baskerville, "Libre Baskerville", "Hoefler Text", Georgia, serif;
+  --body-font:
+    "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+}
+
+html[data-font-preset="coast"] {
+  --display-font:
+    "Arial Narrow", "Helvetica Neue", "Franklin Gothic Medium", Arial, sans-serif;
+  --body-font:
+    "Avenir Next", "Gill Sans", "Trebuchet MS", "Helvetica Neue", sans-serif;
+}
+
 *,
 *::before,
 *::after {
@@ -82,6 +103,12 @@ canvas {
     radial-gradient(circle at 18% 0%, rgba(214, 185, 139, 0.045), transparent 28%),
     radial-gradient(circle at 100% 18%, rgba(255, 255, 255, 0.04), transparent 18%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 18%);
+}
+
+.font-switcher-shell {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 18px 50px rgba(0, 0, 0, 0.3);
 }
 
 .page-main > section {

@@ -17,68 +17,86 @@ export function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="press-section section-social relative overflow-hidden border-t border-white/12 px-5 py-14 sm:px-8 sm:py-18 lg:px-12 lg:py-24">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,14,12,0.96),rgba(10,9,9,0.42))]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(196,149,111,0.16),transparent_22%),radial-gradient(circle_at_right,rgba(225,186,142,0.12),transparent_26%)]" />
+    <section className="relative overflow-hidden border-t border-white/10 px-4 py-14 sm:px-8 sm:py-18 lg:px-12 lg:py-22">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,#090909_0%,#120d0c_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(232,186,133,0.12),transparent_21%),radial-gradient(circle_at_80%_84%,rgba(144,80,50,0.16),transparent_22%)]" />
       <div className="grain-overlay" />
-      <div className="section-shell">
+
+      <div className="section-shell relative z-10">
         <Reveal>
-          <div className="relative z-10 max-w-3xl">
-            <div className="editorial-kicker">Testimonials</div>
-            <h2 className="section-title mt-4">Trusted by the crew.</h2>
+          <div className="grid gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+            <div>
+              <div className="editorial-kicker">Testimonials</div>
+              <h2 className="section-title mt-4 max-w-[8ch] text-[clamp(1.9rem,4.2vw,3.3rem)]">
+                Voices from the road.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-sm leading-6 text-white/60 md:text-base md:leading-7">
+              Social proof should feel like lived experience. These quotes are here to amplify the atmosphere, the trust and the feeling of moving with a real crew.
+            </p>
           </div>
         </Reveal>
 
-        <Reveal>
-          <div className="theme-panel premium-hover-lift premium-sheen surface-glow relative z-10 mt-8 rounded-[2rem] border border-white/15 bg-[linear-gradient(135deg,rgba(255,248,239,0.18),rgba(255,255,255,0.08))] p-6 md:mt-10 md:p-8">
-            <div className="mb-6 flex items-center justify-between gap-4">
-              <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--accent)] md:text-[11px]">
-                Featured voice
-              </div>
-              <div className="flex gap-2">
-                {siteData.testimonials.map((testimonial, index) => (
-                  <button
-                    key={testimonial.name}
-                    type="button"
-                    onClick={() => setActiveIndex(index)}
-                    aria-label={`Go to testimonial ${index + 1}`}
-                    className={`h-[2px] transition-all ${
-                      activeIndex === index ? "w-10 bg-[var(--accent)]" : "w-3 bg-white/24"
-                    }`}
-                  />
-                ))}
-              </div>
+        <Reveal delay={0.08}>
+          <div className="mt-8 grid gap-6 lg:grid-cols-[0.68fr_1.32fr] lg:gap-10">
+            <div className="flex flex-col gap-2">
+              {siteData.testimonials.map((testimonial, index) => (
+                <button
+                  key={testimonial.name}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  className={`text-left transition ${
+                    activeIndex === index ? "opacity-100" : "opacity-45 hover:opacity-80"
+                  }`}
+                >
+                  <div className="border-t border-white/10 py-3.5">
+                    <div className="text-[10px] uppercase tracking-[0.28em] text-white/36">
+                      0{index + 1}
+                    </div>
+                    <div className="display-font mt-2.5 text-[1.35rem] uppercase leading-none text-white md:text-[1.5rem]">
+                      {testimonial.name}
+                    </div>
+                    <div className="mt-1.5 text-[10px] uppercase tracking-[0.22em] text-[var(--accent)] md:text-[11px]">
+                      {testimonial.role}
+                    </div>
+                  </div>
+                </button>
+              ))}
             </div>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={siteData.testimonials[activeIndex].name}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -18 }}
-                transition={{ duration: 0.35 }}
-                className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end"
-              >
-                <div>
-                  <p className="text-[1.08rem] leading-[1.38] text-white md:text-[2.25rem]">
-                    “{siteData.testimonials[activeIndex].quote}”
-                  </p>
-                </div>
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-5 sm:p-6 lg:p-7">
+              <div className="pointer-events-none absolute -top-1 right-4 text-[clamp(3.2rem,8vw,5.5rem)] font-black tracking-[-0.08em] text-white/[0.05]">
+                FSC
+              </div>
 
-                <div className="theme-overlay-panel premium-float rounded-[1.5rem] border border-white/12 bg-black/18 p-5 backdrop-blur-md md:pl-7">
-                  <div className="display-font text-3xl uppercase md:text-4xl">
-                    {siteData.testimonials[activeIndex].name}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={siteData.testimonials[activeIndex].name}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -18 }}
+                  transition={{ duration: 0.38 }}
+                  className="relative z-10"
+                >
+                  <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">
+                    Featured voice
                   </div>
-                  <div className="mt-2 text-[11px] uppercase tracking-[0.24em] text-white/48">
-                    {siteData.testimonials[activeIndex].role}
-                  </div>
-                  <div className="mt-6 h-px w-16 bg-[var(--accent)]" />
-                  <p className="mt-6 max-w-sm text-sm leading-7 text-white/62 md:text-base">
-                    Premium organization, warm community, and a smoother way to experience the road.
+                  <p className="display-font mt-4 max-w-[28ch] text-[clamp(1.2rem,2.2vw,2.1rem)] uppercase leading-[0.96] text-white">
+                    {siteData.testimonials[activeIndex].quote}
                   </p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                  <div className="mt-7 border-t border-white/10 pt-5">
+                    <div>
+                      <div className="display-font text-[1.5rem] uppercase leading-none text-[var(--accent)] md:text-[1.7rem]">
+                        {siteData.testimonials[activeIndex].name}
+                      </div>
+                      <div className="mt-1.5 text-[10px] uppercase tracking-[0.22em] text-white/46 md:text-[11px]">
+                        {siteData.testimonials[activeIndex].role}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </Reveal>
       </div>

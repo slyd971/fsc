@@ -22,6 +22,7 @@ export function Navbar({ navigation, brand }: NavbarProps) {
   useEffect(() => {
     const onScroll = () => {
       setCompact(window.scrollY > 32);
+      setMenuOpen(false);
     };
 
     onScroll();
