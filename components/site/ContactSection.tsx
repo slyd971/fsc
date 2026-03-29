@@ -25,8 +25,9 @@ export function ContactSection() {
           <Reveal>
             <div className="lg:pt-6">
               <div className="editorial-kicker">Contact</div>
-              <h2 className="display-font mt-3 max-w-[9ch] text-[clamp(2.2rem,7vw,5.2rem)] uppercase leading-[0.94] md:max-w-[7ch]">
-                {contact.title}
+              <h2 className="display-font mt-3 max-w-[14ch] text-[clamp(1.95rem,5.4vw,4rem)] uppercase leading-[0.94]">
+                <span className="block">Plan your</span>
+                <span className="block">next road.</span>
               </h2>
               <p className="mt-3 max-w-md text-sm leading-6 text-white/68 md:text-base">
                 {contact.description}
@@ -40,7 +41,7 @@ export function ContactSection() {
                     <a
                       key={method.label}
                       href={method.href}
-                      className="flex items-center gap-3 border-b border-white/10 pb-3 transition hover:border-[var(--accent)]/28"
+                      className="premium-hover-lift flex items-center gap-3 border-b border-white/10 pb-3 transition hover:border-[var(--accent)]/28"
                     >
                       <div className="flex h-9 w-9 shrink-0 items-center justify-center border border-white/10 bg-white/5">
                         <Icon className="h-4 w-4 text-[var(--accent)]" />

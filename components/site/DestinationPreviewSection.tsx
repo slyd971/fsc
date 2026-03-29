@@ -13,7 +13,7 @@ export function DestinationPreviewSection() {
         <Reveal>
           <div className="relative z-10 max-w-2xl">
             <div className="editorial-kicker">Featured trips</div>
-            <h2 className="section-title mt-4 max-w-[8ch]">
+            <h2 className="section-title mt-4 max-w-[8ch] text-[clamp(1.8rem,4vw,3.2rem)]">
               Upcoming roads
             </h2>
           </div>
@@ -27,7 +27,7 @@ export function DestinationPreviewSection() {
                   index % 2 === 1 ? "lg:[&>div:first-child]:order-2" : ""
                 }`}
               >
-                <div className="theme-panel relative aspect-square overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] lg:col-span-7 lg:min-h-[640px] lg:aspect-auto">
+                <div className="theme-panel premium-hover-lift premium-sheen surface-glow relative aspect-square overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] lg:col-span-7 lg:min-h-[640px] lg:aspect-auto">
                   <img
                     src={destination.image}
                     alt={destination.imageAlt}
@@ -37,7 +37,7 @@ export function DestinationPreviewSection() {
                 </div>
 
                 <div className={`relative lg:col-span-5 ${index % 2 === 0 ? "lg:-ml-14 xl:-ml-20" : "lg:-mr-14 xl:-mr-20"}`}>
-                  <div className="theme-overlay-panel rounded-[1.75rem] border border-white/12 bg-black/30 px-6 py-8 backdrop-blur-md md:px-8 md:py-10">
+                  <div className="theme-overlay-panel premium-hover-lift premium-float rounded-[1.75rem] border border-white/12 bg-black/30 px-6 py-8 backdrop-blur-md md:px-8 md:py-10">
                     <div className="editorial-kicker mb-4">{destination.badge}</div>
                     <div className="text-[11px] font-semibold uppercase tracking-[0.34em] text-white/55">
                       {destination.eyebrow}
@@ -49,7 +49,7 @@ export function DestinationPreviewSection() {
                       {destination.description}
                     </p>
                     <div className="mt-6">
-                      <Link href={`/${destination.slug}`} className="button-editorial button-editorial-secondary">
+                      <Link href={`/${destination.slug}`} className="button-editorial button-editorial-secondary premium-sheen">
                         Open destination
                         <ArrowUpRight className="h-4 w-4" />
                       </Link>

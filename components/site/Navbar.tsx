@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { NavItem } from "@/data/site";
 import { MobileMenu } from "@/components/site/MobileMenu";
 
@@ -17,54 +17,33 @@ type NavbarProps = {
 
 export function Navbar({ navigation, brand }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [visible, setVisible] = useState(true);
   const [compact, setCompact] = useState(false);
-  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    lastScrollY.current = window.scrollY;
-
     const onScroll = () => {
-      const currentY = window.scrollY;
-      const delta = currentY - lastScrollY.current;
-
-      if (Math.abs(delta) < 8) return;
-
-      setVisible(currentY < 20 || delta < 0);
-      setCompact(currentY > 40);
-      if (delta > 0) setMenuOpen(false);
-      lastScrollY.current = currentY;
+      setCompact(window.scrollY > 32);
     };
 
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-300 ${
-        visible ? "translate-y-0" : "translate-y-0 lg:-translate-y-full"
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-50">
       <div className="section-shell pt-4">
         <div
           className={`navbar-shell relative ml-auto overflow-visible transition-all duration-300 lg:premium-stroke lg:border lg:border-white/8 lg:bg-black/[0.64] lg:shadow-[0_18px_60px_rgba(0,0,0,0.24)] lg:backdrop-blur-2xl ${
-            !visible
-              ? "w-fit px-0 py-0 lg:px-2 lg:py-2 md:px-6"
-              : compact
-                ? "px-0 py-0 lg:px-4 lg:py-3 md:px-6"
-                : "px-0 py-0 lg:px-4 lg:py-4 md:px-6"
+            compact
+              ? "px-0 py-0 lg:px-4 lg:py-3 md:px-6"
+              : "px-0 py-0 lg:px-4 lg:py-4 md:px-6"
           }`}
         >
           <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_left,rgba(214,185,139,0.14),transparent_28%)] lg:block" />
           <div className="relative flex items-center justify-end gap-4 lg:justify-between">
             <Link
               href="/"
-              className={`hidden items-center gap-3 transition-all duration-300 lg:flex ${
-                !visible
-                  ? "pointer-events-none w-0 overflow-hidden opacity-0 lg:pointer-events-auto lg:w-auto lg:overflow-visible lg:opacity-100"
-                  : "opacity-100"
-              }`}
+              className="hidden items-center gap-3 transition-all duration-300 lg:flex"
             >
               <div className="premium-chip flex h-11 w-11 items-center justify-center">
                 <span className="display-font text-xl leading-none text-[var(--accent)]">
@@ -93,12 +72,10 @@ export function Navbar({ navigation, brand }: NavbarProps) {
               ))}
             </nav>
 
-            <div className={`flex items-center gap-3 ${!visible ? "justify-end" : ""}`}>
+            <div className="flex items-center gap-3">
               <Link
                 href="/#contact"
-                className={`button-editorial button-editorial-primary hidden lg:inline-flex ${
-                  !visible ? "lg:hidden" : ""
-                }`}
+                className="button-editorial button-editorial-primary hidden lg:inline-flex"
               >
                 Join the crew
               </Link>

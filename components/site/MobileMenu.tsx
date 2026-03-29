@@ -38,19 +38,6 @@ export function MobileMenu({ open, items, onClose }: MobileMenuProps) {
                 </Link>
               </motion.div>
             ))}
-            <motion.div
-              initial={{ opacity: 0, x: 14 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.04 * items.length, duration: 0.22 }}
-            >
-              <Link
-                href="/#contact"
-                onClick={onClose}
-                className="text-sm font-bold uppercase tracking-[0.05em] text-white transition hover:text-[var(--accent)]"
-              >
-                Join the crew
-              </Link>
-            </motion.div>
           </nav>
         </motion.div>
       ) : null}

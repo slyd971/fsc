@@ -30,7 +30,7 @@ export function TestimonialsSection() {
         </Reveal>
 
         <Reveal>
-          <div className="theme-panel relative z-10 mt-8 rounded-[2rem] border border-white/15 bg-[linear-gradient(135deg,rgba(255,248,239,0.18),rgba(255,255,255,0.08))] p-6 md:mt-10 md:p-8">
+          <div className="theme-panel premium-hover-lift premium-sheen surface-glow relative z-10 mt-8 rounded-[2rem] border border-white/15 bg-[linear-gradient(135deg,rgba(255,248,239,0.18),rgba(255,255,255,0.08))] p-6 md:mt-10 md:p-8">
             <div className="mb-6 flex items-center justify-between gap-4">
               <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--accent)] md:text-[11px]">
                 Featured voice
@@ -65,7 +65,7 @@ export function TestimonialsSection() {
                   </p>
                 </div>
 
-                <div className="theme-overlay-panel rounded-[1.5rem] border border-white/12 bg-black/18 p-5 backdrop-blur-md md:pl-7">
+                <div className="theme-overlay-panel premium-float rounded-[1.5rem] border border-white/12 bg-black/18 p-5 backdrop-blur-md md:pl-7">
                   <div className="display-font text-3xl uppercase md:text-4xl">
                     {siteData.testimonials[activeIndex].name}
                   </div>

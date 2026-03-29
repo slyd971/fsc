@@ -33,7 +33,7 @@ export function GalleryPreviewSection() {
               <h2 className="section-title">Crew moments</h2>
             </div>
 
-            <Link href="/gallery" className="button-editorial button-editorial-secondary">
+            <Link href="/gallery" className="button-editorial button-editorial-secondary premium-sheen">
               Explore full gallery <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
@@ -41,7 +41,7 @@ export function GalleryPreviewSection() {
 
         <div className="relative z-10 grid gap-5 lg:grid-cols-[1.28fr_0.72fr] lg:items-start">
           <Reveal>
-            <div className="theme-panel relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
+            <div className="theme-panel premium-hover-lift premium-sheen surface-glow relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={previewImages[activeIndex].id}
@@ -66,7 +66,7 @@ export function GalleryPreviewSection() {
                         {previewImages[activeIndex].title}
                       </div>
                     </div>
-                    <Link href="/gallery" className="button-editorial button-editorial-secondary !px-4 !py-3">
+                    <Link href="/gallery" className="button-editorial button-editorial-secondary premium-sheen !px-4 !py-3">
                       <ArrowUpRight className="h-4 w-4 text-white/85" />
                     </Link>
                   </div>
@@ -81,7 +81,7 @@ export function GalleryPreviewSection() {
                 <button
                   type="button"
                   onClick={() => setActiveIndex(index)}
-                  className={`flex w-full items-center gap-3 border p-3 text-left transition md:p-4 ${
+                  className={`premium-hover-lift flex w-full items-center gap-3 border p-3 text-left transition md:p-4 ${
                     activeIndex === index
                       ? "theme-panel rounded-[1.5rem] border-[var(--accent)]/30 bg-[linear-gradient(180deg,rgba(214,185,139,0.16),rgba(255,255,255,0.03))]"
                       : "theme-panel rounded-[1.5rem] border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"

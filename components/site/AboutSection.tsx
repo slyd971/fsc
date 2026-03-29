@@ -39,7 +39,7 @@ export function AboutSection() {
                 {about.highlights.map((item) => (
                   <div
                     key={item.title}
-                    className="rounded-[1.35rem] border border-white/10 bg-white/[0.03] p-4 sm:p-5 md:rounded-none md:border-0 md:border-l md:border-white/12 md:bg-transparent md:p-0 md:pl-4"
+                    className="premium-hover-lift rounded-[1.35rem] border border-white/10 bg-white/[0.03] p-4 sm:p-5 md:rounded-none md:border-0 md:border-l md:border-white/12 md:bg-transparent md:p-0 md:pl-4"
                   >
                     <div className="display-font text-[1.55rem] uppercase leading-none text-[var(--accent)] sm:text-2xl">
                       {item.title}
@@ -58,7 +58,7 @@ export function AboutSection() {
                   {hero.stats.map((stat) => (
                     <div
                       key={stat.label}
-                      className="min-w-0 rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4 sm:p-5 lg:rounded-none lg:border-0 lg:border-t lg:border-white/12 lg:bg-transparent lg:px-0 lg:pt-3.5 lg:pb-0"
+                      className="premium-hover-lift min-w-0 rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4 sm:p-5 lg:rounded-none lg:border-0 lg:border-t lg:border-white/12 lg:bg-transparent lg:px-0 lg:pt-3.5 lg:pb-0"
                     >
                       <div className="mb-2.5 flex h-8 w-8 items-center justify-center rounded-full border border-white/14 bg-white/8 text-[var(--accent)] sm:h-9 sm:w-9">
                         {(() => {
@@ -82,12 +82,12 @@ export function AboutSection() {
           <Reveal delay={0.1}>
             <div className="relative z-10 min-w-0">
               <div className="absolute -left-10 top-10 hidden h-[72%] w-px bg-[linear-gradient(180deg,var(--accent),transparent)] lg:block" />
-              <div className="theme-panel mx-auto w-full max-w-md rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-3 sm:p-4 md:max-w-[40rem] md:p-5">
+              <div className="theme-panel premium-hover-lift premium-sheen surface-glow mx-auto w-full max-w-md rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-3 sm:p-4 md:max-w-[40rem] md:p-5">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[1.4rem] border border-white/10 bg-black/20 sm:aspect-[5/6] md:aspect-[6/5] lg:aspect-square">
                   <img
                     src="/fsc-crew2.jpg"
                     alt="French Soca Crew group moment"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover transition duration-700 hover:scale-[1.03]"
                   />
                 </div>
               </div>

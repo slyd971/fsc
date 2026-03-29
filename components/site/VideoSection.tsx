@@ -19,7 +19,7 @@ export function VideoSection() {
               {video.description}
             </p>
             <div className="mt-7 flex flex-wrap gap-3 md:mt-10">
-              <Link href={video.cta.href} className="button-editorial button-editorial-primary">
+              <Link href={video.cta.href} className="button-editorial button-editorial-primary premium-sheen premium-hover-lift">
                 {video.cta.label}
               </Link>
             </div>
@@ -29,7 +29,7 @@ export function VideoSection() {
         <div className="relative z-10 mt-7 grid gap-4 md:grid-cols-3 md:gap-5">
           {video.videos.map((item, index) => (
             <Reveal key={item.title} delay={0.05 * index}>
-              <div className="theme-panel rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-3 md:p-4">
+              <div className="theme-panel premium-hover-lift premium-sheen surface-glow rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-3 md:p-4">
                 <div className="group relative overflow-hidden rounded-[1.35rem] border border-white/10 bg-black">
                   <img
                     src={item.poster}
@@ -38,7 +38,7 @@ export function VideoSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="theme-chip flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full border border-white/18 bg-black/[0.45] backdrop-blur-md transition group-hover:scale-105 md:h-20 md:w-20">
+                    <div className="theme-chip premium-float-delayed flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full border border-white/18 bg-black/[0.45] backdrop-blur-md transition group-hover:scale-105 md:h-20 md:w-20">
                       <Play className="ml-1 h-7 w-7 text-[var(--accent)] md:h-8 md:w-8" fill="currentColor" />
                     </div>
                   </div>

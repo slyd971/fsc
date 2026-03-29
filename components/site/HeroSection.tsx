@@ -1,15 +1,19 @@
+"use client";
+
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { siteData } from "@/data/site";
 
 export function HeroSection() {
   const { hero } = siteData;
+  const reduceMotion = useReducedMotion();
 
   return (
     <>
       <section className="hero-shell hero-luxury relative min-h-screen overflow-hidden bg-[#0d0907]">
         <div
-          className="absolute inset-0"
+          className="hero-image-drift absolute inset-0"
           style={{
             backgroundImage: `url(${hero.image})`,
             backgroundSize: "cover",
@@ -24,43 +28,67 @@ export function HeroSection() {
         <div className="film-vignette" />
         <div className="paper-texture" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-24 sm:px-8 lg:px-16">
-          <div className="flex min-h-screen items-end pb-16 sm:pb-20 lg:pb-24">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-18 sm:px-8 sm:pt-24 lg:px-16">
+          <div className="flex min-h-[100svh] items-end pb-[4.5rem] sm:min-h-screen sm:items-end sm:pt-0 sm:pb-20 lg:pb-24">
             <div className="w-full max-w-5xl">
-            <div className="space-y-6 md:space-y-8">
-              <div className="relative max-w-5xl">
+            <motion.div
+              className="space-y-6 md:space-y-8"
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 28 }}
+              animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              transition={{ duration: reduceMotion ? 0.35 : 0.9, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <motion.div
+                className="relative max-w-5xl"
+                initial={reduceMotion ? undefined : { opacity: 0, y: 18, filter: "blur(10px)" }}
+                animate={reduceMotion ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.95, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <h1 className="hero-artist-title relative z-10 max-w-5xl text-white">
                   FRENCH
                   <br />
                   SOCA CREW
                 </h1>
-              </div>
+              </motion.div>
 
-              <div className="h-px w-28 bg-white" />
+              <motion.div
+                className="h-px w-28 bg-white"
+                initial={reduceMotion ? undefined : { scaleX: 0, opacity: 0, transformOrigin: "left center" }}
+                animate={reduceMotion ? undefined : { scaleX: 1, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              />
 
               <div className="grid gap-5 md:grid-cols-[1.15fr_0.85fr] md:items-end md:gap-8">
-                <div>
-                  <p className="max-w-xl text-base leading-relaxed font-light text-white md:text-xl lg:text-2xl">
+                <motion.div
+                  initial={reduceMotion ? undefined : { opacity: 0, y: 18 }}
+                  animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                  transition={{ duration: 0.82, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <p className="hero-copy max-w-xl text-base leading-relaxed font-light text-white md:text-xl lg:text-2xl">
                     {hero.subtitle}
                   </p>
-                  <div className="mt-6 flex flex-wrap gap-2.5 md:mt-8 md:gap-3">
+                  <motion.div
+                    className="mt-6 flex flex-wrap gap-2.5 md:mt-8 md:gap-3"
+                    initial={reduceMotion ? undefined : { opacity: 0, y: 16 }}
+                    animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                    transition={{ duration: 0.78, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                  >
                     <Link
                       href={hero.primaryCta.href}
-                      className="button-editorial button-editorial-primary"
+                      className="button-editorial button-editorial-primary premium-sheen premium-hover-lift"
                     >
                       {hero.primaryCta.label}
                       <ArrowUpRight className="h-4 w-4" />
                     </Link>
                     <Link
                       href={hero.secondaryCta.href}
-                      className="button-editorial button-editorial-secondary"
+                      className="button-editorial button-editorial-secondary premium-sheen"
                     >
                       {hero.secondaryCta.label}
                     </Link>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
         </div>
