@@ -48,17 +48,13 @@ export function Navbar({ navigation, brand }: NavbarProps) {
     >
       <div className="section-shell pt-4">
         <div
-          className={`relative ml-auto transition-all duration-300 lg:premium-stroke lg:border lg:border-white/8 lg:bg-black/[0.64] lg:shadow-[0_18px_60px_rgba(0,0,0,0.24)] lg:backdrop-blur-2xl ${
+          className={`navbar-shell relative ml-auto overflow-visible transition-all duration-300 lg:premium-stroke lg:border lg:border-white/8 lg:bg-black/[0.64] lg:shadow-[0_18px_60px_rgba(0,0,0,0.24)] lg:backdrop-blur-2xl ${
             !visible
               ? "w-fit px-0 py-0 lg:px-2 lg:py-2 md:px-6"
               : compact
                 ? "px-0 py-0 lg:px-4 lg:py-3 md:px-6"
                 : "px-0 py-0 lg:px-4 lg:py-4 md:px-6"
           }`}
-          style={{
-            clipPath:
-              "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px))",
-          }}
         >
           <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_left,rgba(214,185,139,0.14),transparent_28%)] lg:block" />
           <div className="relative flex items-center justify-end gap-4 lg:justify-between">
