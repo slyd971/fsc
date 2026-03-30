@@ -1,8 +1,58 @@
 import { Reveal } from "@/components/site/Reveal";
 import { siteData } from "@/data/site";
+import { siteDataEnSeed } from "@/data/site-en-seed";
+import type { Locale } from "@/lib/i18n";
 
-export function AboutSection() {
-  const { about } = siteData;
+const imageNoteByLocale = {
+  fr: "Logistique carnaval, chaleur, musique, communauté et énergie de road tenues ensemble dans une seule atmosphère.",
+  en: "Carnival logistics, warmth, music, community and road energy held together as one atmosphere.",
+} as const;
+
+const imageAltByLocale = {
+  fr: "Moment de groupe French Soca Crew",
+  en: "French Soca Crew group moment",
+} as const;
+
+const sideNoteByLocale = {
+  fr: {
+    kicker: "Pas juste une réservation",
+    title: "Une façon crew-first d'avancer.",
+  },
+  en: {
+    kicker: "Not just a booking",
+    title: "A crew-first way to move.",
+  },
+} as const;
+
+export function AboutSection({
+  locale = "fr",
+  content,
+}: {
+  locale?: Locale;
+  content?: typeof siteData.about;
+}) {
+  const fallbackAbout = locale === "en"
+    ? {
+        ...siteData.about,
+        ...siteDataEnSeed.about,
+        highlights: [
+          {
+            title: "Community",
+            description: "A travel crew shaped around connection, trust and shared recall.",
+          },
+          {
+            title: "Carnival experiences",
+            description: "Trips built around emotion, music and the movement of carnival culture.",
+          },
+          {
+            title: "Caribbean vibes",
+            description: "Soca, diaspora spirit and cultural immersion woven into every detail.",
+          },
+        ],
+      }
+    : siteData.about;
+  const about = content ?? fallbackAbout;
+  const sideNote = sideNoteByLocale[locale];
 
   return (
     <section className="theme-border section-about relative overflow-hidden border-t px-4 py-16 sm:px-8 sm:py-22 lg:px-12 lg:py-28" id="about">
@@ -18,23 +68,23 @@ export function AboutSection() {
               <div className="theme-border theme-panel-dark overflow-hidden rounded-[2.2rem] border">
                 <img
                   src="/London/nhc1.jpg"
-                  alt="French Soca Crew group moment"
+                  alt={imageAltByLocale[locale]}
                   className="h-[28rem] w-full object-cover sm:h-[36rem] lg:h-[48rem]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.06),rgba(0,0,0,0.76))]" />
                 <div className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
                   <div className="text-muted max-w-[15rem] border-t border-[var(--line-strong)] pt-3 text-[11px] uppercase tracking-[0.28em]">
-                    Carnival logistics, warmth, music, community and road energy held together as one atmosphere.
+                    {imageNoteByLocale[locale]}
                   </div>
                 </div>
               </div>
 
               <div className="theme-border theme-surface-elevated absolute -right-2 -bottom-8 hidden max-w-[16rem] rounded-[1.6rem] border p-5 backdrop-blur-md lg:block">
                 <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--accent)]">
-                  Not just a booking
+                  {sideNote.kicker}
                 </div>
                 <div className="display-font theme-text-strong mt-3 text-[1.75rem] uppercase leading-[0.9]">
-                  A crew-first way to move.
+                  {sideNote.title}
                 </div>
               </div>
             </div>
@@ -45,8 +95,14 @@ export function AboutSection() {
               <div className="editorial-kicker">{about.eyebrow}</div>
               <div className="mt-5 flex items-start justify-between gap-4">
                 <h2 className="section-title max-w-[10ch] text-[clamp(2rem,6.8vw,4.6rem)] leading-[0.9]">
-                  <span className="block whitespace-nowrap">Built for</span>
-                  <span className="block whitespace-nowrap">the road.</span>
+                  {about.title.split(" ").length > 2 ? (
+                    <>
+                      <span className="block whitespace-nowrap">{about.title.split(" ").slice(0, -1).join(" ")}</span>
+                      <span className="block whitespace-nowrap">{about.title.split(" ").slice(-1)[0]}</span>
+                    </>
+                  ) : (
+                    <span className="block">{about.title}</span>
+                  )}
                 </h2>
                 <div className="text-muted-soft hidden text-[10px] uppercase tracking-[0.34em] lg:block">
                   01

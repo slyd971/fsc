@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { NavItem } from "@/data/site";
 import { MobileMenu } from "@/components/site/MobileMenu";
+import { getLocaleFromPathname, withLocalePath } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
 type NavbarProps = {
   navigation: {
@@ -18,6 +21,15 @@ type NavbarProps = {
 export function Navbar({ navigation, brand }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [compact, setCompact] = useState(false);
+  const pathname = usePathname();
+  const locale = getLocaleFromPathname(pathname);
+  const copy = getUiCopy(locale).navbar;
+  const localizedItems = navigation.items.map((item) => ({
+    ...item,
+    href: withLocalePath(item.href, locale),
+  }));
+  const homeHref = withLocalePath("/", locale);
+  const contactHref = withLocalePath("/#contact", locale);
 
   useEffect(() => {
     const onScroll = () => {
@@ -43,9 +55,9 @@ export function Navbar({ navigation, brand }: NavbarProps) {
           <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_left,color-mix(in_srgb,var(--accent)_14%,transparent),transparent_28%)] lg:block" />
           <div className="relative flex items-center justify-between gap-4">
             <Link
-              href="/"
+              href={homeHref}
               className="flex items-center lg:hidden"
-              aria-label="Go to home"
+              aria-label={copy.goHome}
             >
               <div className="premium-chip flex h-10 w-10 items-center justify-center">
                 <span className="display-font text-lg leading-none text-[var(--accent)]">
@@ -55,7 +67,7 @@ export function Navbar({ navigation, brand }: NavbarProps) {
             </Link>
 
             <Link
-              href="/"
+              href={homeHref}
               className="hidden items-center gap-3 transition-all duration-300 lg:flex"
             >
               <div className="premium-chip flex h-11 w-11 items-center justify-center">
@@ -68,13 +80,13 @@ export function Navbar({ navigation, brand }: NavbarProps) {
                   {brand.name}
                 </div>
                 <div className="text-muted-soft hidden text-[10px] uppercase tracking-[0.34em] md:block">
-                  Cultural travel association
+                  {copy.tagline}
                 </div>
               </div>
             </Link>
 
             <nav className="hidden items-center gap-8 lg:flex">
-              {navigation.items.map((item) => (
+              {localizedItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -87,14 +99,14 @@ export function Navbar({ navigation, brand }: NavbarProps) {
 
             <div className="flex items-center gap-3">
               <Link
-                href="/#contact"
+                href={contactHref}
                 className="button-editorial button-editorial-primary hidden lg:inline-flex"
               >
-                Join the crew
+                {copy.joinCrew}
               </Link>
               <button
                 type="button"
-                aria-label={menuOpen ? "Close menu" : "Open menu"}
+                aria-label={menuOpen ? copy.closeMenu : copy.openMenu}
                 onClick={() => setMenuOpen((current) => !current)}
                 className="flex h-11 w-11 items-center justify-center lg:hidden"
               >
@@ -121,7 +133,7 @@ export function Navbar({ navigation, brand }: NavbarProps) {
 
           <MobileMenu
             open={menuOpen}
-            items={navigation.items}
+            items={localizedItems}
             onClose={() => setMenuOpen(false)}
           />
         </div>

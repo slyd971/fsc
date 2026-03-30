@@ -1,11 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { ArrowDown, ArrowUp } from "lucide-react";
+import { getLocaleFromPathname } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
 export function ScrollDock() {
   const [canScrollUp, setCanScrollUp] = useState(false);
   const [canScrollDown, setCanScrollDown] = useState(true);
+  const pathname = usePathname();
+  const copy = getUiCopy(getLocaleFromPathname(pathname)).scrollDock;
 
   useEffect(() => {
     const updateState = () => {
@@ -36,13 +41,13 @@ export function ScrollDock() {
   return (
     <div className="fixed bottom-[3.8rem] right-3 z-[79] flex flex-col gap-2 sm:bottom-[4.4rem] sm:right-4">
       <ScrollButton
-        label="Go to top"
+        label={copy.top}
         icon={<ArrowUp className="h-3.5 w-3.5" />}
         onClick={scrollToTop}
         disabled={!canScrollUp}
       />
       <ScrollButton
-        label="Go to bottom"
+        label={copy.bottom}
         icon={<ArrowDown className="h-3.5 w-3.5" />}
         onClick={scrollToBottom}
         disabled={!canScrollDown}

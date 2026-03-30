@@ -1,11 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Instagram,
   Mail,
   MessageCircle,
   Phone,
 } from "lucide-react";
+import { LocaleSwitcher } from "@/components/site/LocaleSwitcher";
 import type { ContactMethod, NavItem } from "@/data/site";
+import { getLocaleFromPathname, withLocalePath } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
 type FooterProps = {
   brand: {
@@ -28,6 +34,14 @@ const iconMap: Record<ContactMethod["icon"], typeof Instagram> = {
 };
 
 export function Footer({ brand, navigation, contact }: FooterProps) {
+  const pathname = usePathname();
+  const locale = getLocaleFromPathname(pathname);
+  const copy = getUiCopy(locale).footer;
+  const localizedItems = navigation.items.map((item) => ({
+    ...item,
+    href: withLocalePath(item.href, locale),
+  }));
+
   return (
     <footer className="theme-border relative overflow-hidden border-t py-16 md:py-24">
       <div className="theme-page-glow-top absolute inset-0" />
@@ -38,12 +52,15 @@ export function Footer({ brand, navigation, contact }: FooterProps) {
             <p className="text-muted mt-4 max-w-md text-sm leading-7 md:text-base">
               {brand.tagline}
             </p>
+            <div className="mt-6">
+              <LocaleSwitcher locale={locale} compact />
+            </div>
           </div>
 
           <div className="min-w-0">
-            <div className="editorial-kicker">Quick links</div>
+            <div className="editorial-kicker">{copy.quickLinks}</div>
             <div className="mt-5 flex flex-col gap-3">
-              {navigation.items.map((item) => (
+              {localizedItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -56,7 +73,7 @@ export function Footer({ brand, navigation, contact }: FooterProps) {
           </div>
 
           <div className="min-w-0">
-            <div className="editorial-kicker">Contact</div>
+            <div className="editorial-kicker">{copy.contact}</div>
             <div className="mt-5 flex flex-col gap-3">
               {contact.methods.map((method) => {
                 const Icon = iconMap[method.icon];

@@ -8,6 +8,10 @@ import {
 import { ContactForm } from "@/components/site/ContactForm";
 import { Reveal } from "@/components/site/Reveal";
 import { siteData, type ContactMethod } from "@/data/site";
+import { siteDataEnSeed } from "@/data/site-en-seed";
+import type { Locale } from "@/lib/i18n";
+import { withLocalePath } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
 const iconMap: Record<ContactMethod["icon"], typeof Instagram> = {
   instagram: Instagram,
@@ -16,8 +20,15 @@ const iconMap: Record<ContactMethod["icon"], typeof Instagram> = {
   mail: Mail,
 };
 
-export function ContactSection() {
-  const { contact } = siteData;
+export function ContactSection({
+  locale = "fr",
+  content,
+}: {
+  locale?: Locale;
+  content?: typeof siteData.contact;
+}) {
+  const contact = content ?? (locale === "en" ? { ...siteData.contact, ...siteDataEnSeed.contact } : siteData.contact);
+  const copy = getUiCopy(locale).contact;
   const whatsappMethod = contact.methods.find((method) => method.label === "WhatsApp");
 
   return (
@@ -36,15 +47,15 @@ export function ContactSection() {
 
             <div className="grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:gap-12">
               <div>
-                <div className="editorial-kicker">Final call</div>
+                <div className="editorial-kicker">{copy.kicker}</div>
                 <h2 className="display-font theme-text-strong mt-4 max-w-[8ch] text-[clamp(1.65rem,6.5vw,5rem)] uppercase leading-[0.9] sm:max-w-[9ch] sm:text-[clamp(1.8rem,7vw,5rem)] sm:leading-[0.88] lg:max-w-[7ch] lg:text-[clamp(2.2rem,4.2vw,4.1rem)]">
-                  Join the next road.
+                  {copy.title}
                 </h2>
                 <p className="text-muted mt-4 max-w-xl text-sm leading-6 sm:mt-5 sm:text-base sm:leading-7 md:text-lg md:leading-8">
-                  {contact.description} This is where a trip turns into a crew move, a booking becomes a plan and the next memory starts taking shape.
+                  {contact.description} {copy.descriptionSuffix}
                 </p>
                 <div className="theme-border theme-panel-dark text-muted mt-5 inline-flex rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] backdrop-blur-sm">
-                  Direct response from the crew
+                  {copy.directReply}
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-2.5 sm:mt-8 sm:gap-3">
@@ -54,11 +65,11 @@ export function ContactSection() {
                       className="button-editorial button-editorial-primary premium-sheen premium-hover-lift"
                     >
                       <MessageCircle className="h-4 w-4" />
-                      Book on WhatsApp
+                      {copy.whatsapp}
                     </a>
                   ) : null}
-                  <a href="/trips" className="button-editorial button-editorial-secondary premium-sheen">
-                    See the roads
+                  <a href={withLocalePath("/trips", locale)} className="button-editorial button-editorial-secondary premium-sheen">
+                    {copy.seeRoads}
                     <ArrowUpRight className="h-4 w-4" />
                   </a>
                 </div>
@@ -78,7 +89,7 @@ export function ContactSection() {
                             <Icon className="h-4 w-4" />
                           </div>
                           <div className="text-muted-soft text-[8px] uppercase tracking-[0.18em] transition group-hover:text-[var(--accent)] sm:text-[9px] sm:tracking-[0.24em]">
-                            Open
+                            {copy.open}
                           </div>
                         </div>
                         <div className="text-muted-soft mt-4 text-[9px] uppercase tracking-[0.2em] sm:mt-5 sm:text-[10px] sm:tracking-[0.28em]">
@@ -99,7 +110,7 @@ export function ContactSection() {
               <Reveal delay={0.08}>
                 <div className="relative lg:pt-6">
                   <div className="pointer-events-none absolute -left-4 top-3 hidden h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(214,185,139,0.18),transparent_68%)] blur-2xl lg:block" />
-                  <ContactForm />
+                  <ContactForm locale={locale} interests={contact.formInterests} />
                 </div>
               </Reveal>
             </div>

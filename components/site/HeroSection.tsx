@@ -10,6 +10,9 @@ import {
   Sunrise,
 } from "lucide-react";
 import { siteData } from "@/data/site";
+import { siteDataEnSeed } from "@/data/site-en-seed";
+import type { Locale } from "@/lib/i18n";
+import { withLocalePath } from "@/lib/i18n";
 
 const iconMap = {
   sparkles: Sparkles,
@@ -18,16 +21,34 @@ const iconMap = {
   glass: GlassWater,
 } as const;
 
-const heroChorus = [
-  "Soca movement",
-  "Carnival emotion",
-  "Diaspora energy",
-  "Premium roads",
-] as const;
+const heroChorusByLocale = {
+  fr: [
+    "Mouvement soca",
+    "Émotion carnaval",
+    "Énergie diaspora",
+    "Roads premium",
+  ],
+  en: [
+    "Soca movement",
+    "Carnival emotion",
+    "Diaspora energy",
+    "Premium roads",
+  ],
+} as const;
 
-export function HeroSection() {
-  const { hero } = siteData;
+export function HeroSection({
+  locale = "fr",
+  content,
+}: {
+  locale?: Locale;
+  content?: typeof siteData.hero;
+}) {
+  const fallbackHero = locale === "en" ? siteDataEnSeed.hero : siteData.hero;
+  const hero = content ?? fallbackHero;
   const reduceMotion = useReducedMotion();
+  const heroChorus = heroChorusByLocale[locale];
+  const associationLabel =
+    locale === "en" ? "French association" : "Association française";
 
   return (
     <section className="hero-shell hero-luxury relative min-h-screen overflow-hidden bg-[var(--background)]">
@@ -64,7 +85,7 @@ export function HeroSection() {
               transition={{ duration: 0.95, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="text-muted-soft pointer-events-none absolute -top-7 left-0 text-[0.62rem] uppercase tracking-[0.42em] sm:text-[0.7rem]">
-                French association
+                {associationLabel}
               </div>
               <h1 className="hero-artist-title theme-text-strong relative z-10 max-w-[10ch] text-[clamp(2.9rem,10.2vw,8.2rem)]">
                 FRENCH
@@ -93,14 +114,14 @@ export function HeroSection() {
 
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
-                href={hero.primaryCta.href}
+                href={withLocalePath(hero.primaryCta.href, locale)}
                 className="button-editorial button-editorial-primary premium-sheen premium-hover-lift"
               >
                 {hero.primaryCta.label}
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
               <Link
-                href={hero.secondaryCta.href}
+                href={withLocalePath(hero.secondaryCta.href, locale)}
                 className="button-editorial button-editorial-secondary premium-sheen"
               >
                 {hero.secondaryCta.label}

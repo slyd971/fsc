@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function LondonCarnivalPage() {
+export default function LondonCarnivalTripLegacyPage() {
   redirect("/london-carnival");
 }

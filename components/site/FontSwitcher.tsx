@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Palette, Type } from "lucide-react";
+import { getLocaleFromPathname } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
 type FontPreset = "default" | "salon" | "coast";
 type ThemePreset = "default" | "sunset-carnival" | "tropical-night" | "island-daylight";
@@ -67,6 +70,8 @@ export function FontSwitcher() {
   const [open, setOpen] = useState(false);
   const [fontPreset, setFontPreset] = useState<FontPreset>("default");
   const [themePreset, setThemePreset] = useState<ThemePreset>("island-daylight");
+  const pathname = usePathname();
+  const copy = getUiCopy(getLocaleFromPathname(pathname)).switcher;
 
   useEffect(() => {
     const savedFont = window.localStorage.getItem(FONT_STORAGE_KEY) as FontPreset | null;
@@ -105,7 +110,7 @@ export function FontSwitcher() {
           type="button"
           onClick={() => setOpen((current) => !current)}
           aria-expanded={open}
-          aria-label={open ? "Hide style options" : "Show style options"}
+          aria-label={open ? copy.hide : copy.show}
           className={`flex items-center rounded-[0.78rem] text-left transition hover:bg-white/5 sm:rounded-[0.85rem] ${
             open ? "w-full justify-between px-2 py-1.5 sm:px-2.5 sm:py-2" : "h-8 w-8 justify-center sm:h-9 sm:w-9"
           }`}
@@ -120,14 +125,14 @@ export function FontSwitcher() {
                   {themePresets.find((option) => option.id === themePreset)?.label}
                 </div>
                 <div className="mt-0.5 text-[9px] uppercase tracking-[0.16em] text-white/34 sm:mt-1 sm:text-[10px] sm:tracking-[0.18em]">
-                  Style lab
+                  {copy.styleLab}
                 </div>
               </div>
             ) : null}
           </div>
           {open ? (
             <div className="text-[9px] uppercase tracking-[0.18em] text-white/32">
-              Close
+              {copy.close}
             </div>
           ) : null}
         </button>
@@ -137,7 +142,7 @@ export function FontSwitcher() {
             <div className="rounded-[0.85rem] border border-white/8 bg-white/[0.02] p-2 sm:rounded-[0.95rem] sm:p-2.5">
               <div className="mb-1.5 flex items-center gap-2 text-[8px] uppercase tracking-[0.16em] text-white/38 sm:mb-2 sm:text-[9px] sm:tracking-[0.18em]">
                 <Palette className="h-3 w-3" />
-                Color theme
+                {copy.colorTheme}
               </div>
               <div className="grid gap-1.5 sm:gap-2">
                 {themePresets.map((option) => (
@@ -178,7 +183,7 @@ export function FontSwitcher() {
             <div className="rounded-[0.85rem] border border-white/8 bg-white/[0.02] p-2 sm:rounded-[0.95rem] sm:p-2.5">
               <div className="mb-1.5 flex items-center gap-2 text-[8px] uppercase tracking-[0.16em] text-white/38 sm:mb-2 sm:text-[9px] sm:tracking-[0.18em]">
                 <Type className="h-3 w-3" />
-                Font direction
+                {copy.fontDirection}
               </div>
               <div className="grid gap-1.5 sm:gap-2">
                 {fontPresets.map((option) => (

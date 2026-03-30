@@ -30,7 +30,7 @@ export function MobileMenu({ open, items, onClose }: MobileMenuProps) {
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           className="theme-border absolute left-0 right-0 top-full z-[100] border-t bg-[color-mix(in_srgb,var(--background)_92%,transparent)] lg:hidden"
         >
-          <nav className="grid grid-cols-2 gap-2.5 px-4 py-3 text-left">
+          <nav className="grid grid-cols-2 gap-2.5 px-4 py-4 text-left">
             {items.map((item, index) => (
               <motion.div
                 key={item.href}

@@ -1,9 +1,20 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { siteData } from "@/data/site";
+import { siteData, type DestinationPreview } from "@/data/site";
+import type { Locale } from "@/lib/i18n";
+import { withLocalePath } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
-export function DestinationPreviewSection() {
+export function DestinationPreviewSection({
+  locale = "fr",
+  destinations = siteData.destinations,
+}: {
+  locale?: Locale;
+  destinations?: DestinationPreview[];
+}) {
+  const copy = getUiCopy(locale).destinationPreview;
+
   return (
     <section className="theme-border section-music relative overflow-hidden border-t px-4 py-16 sm:px-8 sm:py-22 lg:px-12 lg:py-28" id="trips">
       <div className="theme-section-trips-bg absolute inset-0" />
@@ -14,20 +25,20 @@ export function DestinationPreviewSection() {
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
             <div>
-              <div className="editorial-kicker">Featured trips</div>
+              <div className="editorial-kicker">{copy.kicker}</div>
               <h2 className="section-title mt-4 max-w-[10ch] text-[clamp(1.9rem,6.4vw,4rem)] leading-[0.9]">
-                <span className="block whitespace-nowrap">Choose your</span>
-                <span className="block whitespace-nowrap">road.</span>
+                <span className="block whitespace-nowrap">{copy.titleLine1}</span>
+                <span className="block whitespace-nowrap">{copy.titleLine2}</span>
               </h2>
             </div>
             <p className="text-muted max-w-2xl text-base leading-7 md:text-lg md:leading-8">
-              Each destination should feel like stepping into a full mood: the city, the crew, the soundtrack, the parade pressure, the after-dark pull and the feeling that the whole road is waiting.
+              {copy.description}
             </p>
           </div>
         </Reveal>
 
         <div className="mt-10 grid gap-8 lg:mt-14">
-          {siteData.destinations.map((destination, index) => (
+          {destinations.map((destination, index) => (
             <Reveal key={destination.slug} delay={0.06 * index}>
               <article className="theme-border theme-panel-dark group relative min-h-[34rem] overflow-hidden rounded-[2.4rem] border lg:min-h-[44rem]">
                 <img
@@ -71,10 +82,10 @@ export function DestinationPreviewSection() {
                       </p>
                       <div className="mt-6">
                         <Link
-                          href={`/${destination.slug}`}
+                          href={withLocalePath(`/${destination.slug}`, locale)}
                           className="button-editorial button-editorial-secondary premium-sheen"
                         >
-                          Enter this world
+                          {copy.cta}
                           <ArrowUpRight className="h-4 w-4" />
                         </Link>
                       </div>

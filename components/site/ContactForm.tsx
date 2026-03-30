@@ -1,32 +1,44 @@
 "use client";
 
 import { siteData } from "@/data/site";
+import { siteDataEnSeed } from "@/data/site-en-seed";
+import type { Locale } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
-export function ContactForm() {
+export function ContactForm({
+  locale = "fr",
+  interests,
+}: {
+  locale?: Locale;
+  interests?: readonly string[];
+}) {
+  const copy = getUiCopy(locale).contactForm;
+  const formInterests = interests ?? (locale === "en" ? siteDataEnSeed.contact.formInterests : siteData.contact.formInterests);
+
   return (
     <form className="editorial-panel premium-hover-lift premium-sheen p-3.5 md:p-5" onSubmit={(event) => event.preventDefault()}>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="editorial-kicker">Booking request</div>
+        <div className="editorial-kicker">{copy.kicker}</div>
         <div className="theme-border theme-panel-dark text-muted rounded-full border px-3 py-1.5 text-[9px] uppercase tracking-[0.24em]">
-          Crew reply
+          {copy.reply}
         </div>
       </div>
       <p className="text-muted mt-3.5 max-w-md text-xs leading-5 sm:mt-4 sm:text-sm sm:leading-6">
-        Leave your destination, timing and booking intent. We will come back with the clearest next step for your road.
+        {copy.intro}
       </p>
       <div className="mt-3.5 grid gap-2.5 md:mt-4 md:grid-cols-2">
-        <Field label="Name" type="text" placeholder="Your full name" />
+        <Field label={copy.name} type="text" placeholder={copy.fullName} />
         <Field label="Email" type="email" placeholder="name@email.com" />
-        <Field label="Phone / WhatsApp" type="text" placeholder="Best number to reach you" />
-        <Field label="Subject" type="text" placeholder="Road, trip or booking request" />
+        <Field label={copy.phone} type="text" placeholder={copy.bestNumber} />
+        <Field label={copy.subject} type="text" placeholder={copy.subjectPlaceholder} />
       </div>
 
       <div className="mt-2.5">
         <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-white/48">
-          Interested in
+          {copy.interestedIn}
         </label>
         <select className="form-field w-full px-3 py-2.5 outline-none">
-          {siteData.contact.formInterests.map((interest) => (
+          {formInterests.map((interest) => (
             <option key={interest} value={interest} className="bg-black">
               {interest}
             </option>
@@ -36,17 +48,17 @@ export function ContactForm() {
 
       <div className="mt-2.5">
         <label className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-white/48">
-          Message
+          {copy.message}
         </label>
         <textarea
           rows={3}
-          placeholder="Tell us what road you want to join, your dates, and anything we should know before replying."
+          placeholder={copy.messagePlaceholder}
           className="form-field w-full px-3 py-2.5 outline-none"
         />
       </div>
 
       <button type="submit" className="button-editorial button-editorial-primary premium-sheen premium-hover-lift mt-4 sm:mt-5">
-        Request your spot
+        {copy.cta}
       </button>
     </form>
   );

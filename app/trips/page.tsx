@@ -2,8 +2,13 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { siteData } from "@/data/site";
+import { getTrips } from "@/lib/site-content";
+import { getUiCopy } from "@/lib/ui-copy";
 
-export default function TripsPage() {
+export default async function TripsPage() {
+  const destinations = await getTrips("fr");
+  const copy = getUiCopy("fr").tripsPage;
+
   return (
     <main className="pt-28 md:pt-36">
       <section className="section-divider relative overflow-hidden py-16 md:py-24">
@@ -29,7 +34,7 @@ export default function TripsPage() {
         <div className="theme-section-trips-bg absolute inset-0" />
         <div className="theme-section-trips-overlay absolute inset-0 opacity-80" />
         <div className="section-shell grid gap-6 lg:grid-cols-2">
-          {siteData.destinations.map((destination, index) => (
+          {destinations.map((destination, index) => (
             <Reveal key={destination.slug} delay={0.08 * index}>
               <article className="theme-border theme-panel-soft relative z-10 overflow-hidden rounded-[2rem] border">
                 <img
@@ -51,7 +56,7 @@ export default function TripsPage() {
                     href={`/${destination.slug}`}
                     className="theme-cta-solid mt-6 inline-flex items-center gap-2 rounded-full px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] transition"
                   >
-                    View trip details
+                    {copy.detailCta}
                     <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 </div>

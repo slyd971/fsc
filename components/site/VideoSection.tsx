@@ -6,9 +6,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Play } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { siteData } from "@/data/site";
+import { siteDataEnSeed } from "@/data/site-en-seed";
+import type { Locale } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
-export function VideoSection() {
-  const { video } = siteData;
+export function VideoSection({
+  locale = "fr",
+  content,
+}: {
+  locale?: Locale;
+  content?: typeof siteData.video;
+}) {
+  const video = content ?? (locale === "en" ? siteDataEnSeed.video : siteData.video);
+  const copy = getUiCopy(locale).video;
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -34,8 +44,8 @@ export function VideoSection() {
             <div className="max-w-md">
               <div className="editorial-kicker">{video.eyebrow}</div>
               <h2 className="section-title mt-4 max-w-[9ch] text-[clamp(1.85rem,7.2vw,4.8rem)] leading-[0.88]">
-                <span className="block whitespace-nowrap">See the</span>
-                <span className="block whitespace-nowrap">vibe.</span>
+                <span className="block whitespace-nowrap">{copy.titleLine1}</span>
+                <span className="block whitespace-nowrap">{copy.titleLine2}</span>
               </h2>
             </div>
 
@@ -58,7 +68,7 @@ export function VideoSection() {
           <div className="mt-8 grid gap-4 lg:grid-cols-[1.18fr_0.82fr] lg:gap-5">
             <div className="theme-border theme-panel-soft relative overflow-hidden rounded-[2.1rem] border p-2.5 sm:rounded-[2.6rem] sm:p-4">
               <div className="theme-border theme-panel-dark text-muted absolute left-4 top-4 z-20 rounded-full border px-3 py-1.5 text-[9px] uppercase tracking-[0.24em] backdrop-blur-md sm:left-6 sm:top-6 sm:px-4 sm:py-2 sm:text-[10px] sm:tracking-[0.28em]">
-                Road edit
+                {copy.featured}
               </div>
 
               <div className="media-cut relative min-h-[22rem] overflow-hidden rounded-[1.7rem] sm:min-h-[36rem] sm:rounded-[2.1rem] lg:min-h-[42rem]">
@@ -91,7 +101,7 @@ export function VideoSection() {
                         {activeVideo.title}
                       </div>
                       <p className="text-muted mt-3 max-w-[32ch] text-xs leading-5 sm:text-base sm:leading-7">
-                        A moving glimpse of the crew rhythm: arrivals, city heat, costume colour and the pull that makes the next road feel urgent.
+                        {copy.activeDescription}
                       </p>
                     </div>
 
@@ -99,7 +109,7 @@ export function VideoSection() {
                       type="button"
                       onClick={() => setActiveIndex((current) => (current + 1) % video.videos.length)}
                       className="premium-chip flex h-14 w-14 items-center justify-center rounded-full text-[var(--accent)] sm:h-20 sm:w-20"
-                      aria-label="Play next vibe reel"
+                      aria-label={copy.playNext}
                     >
                       <Play className="ml-0.5 h-5 w-5 sm:ml-1 sm:h-8 sm:w-8" fill="currentColor" />
                     </button>
@@ -139,7 +149,7 @@ export function VideoSection() {
                     </div>
                     <div className="px-1 pb-1 pt-3 sm:pt-4">
                       <div className="text-[9px] uppercase tracking-[0.2em] text-[var(--accent)] sm:text-[10px] sm:tracking-[0.24em]">
-                        Vibe reel
+                        {copy.reel}
                       </div>
                       <div className="display-font theme-text-strong mt-1.5 text-[0.98rem] uppercase leading-none sm:mt-2 sm:text-[1.15rem]">
                         {item.title}

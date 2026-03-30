@@ -1,14 +1,18 @@
 import { MessageCircle } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
+import type { Locale } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
 type DestinationHeroProps = {
   title: string;
   eyebrow: string;
   description: string;
   image: string;
+  locale?: Locale;
 };
 
-export function DestinationHero({ title, eyebrow, description, image }: DestinationHeroProps) {
+export function DestinationHero({ title, eyebrow, description, image, locale = "fr" }: DestinationHeroProps) {
+  const copy = getUiCopy(locale).destinationHero;
   const isRotterdamRoad = image.includes("/Rotterdam/fsc-rotterdam-road.jpg");
 
   return (
@@ -42,7 +46,7 @@ export function DestinationHero({ title, eyebrow, description, image }: Destinat
               className="button-editorial button-editorial-primary premium-sheen mt-8 inline-flex"
             >
               <MessageCircle className="h-4 w-4" />
-              Book now
+              {copy.cta}
             </a>
           </div>
         </Reveal>

@@ -1,6 +1,5 @@
-import { DestinationPageTemplate } from "@/components/site/DestinationPageTemplate";
-import { destinationPages } from "@/data/site";
+import { redirect } from "next/navigation";
 
 export default function RotterdamCarnivalPage() {
-  return <DestinationPageTemplate page={destinationPages["rotterdam-carnival"]} />;
+  redirect("/rotterdam-carnival");
 }

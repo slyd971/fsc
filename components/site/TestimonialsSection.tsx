@@ -3,20 +3,37 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Reveal } from "@/components/site/Reveal";
-import { siteData } from "@/data/site";
+import { siteData, type Testimonial } from "@/data/site";
+import type { Locale } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
-export function TestimonialsSection() {
+export function TestimonialsSection({
+  items = siteData.testimonials,
+  locale = "fr",
+}: {
+  items?: Testimonial[];
+  locale?: Locale;
+}) {
+  const copy = getUiCopy(locale).testimonials;
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
+    if (!items.length) {
+      return undefined;
+    }
+
     const timer = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % siteData.testimonials.length);
+      setActiveIndex((current) => (current + 1) % items.length);
     }, 4600);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [items]);
 
-  const activeTestimonial = siteData.testimonials[activeIndex];
+  const activeTestimonial = items[activeIndex] ?? items[0];
+
+  if (!activeTestimonial) {
+    return null;
+  }
 
   return (
     <section className="theme-border relative overflow-hidden border-t px-4 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
@@ -28,14 +45,14 @@ export function TestimonialsSection() {
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-[0.74fr_1.26fr] lg:items-end">
             <div>
-              <div className="editorial-kicker">Crew voices</div>
+              <div className="editorial-kicker">{copy.kicker}</div>
               <h2 className="section-title mt-4 max-w-[11ch] text-[clamp(1.7rem,6.6vw,4rem)] leading-[0.88]">
-                <span className="block whitespace-nowrap">Echoes from</span>
-                <span className="block whitespace-nowrap">the road.</span>
+                <span className="block whitespace-nowrap">{copy.titleLine1}</span>
+                <span className="block whitespace-nowrap">{copy.titleLine2}</span>
               </h2>
             </div>
             <p className="text-muted max-w-2xl text-sm leading-6 sm:text-base sm:leading-7 md:text-lg md:leading-8">
-              Trust lands best when it feels lived in. These are not polished reviews, but fragments of what the road actually feels like once people have moved with the crew.
+              {copy.description}
             </p>
           </div>
         </Reveal>
@@ -43,7 +60,7 @@ export function TestimonialsSection() {
         <Reveal delay={0.08}>
           <div className="mt-8 grid gap-4 lg:grid-cols-[0.62fr_1.38fr] lg:gap-8">
             <div className="grid gap-3">
-              {siteData.testimonials.map((testimonial, index) => (
+              {items.map((testimonial, index) => (
                 <button
                   key={testimonial.name}
                   type="button"
@@ -96,7 +113,7 @@ export function TestimonialsSection() {
                 >
                   <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
                     <div className="text-[9px] uppercase tracking-[0.22em] text-[var(--accent)] sm:text-[10px] sm:tracking-[0.3em]">
-                      Road voice
+                      {copy.voice}
                     </div>
                     <div className="h-px w-8 bg-[var(--line-strong)] sm:w-12" />
                     <div className="text-muted-soft text-[9px] uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.26em]">

@@ -5,10 +5,20 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { siteData } from "@/data/site";
+import { siteData, type GalleryItem } from "@/data/site";
+import type { Locale } from "@/lib/i18n";
+import { withLocalePath } from "@/lib/i18n";
+import { getUiCopy } from "@/lib/ui-copy";
 
-export function GalleryPreviewSection() {
-  const previewImages = siteData.gallery.items.filter((item) =>
+export function GalleryPreviewSection({
+  locale = "fr",
+  items = siteData.gallery.items,
+}: {
+  locale?: Locale;
+  items?: GalleryItem[];
+}) {
+  const copy = getUiCopy(locale).galleryPreview;
+  const previewImages = items.filter((item) =>
     ["carnival-1", "rotterdam-1", "crew-1", "party-1"].includes(item.id)
   );
   const [activeIndex, setActiveIndex] = useState(0);
@@ -35,19 +45,19 @@ export function GalleryPreviewSection() {
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
             <div>
-              <div className="editorial-kicker">Gallery</div>
+              <div className="editorial-kicker">{copy.kicker}</div>
               <h2 className="section-title mt-4 max-w-[10ch] text-[clamp(1.85rem,7.2vw,4.5rem)] leading-[0.88]">
-                <span className="block whitespace-nowrap">Memory in</span>
-                <span className="block whitespace-nowrap">motion.</span>
+                <span className="block whitespace-nowrap">{copy.titleLine1}</span>
+                <span className="block whitespace-nowrap">{copy.titleLine2}</span>
               </h2>
             </div>
 
             <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
               <p className="text-muted max-w-2xl text-sm leading-6 sm:text-base sm:leading-7 md:text-lg md:leading-8">
-                The archive should feel curated, not simply shown. Fragments of road energy, city warmth, costume rhythm and late-night proof that the crew experience lives beyond the trip itself.
+                {copy.description}
               </p>
-              <Link href="/gallery" className="button-editorial button-editorial-secondary premium-sheen">
-                Explore full gallery
+              <Link href={withLocalePath("/gallery", locale)} className="button-editorial button-editorial-secondary premium-sheen">
+                {copy.cta}
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
@@ -59,10 +69,10 @@ export function GalleryPreviewSection() {
             <div className="flex flex-col gap-3 sm:gap-4">
               <div className="editorial-panel overflow-hidden p-4 sm:p-6">
                 <div className="text-[9px] uppercase tracking-[0.24em] text-[var(--accent)] sm:text-[10px] sm:tracking-[0.3em]">
-                  Living archive
+                  {copy.archive}
                 </div>
                 <p className="text-muted mt-3 max-w-sm text-xs leading-6 sm:mt-4 sm:text-sm sm:leading-7">
-                  Some frames carry the city. Some carry the people. Some hold the exact feeling that makes a crew want to run it back.
+                  {copy.archiveText}
                 </p>
               </div>
 
@@ -117,7 +127,7 @@ export function GalleryPreviewSection() {
                         </div>
                       </div>
                       <div className="text-muted-soft text-[9px] uppercase tracking-[0.18em] sm:text-[10px] sm:tracking-[0.22em]">
-                        Crew fragment
+                        {copy.fragment}
                       </div>
                     </div>
                   </div>
@@ -127,7 +137,7 @@ export function GalleryPreviewSection() {
 
             <div className="theme-border theme-panel-soft relative overflow-hidden rounded-[2rem] border p-2.5 sm:rounded-[2.6rem] sm:p-4">
               <div className="theme-border theme-panel-dark text-muted absolute left-4 top-4 z-20 rounded-full border px-3 py-1.5 text-[9px] uppercase tracking-[0.24em] backdrop-blur-md sm:left-6 sm:top-6 sm:px-4 sm:py-2 sm:text-[10px] sm:tracking-[0.28em]">
-                Featured frame
+                {copy.featured}
               </div>
 
               <div className="media-cut relative min-h-[24rem] overflow-hidden rounded-[1.7rem] sm:min-h-[38rem] sm:rounded-[2.1rem] lg:min-h-[46rem]">
@@ -165,17 +175,17 @@ export function GalleryPreviewSection() {
                       {activeImage.title}
                     </div>
                     <p className="text-muted mt-3 max-w-[30ch] text-xs leading-5 sm:mt-4 sm:max-w-xl sm:text-base sm:leading-7">
-                      A living memory from the road, held with enough atmosphere to make the destination feel desirable all over again.
+                      {copy.activeDescription}
                     </p>
                   </div>
                 </div>
 
                 <div className="theme-border theme-panel-dark absolute right-5 top-20 z-20 hidden w-44 rounded-[1.5rem] border p-4 backdrop-blur-md lg:block">
                   <div className="text-muted-soft text-[9px] uppercase tracking-[0.24em]">
-                    Atmosphere
+                    {copy.atmosphere}
                   </div>
                   <div className="display-font theme-text-strong mt-3 text-[1.2rem] uppercase leading-none">
-                    Warm cities. Night pull. Shared recall.
+                    {copy.atmosphereText}
                   </div>
                 </div>
               </div>
