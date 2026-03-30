@@ -1,6 +1,5 @@
 import { MessageCircle } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { siteData } from "@/data/site";
 
 type DestinationHeroProps = {
   title: string;
@@ -11,8 +10,6 @@ type DestinationHeroProps = {
 
 export function DestinationHero({ title, eyebrow, description, image }: DestinationHeroProps) {
   const isRotterdamRoad = image.includes("/Rotterdam/fsc-rotterdam-road.jpg");
-  const whatsappHref =
-    siteData.contact.methods.find((method) => method.label === "WhatsApp")?.href ?? "/#contact";
 
   return (
     <section className="relative min-h-[86vh] overflow-hidden pt-28 md:pt-36">
@@ -41,11 +38,11 @@ export function DestinationHero({ title, eyebrow, description, image }: Destinat
               {description}
             </p>
             <a
-              href={whatsappHref}
+              href="#book-now"
               className="button-editorial button-editorial-primary premium-sheen mt-8 inline-flex"
             >
               <MessageCircle className="h-4 w-4" />
-              Book now on WhatsApp
+              Book now
             </a>
           </div>
         </Reveal>

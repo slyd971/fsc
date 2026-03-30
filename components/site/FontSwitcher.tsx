@@ -38,6 +38,12 @@ const themePresets: Array<{
   swatches: [string, string, string];
 }> = [
   {
+    id: "island-daylight",
+    label: "Island Daylight",
+    blurb: "Sunlit sand tones with bright Caribbean warmth",
+    swatches: ["#32251d", "#5c4638", "#ffb866"],
+  },
+  {
     id: "default",
     label: "Signature Night",
     blurb: "Warm noir, editorial gold, premium road energy",
@@ -55,25 +61,22 @@ const themePresets: Array<{
     blurb: "Deep teal nightlife with cool neon lift",
     swatches: ["#071018", "#15222c", "#4dd5c1"],
   },
-  {
-    id: "island-daylight",
-    label: "Island Daylight",
-    blurb: "Sunlit sand tones with bright Caribbean warmth",
-    swatches: ["#32251d", "#5c4638", "#ffb866"],
-  },
 ];
 
 export function FontSwitcher() {
   const [open, setOpen] = useState(false);
   const [fontPreset, setFontPreset] = useState<FontPreset>("default");
-  const [themePreset, setThemePreset] = useState<ThemePreset>("default");
+  const [themePreset, setThemePreset] = useState<ThemePreset>("island-daylight");
 
   useEffect(() => {
     const savedFont = window.localStorage.getItem(FONT_STORAGE_KEY) as FontPreset | null;
     const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY) as ThemePreset | null;
 
     const nextFont = savedFont && fontPresets.some((option) => option.id === savedFont) ? savedFont : "default";
-    const nextTheme = savedTheme && themePresets.some((option) => option.id === savedTheme) ? savedTheme : "default";
+    const nextTheme =
+      savedTheme && themePresets.some((option) => option.id === savedTheme)
+        ? savedTheme
+        : "island-daylight";
 
     setFontPreset(nextFont);
     setThemePreset(nextTheme);
@@ -92,10 +95,10 @@ export function FontSwitcher() {
   }, [themePreset]);
 
   return (
-    <div className="fixed bottom-3 right-3 z-[80] sm:bottom-4 sm:right-4">
+    <div className="fixed bottom-2.5 right-2.5 z-[80] sm:bottom-4 sm:right-4">
       <div
-        className={`font-switcher-shell rounded-[1rem] border border-white/8 p-1.5 backdrop-blur-md ${
-          open ? "w-[min(82vw,18rem)]" : "w-auto"
+        className={`font-switcher-shell rounded-[0.9rem] border border-white/8 p-1 backdrop-blur-md sm:rounded-[1rem] sm:p-1.5 ${
+          open ? "w-[min(78vw,16.5rem)] sm:w-[min(82vw,18rem)]" : "w-auto"
         }`}
       >
         <button
@@ -103,20 +106,20 @@ export function FontSwitcher() {
           onClick={() => setOpen((current) => !current)}
           aria-expanded={open}
           aria-label={open ? "Hide style options" : "Show style options"}
-          className={`flex items-center rounded-[0.85rem] text-left transition hover:bg-white/5 ${
-            open ? "w-full justify-between px-2.5 py-2" : "h-9 w-9 justify-center"
+          className={`flex items-center rounded-[0.78rem] text-left transition hover:bg-white/5 sm:rounded-[0.85rem] ${
+            open ? "w-full justify-between px-2 py-1.5 sm:px-2.5 sm:py-2" : "h-8 w-8 justify-center sm:h-9 sm:w-9"
           }`}
         >
           <div className={`flex items-center ${open ? "gap-2.5" : ""}`}>
-            <div className="flex h-7 w-7 items-center justify-center rounded-full border border-white/8 bg-white/5 text-[var(--accent)]">
-              <Palette className="h-3.5 w-3.5" />
+            <div className="flex h-6 w-6 items-center justify-center rounded-full border border-white/8 bg-white/5 text-[var(--accent)] sm:h-7 sm:w-7">
+              <Palette className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
             </div>
             {open ? (
               <div>
-                <div className="display-font text-[0.9rem] uppercase leading-none text-white/84">
+                <div className="display-font text-[0.82rem] uppercase leading-none text-white/84 sm:text-[0.9rem]">
                   {themePresets.find((option) => option.id === themePreset)?.label}
                 </div>
-                <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/34">
+                <div className="mt-0.5 text-[9px] uppercase tracking-[0.16em] text-white/34 sm:mt-1 sm:text-[10px] sm:tracking-[0.18em]">
                   Style lab
                 </div>
               </div>
@@ -130,19 +133,19 @@ export function FontSwitcher() {
         </button>
 
         {open ? (
-          <div className="mt-2 grid gap-3">
-            <div className="rounded-[0.95rem] border border-white/8 bg-white/[0.02] p-2.5">
-              <div className="mb-2 flex items-center gap-2 text-[9px] uppercase tracking-[0.18em] text-white/38">
+          <div className="mt-1.5 grid gap-2.5 sm:mt-2 sm:gap-3">
+            <div className="rounded-[0.85rem] border border-white/8 bg-white/[0.02] p-2 sm:rounded-[0.95rem] sm:p-2.5">
+              <div className="mb-1.5 flex items-center gap-2 text-[8px] uppercase tracking-[0.16em] text-white/38 sm:mb-2 sm:text-[9px] sm:tracking-[0.18em]">
                 <Palette className="h-3 w-3" />
                 Color theme
               </div>
-              <div className="grid gap-2">
+              <div className="grid gap-1.5 sm:gap-2">
                 {themePresets.map((option) => (
                   <button
                     key={option.id}
                     type="button"
                     onClick={() => setThemePreset(option.id)}
-                    className={`rounded-[0.95rem] border px-3 py-2 text-left transition ${
+                    className={`rounded-[0.85rem] border px-2.5 py-1.5 text-left transition sm:rounded-[0.95rem] sm:px-3 sm:py-2 ${
                       themePreset === option.id
                         ? "border-[var(--accent)]/40 bg-[linear-gradient(180deg,var(--accent-soft),rgba(255,255,255,0.04))]"
                         : "border-white/8 bg-white/[0.03] hover:bg-white/[0.06]"
@@ -150,18 +153,18 @@ export function FontSwitcher() {
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <div className="display-font text-[0.95rem] uppercase leading-none text-white">
+                        <div className="display-font text-[0.88rem] uppercase leading-none text-white sm:text-[0.95rem]">
                           {option.label}
                         </div>
-                        <div className="mt-1 text-[11px] leading-4.5 text-white/52">
+                        <div className="mt-0.5 text-[10px] leading-4 text-white/52 sm:mt-1 sm:text-[11px] sm:leading-4.5">
                           {option.blurb}
                         </div>
                       </div>
-                      <div className="flex gap-1.5 pt-0.5">
+                      <div className="flex gap-1 pt-0.5 sm:gap-1.5">
                         {option.swatches.map((swatch) => (
                           <span
                             key={swatch}
-                            className="h-3.5 w-3.5 rounded-full border border-white/12"
+                            className="h-3 w-3 rounded-full border border-white/12 sm:h-3.5 sm:w-3.5"
                             style={{ backgroundColor: swatch }}
                           />
                         ))}
@@ -172,27 +175,27 @@ export function FontSwitcher() {
               </div>
             </div>
 
-            <div className="rounded-[0.95rem] border border-white/8 bg-white/[0.02] p-2.5">
-              <div className="mb-2 flex items-center gap-2 text-[9px] uppercase tracking-[0.18em] text-white/38">
+            <div className="rounded-[0.85rem] border border-white/8 bg-white/[0.02] p-2 sm:rounded-[0.95rem] sm:p-2.5">
+              <div className="mb-1.5 flex items-center gap-2 text-[8px] uppercase tracking-[0.16em] text-white/38 sm:mb-2 sm:text-[9px] sm:tracking-[0.18em]">
                 <Type className="h-3 w-3" />
                 Font direction
               </div>
-              <div className="grid gap-2">
+              <div className="grid gap-1.5 sm:gap-2">
                 {fontPresets.map((option) => (
                   <button
                     key={option.id}
                     type="button"
                     onClick={() => setFontPreset(option.id)}
-                    className={`rounded-[0.95rem] border px-3 py-2 text-left transition ${
+                    className={`rounded-[0.85rem] border px-2.5 py-1.5 text-left transition sm:rounded-[0.95rem] sm:px-3 sm:py-2 ${
                       fontPreset === option.id
                         ? "border-[var(--accent)]/40 bg-[linear-gradient(180deg,var(--accent-soft),rgba(255,255,255,0.04))]"
                         : "border-white/8 bg-white/[0.03] hover:bg-white/[0.06]"
                     }`}
                   >
-                    <div className="display-font text-base uppercase leading-none text-white">
+                    <div className="display-font text-[0.95rem] uppercase leading-none text-white sm:text-base">
                       {option.label}
                     </div>
-                    <div className="mt-1 text-[11px] leading-4.5 text-white/52">
+                    <div className="mt-0.5 text-[10px] leading-4 text-white/52 sm:mt-1 sm:text-[11px] sm:leading-4.5">
                       {option.blurb}
                     </div>
                   </button>

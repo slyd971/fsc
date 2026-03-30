@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" data-theme="default" data-font-preset="default">
+    <html lang="fr" data-theme="island-daylight" data-font-preset="default">
       <body>
         <div className="site-shell">
           <Navbar navigation={siteData.navigation} brand={siteData.brand} />

@@ -11,7 +11,7 @@ export function PricingComparison({ packs }: PricingComparisonProps) {
     siteData.contact.methods.find((method) => method.label === "WhatsApp")?.href ?? "/#contact";
 
   return (
-    <section className="relative py-16 md:py-28">
+    <section className="relative py-16 md:py-28" id="book-now">
       <div className="section-shell">
         <Reveal>
           <div className="max-w-3xl">
