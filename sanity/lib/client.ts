@@ -1,13 +1,15 @@
 import { createClient } from 'next-sanity'
 
-import { apiVersion, dataset, projectId } from '../env'
+import { apiVersion, dataset, hasSanityEnv, projectId } from '../env'
 
-export const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: false,
-})
+export const client = hasSanityEnv
+  ? createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      useCdn: false,
+    })
+  : null
 
 export function getSanityFetchOptions(tags: string[] = []) {
   if (process.env.NODE_ENV !== 'production') {

@@ -25,11 +25,12 @@ export function ContactSection({
   content,
 }: {
   locale?: Locale;
-  content?: typeof siteData.contact;
+  content?: typeof siteData.contact & { backgroundWord?: string };
 }) {
   const contact = content ?? (locale === "en" ? { ...siteData.contact, ...siteDataEnSeed.contact } : siteData.contact);
   const copy = getUiCopy(locale).contact;
   const whatsappMethod = contact.methods.find((method) => method.label === "WhatsApp");
+  const backgroundWord = content?.backgroundWord ?? "Join";
 
   return (
     <section className="theme-border relative overflow-hidden border-t px-4 py-14 sm:px-8 sm:py-22 lg:px-12 lg:py-28" id="contact">
@@ -42,7 +43,7 @@ export function ContactSection({
         <Reveal>
           <div className="theme-border theme-surface-elevated relative overflow-hidden rounded-[2.2rem] border px-4 py-5 sm:rounded-[2.8rem] sm:px-8 sm:py-8 lg:px-10 lg:py-10">
             <div className="pointer-events-none absolute right-4 top-2 text-[clamp(3.2rem,9vw,7.4rem)] font-black uppercase tracking-[-0.08em] text-white/[0.08]">
-              Join
+              {backgroundWord}
             </div>
 
             <div className="grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:gap-12">

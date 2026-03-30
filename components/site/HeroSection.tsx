@@ -36,19 +36,35 @@ const heroChorusByLocale = {
   ],
 } as const;
 
+function getHeroTitleLines(title: string) {
+  const words = title.trim().split(/\s+/).filter(Boolean);
+
+  if (words.length <= 1) {
+    return [title];
+  }
+
+  return words;
+}
+
 export function HeroSection({
   locale = "fr",
   content,
 }: {
   locale?: Locale;
-  content?: typeof siteData.hero;
+  content?: typeof siteData.hero & { microLabel?: string; backgroundWord?: string; chorusItems?: string[] };
 }) {
-  const fallbackHero = locale === "en" ? siteDataEnSeed.hero : siteData.hero;
+  const fallbackHero = (locale === "en" ? siteDataEnSeed.hero : siteData.hero) as typeof siteData.hero & {
+    microLabel?: string;
+    backgroundWord?: string;
+    chorusItems?: string[];
+  };
   const hero = content ?? fallbackHero;
   const reduceMotion = useReducedMotion();
-  const heroChorus = heroChorusByLocale[locale];
+  const heroChorus = hero.chorusItems?.length ? hero.chorusItems : heroChorusByLocale[locale];
   const associationLabel =
-    locale === "en" ? "French association" : "Association française";
+    hero.microLabel ?? (locale === "en" ? "French association" : "Association française");
+  const heroTitleLines = getHeroTitleLines(hero.title);
+  const backgroundWord = hero.backgroundWord ?? "ROAD";
 
   return (
     <section className="hero-shell hero-luxury relative min-h-screen overflow-hidden bg-[var(--background)]">
@@ -88,14 +104,14 @@ export function HeroSection({
                 {associationLabel}
               </div>
               <h1 className="hero-artist-title theme-text-strong relative z-10 max-w-[10ch] text-[clamp(2.9rem,10.2vw,8.2rem)]">
-                FRENCH
-                <br />
-                SOCA
-                <br />
-                CREW
+                {heroTitleLines.map((line, index) => (
+                  <span key={`${line}-${index}`} className="block">
+                    {line}
+                  </span>
+                ))}
               </h1>
               <div className="pointer-events-none absolute -right-[3vw] top-[12%] hidden text-[clamp(4.5rem,11vw,9rem)] font-black uppercase tracking-[-0.08em] text-white/[0.08] xl:block">
-                ROAD
+                {backgroundWord}
               </div>
             </motion.div>
           </div>

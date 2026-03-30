@@ -7,17 +7,25 @@ import { galleryItemsQuery, pageBySlugQuery, siteSettingsQuery, testimonialsQuer
 import type { CmsGalleryItem, CmsSiteSettings, CmsTestimonial, CmsTrip } from "@/sanity/lib/types";
 
 type HomePageContent = {
-  hero: typeof siteData.hero;
-  about: typeof siteData.about;
+  hero: typeof siteData.hero & { microLabel?: string; backgroundWord?: string; chorusItems?: string[] };
+  about: typeof siteData.about & { mediaNote?: string; sideKicker?: string; sideTitle?: string };
   video: typeof siteData.video;
-  contact: typeof siteData.contact;
+  contact: typeof siteData.contact & { backgroundWord?: string };
+  testimonials: {
+    backgroundWord?: string;
+  };
 };
 
 type CmsPageBlock = {
   _type?: string;
+  microLabel?: Partial<Record<Locale, string>>;
+  backgroundWord?: Partial<Record<Locale, string>>;
   eyebrow?: Partial<Record<Locale, string>>;
   title?: Partial<Record<Locale, string>>;
   body?: Partial<Record<Locale, string>>;
+  mediaNote?: Partial<Record<Locale, string>>;
+  sideKicker?: Partial<Record<Locale, string>>;
+  sideTitle?: Partial<Record<Locale, string>>;
   media?: {
     imageUrl?: string;
     alt?: Partial<Record<Locale, string>>;
@@ -39,6 +47,7 @@ type CmsPageBlock = {
     label?: Partial<Record<Locale, string>>;
     icon?: string;
   }>;
+  chorusItems?: Partial<Record<Locale, string>>[];
   items?: Array<{
     imageUrl?: string;
     alt?: Partial<Record<Locale, string>>;
@@ -115,11 +124,17 @@ function fallbackHome(locale: Locale): HomePageContent {
         secondaryCta: { ...siteDataEnSeed.hero.secondaryCta },
         imageBadge: siteData.hero.imageBadge,
         imageCaption: siteData.hero.imageCaption,
+        microLabel: "French association",
+        backgroundWord: "ROAD",
+        chorusItems: ["Soca movement", "Carnival emotion", "Diaspora energy", "Premium roads"],
       },
       about: {
         ...siteData.about,
         ...siteDataEnSeed.about,
         paragraphs: [...siteDataEnSeed.about.paragraphs],
+        mediaNote: "Carnival logistics, warmth, music, community and road energy held together as one atmosphere.",
+        sideKicker: "Not just a booking",
+        sideTitle: "A crew-first way to move.",
         highlights: [
           {
             title: "Community",
@@ -145,15 +160,34 @@ function fallbackHome(locale: Locale): HomePageContent {
         ...siteDataEnSeed.contact,
         methods: siteDataEnSeed.contact.methods.map((method) => ({ ...method })),
         formInterests: [...siteDataEnSeed.contact.formInterests],
+        backgroundWord: "Join",
+      },
+      testimonials: {
+        backgroundWord: "FSC",
       },
     };
   }
 
   return {
-    hero: siteData.hero,
-    about: siteData.about,
+    hero: {
+      ...siteData.hero,
+      backgroundWord: "ROAD",
+      chorusItems: ["Mouvement soca", "Émotion carnaval", "Énergie diaspora", "Roads premium"],
+    },
+    about: {
+      ...siteData.about,
+      mediaNote: "Logistique carnaval, chaleur, musique, communauté et énergie de road tenues ensemble dans une seule atmosphère.",
+      sideKicker: "Pas juste une réservation",
+      sideTitle: "Une façon crew-first d'avancer.",
+    },
     video: siteData.video,
-    contact: siteData.contact,
+    contact: {
+      ...siteData.contact,
+      backgroundWord: "Join",
+    },
+    testimonials: {
+      backgroundWord: "FSC",
+    },
   };
 }
 
@@ -177,6 +211,10 @@ async function safeFetch<T>(
   params: Record<string, unknown> = {},
   tags: string[] = [],
 ): Promise<T | null> {
+  if (!client) {
+    return null;
+  }
+
   try {
     return await client.fetch<T>(query, params, getSanityFetchOptions(tags));
   } catch {
@@ -225,6 +263,7 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
   const heroBlock = getBlock(page, "heroBlock");
   const aboutBlock = getBlock(page, "introBlock");
   const videoBlock = getBlock(page, "videoBlock");
+  const testimonialsBlock = getBlock(page, "testimonialsBlock");
   const contactBlock = getBlock(page, "contactBlock");
 
   const aboutParagraphs = splitParagraphs(
@@ -240,6 +279,12 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
       eyebrow: localize(heroBlock?.eyebrow, locale, fallback.hero.eyebrow),
       title: localize(heroBlock?.title, locale, fallback.hero.title),
       subtitle: localize(heroBlock?.body, locale, fallback.hero.subtitle),
+      microLabel: localize(
+        heroBlock?.microLabel,
+        locale,
+        fallback.hero.microLabel ?? (locale === "en" ? "French association" : "Association française"),
+      ),
+      backgroundWord: localize(heroBlock?.backgroundWord, locale, fallback.hero.backgroundWord ?? "ROAD"),
       image: heroBlock?.media?.imageUrl ?? fallback.hero.image,
       imageAlt: localize(heroBlock?.media?.alt, locale, fallback.hero.imageAlt),
       primaryCta: {
@@ -258,6 +303,12 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
               icon: (stat.icon ?? fallback.hero.stats[index]?.icon ?? "sparkles") as typeof fallback.hero.stats[number]["icon"],
             }))
           : fallback.hero.stats,
+      chorusItems:
+        heroBlock?.chorusItems?.length
+          ? heroBlock.chorusItems.map((item, index) =>
+              localize(item, locale, fallback.hero.chorusItems?.[index] ?? `Item ${index + 1}`),
+            )
+          : fallback.hero.chorusItems,
     },
     about: {
       ...fallback.about,
@@ -265,6 +316,9 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
       title: localize(aboutBlock?.title, locale, fallback.about.title),
       intro: aboutIntro ?? fallback.about.intro,
       paragraphs: aboutRest.length ? aboutRest : fallback.about.paragraphs,
+      mediaNote: localize(aboutBlock?.mediaNote, locale, fallback.about.mediaNote ?? ""),
+      sideKicker: localize(aboutBlock?.sideKicker, locale, fallback.about.sideKicker ?? ""),
+      sideTitle: localize(aboutBlock?.sideTitle, locale, fallback.about.sideTitle ?? ""),
     },
     video: {
       ...fallback.video,
@@ -287,6 +341,10 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
       ...fallback.contact,
       title: localize(contactBlock?.title, locale, fallback.contact.title),
       description: localize(contactBlock?.body, locale, fallback.contact.description),
+      backgroundWord: localize(contactBlock?.backgroundWord, locale, fallback.contact.backgroundWord ?? "Join"),
+    },
+    testimonials: {
+      backgroundWord: localize(testimonialsBlock?.backgroundWord, locale, fallback.testimonials.backgroundWord ?? "FSC"),
     },
   };
 }

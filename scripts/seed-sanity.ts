@@ -139,6 +139,8 @@ async function seed() {
       {
         _key: "hero",
         _type: "heroBlock",
+        microLabel: ls("Association française", "French association"),
+        backgroundWord: ls("ROAD", "ROAD"),
         eyebrow: ls(siteData.hero.eyebrow, siteDataEnSeed.hero.eyebrow),
         title: ls(siteData.hero.title, siteDataEnSeed.hero.title),
         body: lt(siteData.hero.subtitle, siteDataEnSeed.hero.subtitle),
@@ -162,6 +164,12 @@ async function seed() {
           label: ls(stat.label, siteDataEnSeed.hero.stats[index]?.label ?? stat.label),
           icon: stat.icon,
         })),
+        chorusItems: [
+          ls("Mouvement soca", "Soca movement"),
+          ls("Émotion carnaval", "Carnival emotion"),
+          ls("Énergie diaspora", "Diaspora energy"),
+          ls("Roads premium", "Premium roads"),
+        ],
       },
       {
         _key: "about",
@@ -169,6 +177,12 @@ async function seed() {
         eyebrow: ls(siteData.about.eyebrow, siteDataEnSeed.about.eyebrow),
         title: ls(siteData.about.title, siteDataEnSeed.about.title),
         body: lt([siteData.about.intro, ...siteData.about.paragraphs].join("\n\n"), [siteDataEnSeed.about.intro, ...siteDataEnSeed.about.paragraphs].join("\n\n")),
+        mediaNote: lt(
+          "Logistique carnaval, chaleur, musique, communauté et énergie de road tenues ensemble dans une seule atmosphère.",
+          "Carnival logistics, warmth, music, community and road energy held together as one atmosphere.",
+        ),
+        sideKicker: ls("Pas juste une réservation", "Not just a booking"),
+        sideTitle: ls("Une façon crew-first d'avancer.", "A crew-first way to move."),
       },
       {
         _key: "video",
@@ -230,6 +244,7 @@ async function seed() {
           "La confiance fonctionne mieux quand elle paraît vécue. Ce ne sont pas des avis trop polis, mais des fragments de ce que l'on ressent vraiment sur la road quand on a bougé avec le crew.",
           "Trust lands best when it feels lived in. These are not polished reviews, but fragments of what the road actually feels like once people have moved with the crew.",
         ),
+        backgroundWord: ls("FSC", "FSC"),
         items: siteData.testimonials.map((_, index) => ref(`testimonial.${index + 1}`)),
       },
       {
@@ -238,6 +253,7 @@ async function seed() {
         eyebrow: ls("Dernier appel", "Final call"),
         title: ls(siteData.contact.title, siteDataEnSeed.contact.title),
         body: lt(siteData.contact.description, siteDataEnSeed.contact.description),
+        backgroundWord: ls("Join", "Join"),
         primaryCta: {
           _type: "cta",
           label: ls("Réserver sur WhatsApp", "Book on WhatsApp"),

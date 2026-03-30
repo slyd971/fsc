@@ -22,7 +22,7 @@ export default async function HomePageEn() {
       <VideoSection locale="en" content={homeContent.video} />
       <DestinationPreviewSection locale="en" destinations={destinations} />
       <GalleryPreviewSection locale="en" items={galleryItems} />
-      <TestimonialsSection items={testimonials} locale="en" />
+      <TestimonialsSection items={testimonials} locale="en" backgroundWord={homeContent.testimonials.backgroundWord} />
       <ContactSection locale="en" content={homeContent.contact} />
     </main>
   );

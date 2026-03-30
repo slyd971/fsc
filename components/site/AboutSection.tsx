@@ -29,12 +29,16 @@ export function AboutSection({
   content,
 }: {
   locale?: Locale;
-  content?: typeof siteData.about;
+  content?: typeof siteData.about & { mediaNote?: string; sideKicker?: string; sideTitle?: string };
 }) {
-  const fallbackAbout = locale === "en"
+  const fallbackAbout: typeof siteData.about & { mediaNote?: string; sideKicker?: string; sideTitle?: string } = locale === "en"
     ? {
-        ...siteData.about,
-        ...siteDataEnSeed.about,
+      ...siteData.about,
+      ...siteDataEnSeed.about,
+      paragraphs: [...siteDataEnSeed.about.paragraphs],
+        mediaNote: imageNoteByLocale.en,
+        sideKicker: sideNoteByLocale.en.kicker,
+        sideTitle: sideNoteByLocale.en.title,
         highlights: [
           {
             title: "Community",
@@ -50,9 +54,18 @@ export function AboutSection({
           },
         ],
       }
-    : siteData.about;
+    : {
+        ...siteData.about,
+        mediaNote: imageNoteByLocale.fr,
+        sideKicker: sideNoteByLocale.fr.kicker,
+        sideTitle: sideNoteByLocale.fr.title,
+      };
   const about = content ?? fallbackAbout;
-  const sideNote = sideNoteByLocale[locale];
+  const sideNote = {
+    kicker: content?.sideKicker ?? fallbackAbout.sideKicker ?? sideNoteByLocale[locale].kicker,
+    title: content?.sideTitle ?? fallbackAbout.sideTitle ?? sideNoteByLocale[locale].title,
+  };
+  const mediaNote = content?.mediaNote ?? fallbackAbout.mediaNote ?? imageNoteByLocale[locale];
 
   return (
     <section className="theme-border section-about relative overflow-hidden border-t px-4 py-16 sm:px-8 sm:py-22 lg:px-12 lg:py-28" id="about">
@@ -74,7 +87,7 @@ export function AboutSection({
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.06),rgba(0,0,0,0.76))]" />
                 <div className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
                   <div className="text-muted max-w-[15rem] border-t border-[var(--line-strong)] pt-3 text-[11px] uppercase tracking-[0.28em]">
-                    {imageNoteByLocale[locale]}
+                    {mediaNote}
                   </div>
                 </div>
               </div>

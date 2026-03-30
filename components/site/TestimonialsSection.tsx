@@ -10,9 +10,11 @@ import { getUiCopy } from "@/lib/ui-copy";
 export function TestimonialsSection({
   items = siteData.testimonials,
   locale = "fr",
+  backgroundWord = "FSC",
 }: {
   items?: Testimonial[];
   locale?: Locale;
+  backgroundWord?: string;
 }) {
   const copy = getUiCopy(locale).testimonials;
   const [activeIndex, setActiveIndex] = useState(0);
@@ -98,7 +100,7 @@ export function TestimonialsSection({
 
             <div className="theme-border theme-surface-elevated relative overflow-hidden rounded-[2rem] border p-4 sm:rounded-[2.4rem] sm:p-7 lg:p-8">
               <div className="pointer-events-none absolute right-4 top-0 text-[clamp(4rem,10vw,8rem)] font-black uppercase tracking-[-0.08em] text-white/[0.05]">
-                FSC
+                {backgroundWord}
               </div>
               <div className="pointer-events-none absolute bottom-0 right-0 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(214,185,139,0.16),transparent_68%)] blur-2xl" />
 

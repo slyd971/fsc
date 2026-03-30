@@ -10,6 +10,7 @@ export default defineType({
     defineField({ name: "eyebrow", type: "localizedString", fieldset: "content" }),
     defineField({ name: "title", type: "localizedString", fieldset: "content" }),
     defineField({ name: "body", type: "localizedText", fieldset: "content" }),
+    defineField({ name: "backgroundWord", title: "Mot décoratif de fond", type: "localizedString", fieldset: "content" }),
     defineField({ name: "primaryCta", type: "cta", fieldset: "content" }),
     defineField({ name: "secondaryCta", type: "cta", fieldset: "content" }),
   ],

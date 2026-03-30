@@ -10,6 +10,9 @@ export default defineType({
     defineField({ name: "eyebrow", type: "localizedString", fieldset: "content" }),
     defineField({ name: "title", type: "localizedString", fieldset: "content" }),
     defineField({ name: "body", type: "localizedText", fieldset: "content" }),
+    defineField({ name: "mediaNote", title: "Note sur l'image", type: "localizedText", fieldset: "content" }),
+    defineField({ name: "sideKicker", title: "Petit texte latéral", type: "localizedString", fieldset: "content" }),
+    defineField({ name: "sideTitle", title: "Titre latéral", type: "localizedString", fieldset: "content" }),
     defineField({ name: "media", type: "mediaItem", fieldset: "media" }),
   ],
 });

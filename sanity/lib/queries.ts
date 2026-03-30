@@ -121,7 +121,20 @@ export const pageBySlugQuery = groq`
     slug,
     seo,
     blocks[]{
-      ...,
+      _type,
+      _key,
+      microLabel,
+      backgroundWord,
+      eyebrow,
+      title,
+      body,
+      mediaNote,
+      sideKicker,
+      sideTitle,
+      media{
+        alt,
+        imageUrl
+      },
       cta{
         label,
         href,
@@ -137,8 +150,21 @@ export const pageBySlugQuery = groq`
         href,
         variant
       },
+      stats[]{
+        value,
+        label,
+        icon
+      },
+      chorusItems,
       items[]{
         ...,
+        alt,
+        imageUrl,
+        caption,
+        image{
+          alt,
+          imageUrl
+        },
         destination->{
           _id,
           title,
