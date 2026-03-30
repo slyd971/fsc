@@ -59,10 +59,10 @@ export function GalleryPreviewSection() {
             <div className="flex flex-col gap-3 sm:gap-4">
               <div className="editorial-panel overflow-hidden p-4 sm:p-6">
                 <div className="text-[9px] uppercase tracking-[0.24em] text-[var(--accent)] sm:text-[10px] sm:tracking-[0.3em]">
-                  Curated note
+                  Living archive
                 </div>
                 <p className="text-muted mt-3 max-w-sm text-xs leading-6 sm:mt-4 sm:text-sm sm:leading-7">
-                  Not every moment needs the same weight. Some frames carry the city. Some carry the people. Some carry what happens after the road.
+                  Some frames carry the city. Some carry the people. Some hold the exact feeling that makes a crew want to run it back.
                 </p>
               </div>
 
@@ -117,7 +117,7 @@ export function GalleryPreviewSection() {
                         </div>
                       </div>
                       <div className="text-muted-soft text-[9px] uppercase tracking-[0.18em] sm:text-[10px] sm:tracking-[0.22em]">
-                        Archive fragment
+                        Crew fragment
                       </div>
                     </div>
                   </div>
@@ -127,7 +127,7 @@ export function GalleryPreviewSection() {
 
             <div className="theme-border theme-panel-soft relative overflow-hidden rounded-[2rem] border p-2.5 sm:rounded-[2.6rem] sm:p-4">
               <div className="theme-border theme-panel-dark text-muted absolute left-4 top-4 z-20 rounded-full border px-3 py-1.5 text-[9px] uppercase tracking-[0.24em] backdrop-blur-md sm:left-6 sm:top-6 sm:px-4 sm:py-2 sm:text-[10px] sm:tracking-[0.28em]">
-                Photo story
+                Featured frame
               </div>
 
               <div className="media-cut relative min-h-[24rem] overflow-hidden rounded-[1.7rem] sm:min-h-[38rem] sm:rounded-[2.1rem] lg:min-h-[46rem]">
@@ -165,17 +165,17 @@ export function GalleryPreviewSection() {
                       {activeImage.title}
                     </div>
                     <p className="text-muted mt-3 max-w-[30ch] text-xs leading-5 sm:mt-4 sm:max-w-xl sm:text-base sm:leading-7">
-                      A crew frame with enough atmosphere to keep the trip alive long after the road clears.
+                      A living memory from the road, held with enough atmosphere to make the destination feel desirable all over again.
                     </p>
                   </div>
                 </div>
 
                 <div className="theme-border theme-panel-dark absolute right-5 top-20 z-20 hidden w-44 rounded-[1.5rem] border p-4 backdrop-blur-md lg:block">
                   <div className="text-muted-soft text-[9px] uppercase tracking-[0.24em]">
-                    Mood index
+                    Atmosphere
                   </div>
                   <div className="display-font theme-text-strong mt-3 text-[1.2rem] uppercase leading-none">
-                    Warm cities. Late energy. Shared recall.
+                    Warm cities. Night pull. Shared recall.
                   </div>
                 </div>
               </div>

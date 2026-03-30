@@ -28,14 +28,14 @@ export function TestimonialsSection() {
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-[0.74fr_1.26fr] lg:items-end">
             <div>
-              <div className="editorial-kicker">Testimonials</div>
+              <div className="editorial-kicker">Crew voices</div>
               <h2 className="section-title mt-4 max-w-[11ch] text-[clamp(1.7rem,6.6vw,4rem)] leading-[0.88]">
                 <span className="block whitespace-nowrap">Echoes from</span>
                 <span className="block whitespace-nowrap">the road.</span>
               </h2>
             </div>
             <p className="text-muted max-w-2xl text-sm leading-6 sm:text-base sm:leading-7 md:text-lg md:leading-8">
-              Social proof should feel embodied. Not ratings, not startup praise, but real traces of how the crew experience lands on people once they have actually lived it.
+              Trust lands best when it feels lived in. These are not polished reviews, but fragments of what the road actually feels like once people have moved with the crew.
             </p>
           </div>
         </Reveal>
@@ -96,7 +96,7 @@ export function TestimonialsSection() {
                 >
                   <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
                     <div className="text-[9px] uppercase tracking-[0.22em] text-[var(--accent)] sm:text-[10px] sm:tracking-[0.3em]">
-                      Featured voice
+                      Road voice
                     </div>
                     <div className="h-px w-8 bg-[var(--line-strong)] sm:w-12" />
                     <div className="text-muted-soft text-[9px] uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.26em]">

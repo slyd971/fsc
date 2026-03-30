@@ -168,23 +168,23 @@ export const siteData = {
     eyebrow: "Crew atmosphere",
     title: "See the vibe.",
     description:
-      "A rolling glimpse of the road: arrivals, costume color, late-night recall and the kind of moving archive that makes the next trip feel impossible to miss.",
+      "Road arrivals, costume colour, late-night recall and the kind of shared energy that turns a trip into something people talk about long after the weekend ends.",
     videos: [
       {
-        title: "Rotterdam road file",
+        title: "Rotterdam arrival",
         poster: "/Rotterdam/fsc-rotterdam-road.jpg",
       },
       {
-        title: "London afterglow",
+        title: "London road call",
         poster: "/London/nhc2.jpg",
       },
       {
-        title: "Crew memory tape",
+        title: "Crew afterglow",
         poster: "/fsc-crew-1.jpg",
       },
     ],
     cta: {
-      label: "See on Instagram",
+      label: "Watch the energy",
       href: "https://www.instagram.com/frenchsocacrew/",
     },
   },
@@ -220,7 +220,7 @@ export const siteData = {
   gallery: {
     heroTitle: "Moments that stay.",
     heroDescription:
-      "A modular visual archive for future real content, built to showcase road moments, crew warmth and destination energy with editorial rhythm.",
+      "A visual archive of road moments, crew warmth and destination energy, curated with the rhythm and atmosphere the brand deserves.",
     items: [
       {
         id: "trip-1",
@@ -329,7 +329,7 @@ export const siteData = {
   contact: {
     title: "Plan your next road.",
     description:
-      "Reach out for bookings, crew questions, destination details or the next road you want to secure with us.",
+      "Reach out for bookings, destination details, crew questions or the next road you want to secure with us.",
     methods: [
       {
         label: "Instagram",
@@ -380,12 +380,12 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
     introParagraphs: [
       "Rotterdam Carnival is the kind of destination that feels instantly alive. The city offers movement, diversity and a street energy that matches the excitement of a carnival weekend.",
       "With French Soca Crew, the trip becomes easier to enjoy. We think through the pacing, the social atmosphere and the practical details so you can focus on the music, the memories and the people around you.",
-      "This page is structured as a premium placeholder architecture, ready to receive final event timings, official venue names and travel inclusions when the campaign assets are locked.",
+      "The full rhythm of the weekend is shared directly with the crew. Final timing, meeting points and access details are confirmed as the road approaches so your trip stays clear and easy to follow.",
     ],
     experiences: [
       {
         title: "Arrival",
-        date: "Friday · Date coming soon",
+        date: "Friday · Arrival day",
         description:
           "A smooth touch-down block for arrivals, check-in flow and the first shared meet-up before the city starts moving at night.",
         image:
@@ -394,7 +394,7 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
       },
       {
         title: "Carnival Day",
-        date: "Saturday · Date coming soon",
+        date: "Saturday · Main road day",
         description:
           "The heart of the weekend: parade atmosphere, city motion and curated gathering points that keep the crew connected through the day.",
         image:
@@ -403,9 +403,9 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
       },
       {
         title: "After Party",
-        date: "Saturday night · Date coming soon",
+        date: "Saturday night · Night session",
         description:
-          "A placeholder block for featured event access, late-night links and premium options once the official party calendar is released.",
+          "A late-night extension of the road with selected links, crew momentum and premium options shaped around the strongest energy of the weekend.",
         image:
           "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?auto=format&fit=crop&w=1200&q=80",
         includes: ["Party curation", "Optional add-ons", "Shared crew atmosphere"],
@@ -414,14 +414,14 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
     packs: [
       {
         name: "Basic Pack",
-        price: "From €XXX",
+        price: "Details on request",
         pitch: "A clean, accessible way to join the road with crew support.",
         included: ["Trip guidance", "Core meetup access", "Communication group"],
         notIncluded: ["Premium lodging", "Private transfers"],
       },
       {
         name: "Experience Pack",
-        price: "From €XXX",
+        price: "Details on request",
         pitch: "The balanced option for travelers who want comfort and atmosphere.",
         included: ["Enhanced coordination", "Selected event access", "Crew extras"],
         notIncluded: ["Full luxury upgrades"],
@@ -429,14 +429,14 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
       },
       {
         name: "Premium Pack",
-        price: "From €XXX",
+        price: "Details on request",
         pitch: "More comfort, more support and a more elevated destination flow.",
         included: ["Priority planning", "Premium stay option", "Curated moments"],
         notIncluded: ["Flights"],
       },
       {
         name: "Di Road Pack",
-        price: "From €XXX",
+        price: "Details on request",
         pitch: "Built around the road energy for travelers who want the full carnival feeling.",
         included: ["Road-focused planning", "Crew movement support", "Event-driven pacing"],
         notIncluded: ["Luxury room upgrades"],
@@ -454,12 +454,12 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
     introParagraphs: [
       "London Carnival is not just an event. It is a cultural heartbeat. The sound, the streets and the people give the experience a density and emotion that makes every moment feel significant.",
       "French Soca Crew turns that scale into something more fluid. We help shape a travel experience that feels exciting without feeling chaotic, preserving both freedom and support.",
-      "For now, this destination uses polished placeholder storytelling and modular blocks so the final campaign can be updated quickly when the official program, visuals and pack details are available.",
+      "The program is shaped around the real pulse of the road. Final timing, featured moments and pack details are shared directly with the crew so everyone arrives with the right rhythm and expectations.",
     ],
     experiences: [
       {
         title: "Warm-Up",
-        date: "Saturday · Date coming soon",
+        date: "Saturday · Warm-up day",
         description:
           "An arrival sequence for early city exploration, crew meetups and pre-carnival energy before the main road moments begin.",
         image:
@@ -468,18 +468,18 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
       },
       {
         title: "Road Day",
-        date: "Sunday / Monday · Dates coming soon",
+        date: "Sunday / Monday · Main road days",
         description:
-          "A reusable block for the main carnival days, designed for final route details, meetup points and curated participation guidance.",
+          "The main carnival stretch, built around route flow, meetup points and the kind of live coordination that lets the crew stay together without losing the freedom of the road.",
         image:
           "https://images.unsplash.com/photo-1508979828023-2ab1d1f5f3d8?auto=format&fit=crop&w=1200&q=80",
         includes: ["Road strategy", "Meeting points", "Live coordination"],
       },
       {
         title: "Night Session",
-        date: "Evenings · Dates coming soon",
+        date: "Evenings · After-hours rhythm",
         description:
-          "A premium placeholder for selected parties, late sessions and extra experiences around the core carnival schedule.",
+          "Selected parties, late sessions and extra links that extend the experience beyond the daytime road and keep the momentum alive after dark.",
         image:
           "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
         includes: ["Event recommendations", "Optional party access", "Crew follow-through"],
@@ -488,14 +488,14 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
     packs: [
       {
         name: "Basic Pack",
-        price: "From €XXX",
+        price: "Details on request",
         pitch: "An accessible entry point for joining the London road with guidance.",
         included: ["Core trip communication", "Meetup access", "Planning notes"],
         notIncluded: ["Enhanced comfort options"],
       },
       {
         name: "Experience Pack",
-        price: "From €XXX",
+        price: "Details on request",
         pitch: "A strong all-round format balancing logistics, vibe and key access.",
         included: ["Selected extras", "Structured coordination", "Crew assistance"],
         notIncluded: ["Premium transport"],
@@ -503,14 +503,14 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
       },
       {
         name: "Premium Pack",
-        price: "From €XXX",
+        price: "Details on request",
         pitch: "For travelers who want the destination handled with more ease and style.",
         included: ["Elevated support", "Comfort-first options", "Priority guidance"],
         notIncluded: ["Flights"],
       },
       {
         name: "Di Road Pack",
-        price: "From €XXX",
+        price: "Details on request",
         pitch: "A road-centric option focused on maximizing carnival immersion.",
         included: ["Road-first planning", "High-energy schedule", "Crew lead flow"],
         notIncluded: ["Hotel upgrades"],

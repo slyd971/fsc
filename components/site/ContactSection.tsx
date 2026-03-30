@@ -43,6 +43,9 @@ export function ContactSection() {
                 <p className="text-muted mt-4 max-w-xl text-sm leading-6 sm:mt-5 sm:text-base sm:leading-7 md:text-lg md:leading-8">
                   {contact.description} This is where a trip turns into a crew move, a booking becomes a plan and the next memory starts taking shape.
                 </p>
+                <div className="theme-border theme-panel-dark text-muted mt-5 inline-flex rounded-full border px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] backdrop-blur-sm">
+                  Direct response from the crew
+                </div>
 
                 <div className="mt-6 flex flex-wrap gap-2.5 sm:mt-8 sm:gap-3">
                   {whatsappMethod ? (
