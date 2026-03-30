@@ -10,6 +10,16 @@ import { siteDataEnSeed } from "@/data/site-en-seed";
 import type { Locale } from "@/lib/i18n";
 import { getUiCopy } from "@/lib/ui-copy";
 
+function getSectionTitleLines(title: string) {
+  const words = title.trim().split(/\s+/).filter(Boolean);
+
+  if (words.length <= 1) {
+    return [title];
+  }
+
+  return [words.slice(0, -1).join(" "), words.slice(-1)[0]];
+}
+
 export function VideoSection({
   locale = "fr",
   content,
@@ -19,6 +29,7 @@ export function VideoSection({
 }) {
   const video = content ?? (locale === "en" ? siteDataEnSeed.video : siteData.video);
   const copy = getUiCopy(locale).video;
+  const titleLines = getSectionTitleLines(video.title);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -44,8 +55,11 @@ export function VideoSection({
             <div className="max-w-md">
               <div className="editorial-kicker">{video.eyebrow}</div>
               <h2 className="section-title mt-4 max-w-[9ch] text-[clamp(1.85rem,7.2vw,4.8rem)] leading-[0.88]">
-                <span className="block whitespace-nowrap">{copy.titleLine1}</span>
-                <span className="block whitespace-nowrap">{copy.titleLine2}</span>
+                {titleLines.map((line) => (
+                  <span key={line} className="block whitespace-nowrap">
+                    {line}
+                  </span>
+                ))}
               </h2>
             </div>
 

@@ -10,29 +10,57 @@ import type { Locale } from "@/lib/i18n";
 import { withLocalePath } from "@/lib/i18n";
 import { getUiCopy } from "@/lib/ui-copy";
 
+function getSectionTitleLines(title: string) {
+  const words = title.trim().split(/\s+/).filter(Boolean);
+
+  if (words.length <= 1) {
+    return [title];
+  }
+
+  return [words.slice(0, -1).join(" "), words.slice(-1)[0]];
+}
+
 export function GalleryPreviewSection({
   locale = "fr",
   items = siteData.gallery.items,
+  content,
 }: {
   locale?: Locale;
   items?: GalleryItem[];
+  content?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    cta: { label: string; href: string };
+  };
 }) {
   const copy = getUiCopy(locale).galleryPreview;
-  const previewImages = items.filter((item) =>
-    ["carnival-1", "rotterdam-1", "crew-1", "party-1"].includes(item.id)
-  );
+  const section = content ?? {
+    eyebrow: copy.kicker,
+    title: `${copy.titleLine1} ${copy.titleLine2}`,
+    description: copy.description,
+    cta: { label: copy.cta, href: "/gallery" },
+  };
+  const titleLines = getSectionTitleLines(section.title);
+  const featuredIds = ["carnival-1", "rotterdam-1", "crew-1", "party-1"];
+  const previewImages = items.filter((item) => featuredIds.includes(item.id));
+  const curatedImages = previewImages.length >= 4 ? previewImages : items.slice(0, 4);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % previewImages.length);
+      setActiveIndex((current) => (current + 1) % curatedImages.length);
     }, 3800);
 
     return () => window.clearInterval(interval);
-  }, [previewImages.length]);
+  }, [curatedImages.length]);
 
-  const activeImage = previewImages[activeIndex];
-  const sideImages = previewImages.filter((_, index) => index !== activeIndex).slice(0, 3);
+  const activeImage = curatedImages[activeIndex];
+  const sideImages = curatedImages.filter((_, index) => index !== activeIndex).slice(0, 3);
+
+  if (!activeImage) {
+    return null;
+  }
 
   return (
     <section id="gallery-preview" className="theme-border relative overflow-hidden border-t px-4 py-14 sm:px-8 sm:py-22 lg:px-12 lg:py-28">
@@ -45,19 +73,22 @@ export function GalleryPreviewSection({
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
             <div>
-              <div className="editorial-kicker">{copy.kicker}</div>
+              <div className="editorial-kicker">{section.eyebrow}</div>
               <h2 className="section-title mt-4 max-w-[10ch] text-[clamp(1.85rem,7.2vw,4.5rem)] leading-[0.88]">
-                <span className="block whitespace-nowrap">{copy.titleLine1}</span>
-                <span className="block whitespace-nowrap">{copy.titleLine2}</span>
+                {titleLines.map((line) => (
+                  <span key={line} className="block whitespace-nowrap">
+                    {line}
+                  </span>
+                ))}
               </h2>
             </div>
 
             <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
               <p className="text-muted max-w-2xl text-sm leading-6 sm:text-base sm:leading-7 md:text-lg md:leading-8">
-                {copy.description}
+                {section.description}
               </p>
-              <Link href={withLocalePath("/gallery", locale)} className="button-editorial button-editorial-secondary premium-sheen">
-                {copy.cta}
+              <Link href={withLocalePath(section.cta.href, locale)} className="button-editorial button-editorial-secondary premium-sheen">
+                {section.cta.label}
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
@@ -81,7 +112,7 @@ export function GalleryPreviewSection({
                   <button
                     key={image.id}
                     type="button"
-                    onClick={() => setActiveIndex(previewImages.findIndex((item) => item.id === image.id))}
+                    onClick={() => setActiveIndex(curatedImages.findIndex((item) => item.id === image.id))}
                     className={`group overflow-hidden rounded-[1.45rem] border text-left transition sm:rounded-[1.8rem] ${
                       activeImage.id === image.id
                         ? "border-[var(--accent)]/30 bg-white/[0.06]"
@@ -108,7 +139,7 @@ export function GalleryPreviewSection({
               {sideImages[2] ? (
                 <button
                   type="button"
-                  onClick={() => setActiveIndex(previewImages.findIndex((item) => item.id === sideImages[2].id))}
+                  onClick={() => setActiveIndex(curatedImages.findIndex((item) => item.id === sideImages[2].id))}
                   className="theme-border theme-panel-soft group overflow-hidden rounded-[1.7rem] border text-left sm:rounded-[2rem]"
                 >
                   <div className="grid grid-cols-[0.9fr_1.1fr] items-stretch">
@@ -166,9 +197,9 @@ export function GalleryPreviewSection({
                       <div className="text-[9px] uppercase tracking-[0.22em] text-[var(--accent)] sm:text-[11px] sm:tracking-[0.3em]">
                         {activeImage.category}
                       </div>
-                    <div className="h-px w-8 bg-[var(--line-strong)] sm:w-12" />
-                    <div className="text-muted-soft text-[9px] uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.28em]">
-                        0{activeIndex + 1} / 0{previewImages.length}
+                      <div className="h-px w-8 bg-[var(--line-strong)] sm:w-12" />
+                      <div className="text-muted-soft text-[9px] uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.28em]">
+                        0{activeIndex + 1} / 0{curatedImages.length}
                       </div>
                     </div>
                     <div className="display-font theme-text-strong mt-3 max-w-[8ch] text-[clamp(2rem,8.5vw,5rem)] uppercase leading-[0.88] sm:mt-4 sm:max-w-[9ch]">

@@ -20,9 +20,14 @@ export default async function HomePageEn() {
       <HeroSection locale="en" content={homeContent.hero} />
       <AboutSection locale="en" content={homeContent.about} />
       <VideoSection locale="en" content={homeContent.video} />
-      <DestinationPreviewSection locale="en" destinations={destinations} />
-      <GalleryPreviewSection locale="en" items={galleryItems} />
-      <TestimonialsSection items={testimonials} locale="en" backgroundWord={homeContent.testimonials.backgroundWord} />
+      <DestinationPreviewSection locale="en" destinations={homeContent.destinations.items ?? destinations} content={homeContent.destinations} />
+      <GalleryPreviewSection locale="en" items={homeContent.gallery.items ?? galleryItems} content={homeContent.gallery} />
+      <TestimonialsSection
+        items={homeContent.testimonials.items ?? testimonials}
+        locale="en"
+        backgroundWord={homeContent.testimonials.backgroundWord}
+        content={homeContent.testimonials}
+      />
       <ContactSection locale="en" content={homeContent.contact} />
     </main>
   );

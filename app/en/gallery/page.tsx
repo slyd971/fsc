@@ -1,12 +1,21 @@
 import { GalleryGrid } from "@/components/site/GalleryGrid";
 import { Reveal } from "@/components/site/Reveal";
-import { siteData } from "@/data/site";
-import { getGalleryItems } from "@/lib/site-content";
+import { getGalleryItems, getListingPageContent } from "@/lib/site-content";
 import { getUiCopy } from "@/lib/ui-copy";
 
 export default async function GalleryPageEn() {
-  const items = await getGalleryItems("en");
+  const [pageContent, fallbackItems] = await Promise.all([
+    getListingPageContent("gallery", "en"),
+    getGalleryItems("en"),
+  ]);
+  const items = pageContent?.gallery?.items ?? fallbackItems;
   const copy = getUiCopy("en").galleryPage;
+  const intro = pageContent?.intro ?? {
+    eyebrow: copy.kicker,
+    title: "Moments that stay.",
+    description:
+      "A visual archive of road moments, crew warmth and destination energy, curated with the rhythm and atmosphere the brand deserves.",
+  };
 
   return (
     <main className="pt-28 md:pt-36">
@@ -16,13 +25,13 @@ export default async function GalleryPageEn() {
           <Reveal>
             <div className="max-w-4xl">
               <div className="text-[11px] font-semibold uppercase tracking-[0.34em] text-[var(--accent)]">
-                {copy.kicker}
+                {intro.eyebrow}
               </div>
               <h1 className="display-font mt-4 text-5xl uppercase leading-[0.9] sm:text-6xl md:text-8xl">
-                {siteData.gallery.heroTitle}
+                {intro.title}
               </h1>
               <p className="text-muted mt-5 max-w-2xl text-sm leading-7 md:text-base">
-                {siteData.gallery.heroDescription}
+                {intro.description}
               </p>
             </div>
           </Reveal>

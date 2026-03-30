@@ -25,12 +25,20 @@ export function ContactSection({
   content,
 }: {
   locale?: Locale;
-  content?: typeof siteData.contact & { backgroundWord?: string };
+  content?: typeof siteData.contact & {
+    eyebrow?: string;
+    backgroundWord?: string;
+    primaryCta?: { label: string; href: string };
+    secondaryCta?: { label: string; href: string };
+  };
 }) {
   const contact = content ?? (locale === "en" ? { ...siteData.contact, ...siteDataEnSeed.contact } : siteData.contact);
   const copy = getUiCopy(locale).contact;
   const whatsappMethod = contact.methods.find((method) => method.label === "WhatsApp");
   const backgroundWord = content?.backgroundWord ?? "Join";
+  const eyebrow = content?.eyebrow ?? copy.kicker;
+  const primaryCta = content?.primaryCta ?? { label: copy.whatsapp, href: whatsappMethod?.href ?? "/#contact" };
+  const secondaryCta = content?.secondaryCta ?? { label: copy.seeRoads, href: "/trips" };
 
   return (
     <section className="theme-border relative overflow-hidden border-t px-4 py-14 sm:px-8 sm:py-22 lg:px-12 lg:py-28" id="contact">
@@ -48,9 +56,9 @@ export function ContactSection({
 
             <div className="grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:gap-12">
               <div>
-                <div className="editorial-kicker">{copy.kicker}</div>
+                <div className="editorial-kicker">{eyebrow}</div>
                 <h2 className="display-font theme-text-strong mt-4 max-w-[8ch] text-[clamp(1.65rem,6.5vw,5rem)] uppercase leading-[0.9] sm:max-w-[9ch] sm:text-[clamp(1.8rem,7vw,5rem)] sm:leading-[0.88] lg:max-w-[7ch] lg:text-[clamp(2.2rem,4.2vw,4.1rem)]">
-                  {copy.title}
+                  {contact.title}
                 </h2>
                 <p className="text-muted mt-4 max-w-xl text-sm leading-6 sm:mt-5 sm:text-base sm:leading-7 md:text-lg md:leading-8">
                   {contact.description} {copy.descriptionSuffix}
@@ -60,17 +68,17 @@ export function ContactSection({
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-2.5 sm:mt-8 sm:gap-3">
-                  {whatsappMethod ? (
+                  {primaryCta ? (
                     <a
-                      href={whatsappMethod.href}
+                      href={primaryCta.href}
                       className="button-editorial button-editorial-primary premium-sheen premium-hover-lift"
                     >
                       <MessageCircle className="h-4 w-4" />
-                      {copy.whatsapp}
+                      {primaryCta.label}
                     </a>
                   ) : null}
-                  <a href={withLocalePath("/trips", locale)} className="button-editorial button-editorial-secondary premium-sheen">
-                    {copy.seeRoads}
+                  <a href={withLocalePath(secondaryCta.href, locale)} className="button-editorial button-editorial-secondary premium-sheen">
+                    {secondaryCta.label}
                     <ArrowUpRight className="h-4 w-4" />
                   </a>
                 </div>

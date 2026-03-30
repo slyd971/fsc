@@ -7,16 +7,38 @@ import { siteData, type Testimonial } from "@/data/site";
 import type { Locale } from "@/lib/i18n";
 import { getUiCopy } from "@/lib/ui-copy";
 
+function getSectionTitleLines(title: string) {
+  const words = title.trim().split(/\s+/).filter(Boolean);
+
+  if (words.length <= 1) {
+    return [title];
+  }
+
+  return [words.slice(0, -1).join(" "), words.slice(-1)[0]];
+}
+
 export function TestimonialsSection({
   items = siteData.testimonials,
   locale = "fr",
   backgroundWord = "FSC",
+  content,
 }: {
   items?: Testimonial[];
   locale?: Locale;
   backgroundWord?: string;
+  content?: {
+    eyebrow?: string;
+    title?: string;
+    description?: string;
+  };
 }) {
   const copy = getUiCopy(locale).testimonials;
+  const section = {
+    eyebrow: content?.eyebrow ?? copy.kicker,
+    title: content?.title ?? `${copy.titleLine1} ${copy.titleLine2}`,
+    description: content?.description ?? copy.description,
+  };
+  const titleLines = getSectionTitleLines(section.title);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -47,14 +69,17 @@ export function TestimonialsSection({
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-[0.74fr_1.26fr] lg:items-end">
             <div>
-              <div className="editorial-kicker">{copy.kicker}</div>
+              <div className="editorial-kicker">{section.eyebrow}</div>
               <h2 className="section-title mt-4 max-w-[11ch] text-[clamp(1.7rem,6.6vw,4rem)] leading-[0.88]">
-                <span className="block whitespace-nowrap">{copy.titleLine1}</span>
-                <span className="block whitespace-nowrap">{copy.titleLine2}</span>
+                {titleLines.map((line) => (
+                  <span key={line} className="block whitespace-nowrap">
+                    {line}
+                  </span>
+                ))}
               </h2>
             </div>
             <p className="text-muted max-w-2xl text-sm leading-6 sm:text-base sm:leading-7 md:text-lg md:leading-8">
-              {copy.description}
+              {section.description}
             </p>
           </div>
         </Reveal>

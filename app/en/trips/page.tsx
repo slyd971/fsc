@@ -1,14 +1,23 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { siteData } from "@/data/site";
 import { withLocalePath } from "@/lib/i18n";
-import { getTrips } from "@/lib/site-content";
+import { getListingPageContent, getTrips } from "@/lib/site-content";
 import { getUiCopy } from "@/lib/ui-copy";
 
 export default async function TripsPageEn() {
-  const destinations = await getTrips("en");
+  const [pageContent, fallbackDestinations] = await Promise.all([
+    getListingPageContent("trips", "en"),
+    getTrips("en"),
+  ]);
+  const destinations = pageContent?.destinations?.items ?? fallbackDestinations;
   const copy = getUiCopy("en").tripsPage;
+  const intro = pageContent?.intro ?? {
+    eyebrow: "Destinations",
+    title: "Choose your road.",
+    description:
+      "A premium overview of our current featured destinations, designed to scale as more roads, islands and event formats join the calendar.",
+  };
 
   return (
     <main className="pt-28 md:pt-36">
@@ -18,13 +27,13 @@ export default async function TripsPageEn() {
           <Reveal>
             <div className="max-w-4xl">
               <div className="text-[11px] font-semibold uppercase tracking-[0.34em] text-[var(--accent)]">
-                {siteData.tripsPage.eyebrow}
+                {intro.eyebrow}
               </div>
               <h1 className="display-font mt-4 text-5xl uppercase leading-[0.9] sm:text-6xl md:text-8xl">
-                {siteData.tripsPage.title}
+                {intro.title}
               </h1>
               <p className="text-muted mt-5 max-w-2xl text-sm leading-7 md:text-base">
-                {siteData.tripsPage.description}
+                {intro.description}
               </p>
             </div>
           </Reveal>

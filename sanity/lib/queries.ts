@@ -1,8 +1,9 @@
 import { groq } from "next-sanity";
 
-const localizedField = (field: string) => `coalesce(${field}[$locale], ${field}.fr, ${field}.en)`;
+const localizedField = (field: string) =>
+  `coalesce(select($locale == "en" => ${field}.en, ${field}.fr), ${field}.fr, ${field}.en)`;
 const localizedSlug = (field: string) =>
-  `coalesce(${field}[$locale].current, ${field}.fr.current, ${field}.en.current)`;
+  `coalesce(select($locale == "en" => ${field}.en.current, ${field}.fr.current), ${field}.fr.current, ${field}.en.current)`;
 
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0]{
@@ -37,11 +38,17 @@ export const tripsQuery = groq`
     heroDescription,
     heroImage{
       alt,
-      imageUrl
+      imageUrl,
+      image{
+        asset
+      }
     },
     image{
       alt,
-      imageUrl
+      imageUrl,
+      image{
+        asset
+      }
     },
     badge
   }
@@ -58,11 +65,17 @@ export const tripBySlugQuery = groq`
     heroDescription,
     heroImage{
       alt,
-      imageUrl
+      imageUrl,
+      image{
+        asset
+      }
     },
     image{
       alt,
-      imageUrl
+      imageUrl,
+      image{
+        asset
+      }
     },
     badge,
     introTitle,
@@ -73,7 +86,10 @@ export const tripBySlugQuery = groq`
       description,
       image{
         alt,
-        imageUrl
+        imageUrl,
+        image{
+          asset
+        }
       },
       includes
     },
@@ -107,7 +123,10 @@ export const galleryItemsQuery = groq`
     category,
     image{
       alt,
-      imageUrl
+      imageUrl,
+      image{
+        asset
+      }
     },
     alt,
     size
@@ -133,7 +152,10 @@ export const pageBySlugQuery = groq`
       sideTitle,
       media{
         alt,
-        imageUrl
+        imageUrl,
+        image{
+          asset
+        }
       },
       cta{
         label,
@@ -157,47 +179,123 @@ export const pageBySlugQuery = groq`
       },
       chorusItems,
       items[]{
-        ...,
-        alt,
-        imageUrl,
-        caption,
-        image{
-          alt,
-          imageUrl
-        },
-        destination->{
+        _type == "reference" => @->{
           _id,
+          _type,
           title,
           slug,
           city,
           eyebrow,
           description,
           badge,
-          image{
-            alt,
-            imageUrl
-          }
-        },
-        testimonial->{
-          _id,
           name,
           role,
           quote,
-          city,
           moment,
-          accent
+          accent,
+          category,
+          alt,
+          size,
+          image{
+            alt,
+            imageUrl,
+            image{
+              asset
+            }
+          }
         },
-        trip->{
+        _type != "reference" => {
+          ...,
+          alt,
+          imageUrl,
+          caption,
+          image{
+            asset
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const pageByIdQuery = groq`
+  *[_type == "page" && _id == $id][0]{
+    _id,
+    title,
+    slug,
+    seo,
+    blocks[]{
+      _type,
+      _key,
+      microLabel,
+      backgroundWord,
+      eyebrow,
+      title,
+      body,
+      mediaNote,
+      sideKicker,
+      sideTitle,
+      media{
+        alt,
+        imageUrl,
+        image{
+          asset
+        }
+      },
+      cta{
+        label,
+        href,
+        variant
+      },
+      primaryCta{
+        label,
+        href,
+        variant
+      },
+      secondaryCta{
+        label,
+        href,
+        variant
+      },
+      stats[]{
+        value,
+        label,
+        icon
+      },
+      chorusItems,
+      items[]{
+        _type == "reference" => @->{
           _id,
+          _type,
           title,
           slug,
           city,
           eyebrow,
           description,
           badge,
+          name,
+          role,
+          quote,
+          moment,
+          accent,
+          category,
+          alt,
+          size,
           image{
             alt,
-            imageUrl
+            imageUrl,
+            image{
+              asset
+            }
+          }
+        },
+        _type != "reference" => {
+          ...,
+          alt,
+          imageUrl,
+          caption,
+          image{
+            asset
           }
         }
       }

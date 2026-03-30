@@ -13,6 +13,9 @@ export type CmsReference = {
 
 export type CmsImage = {
   asset?: CmsReference;
+  image?: {
+    asset?: CmsReference;
+  };
   imageUrl?: string;
   alt?: LocalizedString;
 };

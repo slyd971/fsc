@@ -6,14 +6,38 @@ import type { Locale } from "@/lib/i18n";
 import { withLocalePath } from "@/lib/i18n";
 import { getUiCopy } from "@/lib/ui-copy";
 
+function getSectionTitleLines(title: string) {
+  const words = title.trim().split(/\s+/).filter(Boolean);
+
+  if (words.length <= 1) {
+    return [title];
+  }
+
+  return [words.slice(0, -1).join(" "), words.slice(-1)[0]];
+}
+
 export function DestinationPreviewSection({
   locale = "fr",
   destinations = siteData.destinations,
+  content,
 }: {
   locale?: Locale;
   destinations?: DestinationPreview[];
+  content?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    cta: { label: string; href: string };
+  };
 }) {
   const copy = getUiCopy(locale).destinationPreview;
+  const section = content ?? {
+    eyebrow: copy.kicker,
+    title: `${copy.titleLine1} ${copy.titleLine2}`,
+    description: copy.description,
+    cta: { label: copy.cta, href: "/trips" },
+  };
+  const titleLines = getSectionTitleLines(section.title);
 
   return (
     <section className="theme-border section-music relative overflow-hidden border-t px-4 py-16 sm:px-8 sm:py-22 lg:px-12 lg:py-28" id="trips">
@@ -25,14 +49,17 @@ export function DestinationPreviewSection({
         <Reveal>
           <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
             <div>
-              <div className="editorial-kicker">{copy.kicker}</div>
+              <div className="editorial-kicker">{section.eyebrow}</div>
               <h2 className="section-title mt-4 max-w-[10ch] text-[clamp(1.9rem,6.4vw,4rem)] leading-[0.9]">
-                <span className="block whitespace-nowrap">{copy.titleLine1}</span>
-                <span className="block whitespace-nowrap">{copy.titleLine2}</span>
+                {titleLines.map((line) => (
+                  <span key={line} className="block whitespace-nowrap">
+                    {line}
+                  </span>
+                ))}
               </h2>
             </div>
             <p className="text-muted max-w-2xl text-base leading-7 md:text-lg md:leading-8">
-              {copy.description}
+              {section.description}
             </p>
           </div>
         </Reveal>
@@ -85,7 +112,7 @@ export function DestinationPreviewSection({
                           href={withLocalePath(`/${destination.slug}`, locale)}
                           className="button-editorial button-editorial-secondary premium-sheen"
                         >
-                          {copy.cta}
+                          {section.cta.label}
                           <ArrowUpRight className="h-4 w-4" />
                         </Link>
                       </div>

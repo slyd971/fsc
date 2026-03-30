@@ -2,17 +2,47 @@ import { siteData, destinationPages, type DestinationPageData, type DestinationP
 import { siteDataEnSeed } from "@/data/site-en-seed";
 import { defaultLocale, type Locale } from "@/lib/i18n";
 import { client, getSanityFetchOptions } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 import { mapGallery, mapSiteSettings, mapTestimonials, mapTripPage, mapTripPreview } from "@/sanity/lib/mappers";
-import { galleryItemsQuery, pageBySlugQuery, siteSettingsQuery, testimonialsQuery, tripBySlugQuery, tripsQuery } from "@/sanity/lib/queries";
+import { galleryItemsQuery, pageByIdQuery, pageBySlugQuery, siteSettingsQuery, testimonialsQuery, tripBySlugQuery, tripsQuery } from "@/sanity/lib/queries";
 import type { CmsGalleryItem, CmsSiteSettings, CmsTestimonial, CmsTrip } from "@/sanity/lib/types";
 
 type HomePageContent = {
   hero: typeof siteData.hero & { microLabel?: string; backgroundWord?: string; chorusItems?: string[] };
-  about: typeof siteData.about & { mediaNote?: string; sideKicker?: string; sideTitle?: string };
+  about: typeof siteData.about & {
+    mediaNote?: string;
+    sideKicker?: string;
+    sideTitle?: string;
+    image?: string;
+    imageAlt?: string;
+  };
   video: typeof siteData.video;
-  contact: typeof siteData.contact & { backgroundWord?: string };
-  testimonials: {
+  destinations: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    cta: typeof siteData.hero.primaryCta;
+    items?: DestinationPreview[];
+  };
+  gallery: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    cta: typeof siteData.hero.primaryCta;
+    items?: GalleryItem[];
+  };
+  contact: typeof siteData.contact & {
+    eyebrow?: string;
     backgroundWord?: string;
+    primaryCta?: typeof siteData.hero.primaryCta;
+    secondaryCta?: typeof siteData.hero.primaryCta;
+  };
+  testimonials: {
+    eyebrow?: string;
+    title?: string;
+    description?: string;
+    backgroundWord?: string;
+    items?: Testimonial[];
   };
 };
 
@@ -49,15 +79,54 @@ type CmsPageBlock = {
   }>;
   chorusItems?: Partial<Record<Locale, string>>[];
   items?: Array<{
+    _id?: string;
+    _type?: string;
+    name?: Partial<Record<Locale, string>>;
+    title?: Partial<Record<Locale, string>>;
+    slug?: Partial<Record<Locale, { current: string }>>;
+    city?: Partial<Record<Locale, string>>;
+    eyebrow?: Partial<Record<Locale, string>>;
+    description?: Partial<Record<Locale, string>>;
+    badge?: Partial<Record<Locale, string>>;
+    role?: Partial<Record<Locale, string>>;
+    quote?: Partial<Record<Locale, string>>;
+    moment?: Partial<Record<Locale, string>>;
+    accent?: Partial<Record<Locale, string>>;
+    category?: Partial<Record<Locale, string>>;
+    size?: "portrait" | "landscape" | "square";
     imageUrl?: string;
     alt?: Partial<Record<Locale, string>>;
     caption?: Partial<Record<Locale, string>>;
+    image?: {
+      imageUrl?: string;
+      alt?: Partial<Record<Locale, string>>;
+    };
   }>;
 };
 
 type CmsPage = {
   _id: string;
   blocks?: CmsPageBlock[];
+};
+
+type ListingPageContent = {
+  intro: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  destinations?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: DestinationPreview[];
+  };
+  gallery?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: GalleryItem[];
+  };
 };
 
 function localize(value: Partial<Record<Locale, string>> | undefined, locale: Locale, fallback: string) {
@@ -135,6 +204,8 @@ function fallbackHome(locale: Locale): HomePageContent {
         mediaNote: "Carnival logistics, warmth, music, community and road energy held together as one atmosphere.",
         sideKicker: "Not just a booking",
         sideTitle: "A crew-first way to move.",
+        image: "/London/nhc1.jpg",
+        imageAlt: "French Soca Crew group moment",
         highlights: [
           {
             title: "Community",
@@ -155,15 +226,38 @@ function fallbackHome(locale: Locale): HomePageContent {
         videos: siteDataEnSeed.video.videos.map((video) => ({ ...video })),
         cta: { ...siteDataEnSeed.video.cta },
       },
+      destinations: {
+        eyebrow: "Featured trips",
+        title: "Choose your road.",
+        description:
+          "Each destination should feel like stepping into a full mood: the city, the crew, the soundtrack, the parade pressure, the after-dark pull and the feeling that the whole road is waiting.",
+        cta: { label: "Enter this world", href: "/trips" },
+        items: siteDataEnSeed.destinations.map((item) => ({ ...item })) as DestinationPreview[],
+      },
+      gallery: {
+        eyebrow: "Gallery",
+        title: "Memory in motion.",
+        description: siteDataEnSeed.gallery.heroDescription,
+        cta: { label: "Explore full gallery", href: "/gallery" },
+        items: siteDataEnSeed.gallery.items.map((item) => ({ ...item })) as GalleryItem[],
+      },
       contact: {
         ...siteData.contact,
         ...siteDataEnSeed.contact,
         methods: siteDataEnSeed.contact.methods.map((method) => ({ ...method })),
         formInterests: [...siteDataEnSeed.contact.formInterests],
+        eyebrow: "Final call",
         backgroundWord: "Join",
+        primaryCta: { label: "Book on WhatsApp", href: "https://wa.me/33612345678" },
+        secondaryCta: { label: "See the roads", href: "/trips" },
       },
       testimonials: {
+        eyebrow: "Crew voices",
+        title: "Echoes from the road.",
+        description:
+          "Trust lands best when it feels lived in. These are not polished reviews, but fragments of what the road actually feels like once people have moved with the crew.",
         backgroundWord: "FSC",
+        items: siteDataEnSeed.testimonials.map((item) => ({ ...item })) as Testimonial[],
       },
     };
   }
@@ -179,14 +273,42 @@ function fallbackHome(locale: Locale): HomePageContent {
       mediaNote: "Logistique carnaval, chaleur, musique, communauté et énergie de road tenues ensemble dans une seule atmosphère.",
       sideKicker: "Pas juste une réservation",
       sideTitle: "Une façon crew-first d'avancer.",
+      image: "/London/nhc1.jpg",
+      imageAlt: "Moment de groupe French Soca Crew",
     },
     video: siteData.video,
+    destinations: {
+      eyebrow: "Trips à la une",
+      title: "Choisis ta road.",
+      description:
+        "Chaque destination doit donner l'impression d'entrer dans une ambiance complète : la ville, le crew, la bande-son, la pression de la parade, l'appel de l'après-nuit et cette sensation que toute la road t'attend.",
+      cta: { label: "Entrer dans cet univers", href: "/trips" },
+      items: siteData.destinations.map((item) => ({ ...item })),
+    },
+    gallery: {
+      eyebrow: "Galerie",
+      title: "Mémoire en mouvement.",
+      description: siteData.gallery.heroDescription,
+      cta: { label: "Explorer la galerie complète", href: "/gallery" },
+      items: siteData.gallery.items.map((item) => ({ ...item })),
+    },
     contact: {
       ...siteData.contact,
+      eyebrow: "Dernier appel",
       backgroundWord: "Join",
+      primaryCta: {
+        label: "Réserver sur WhatsApp",
+        href: siteData.contact.methods.find((method) => method.label === "WhatsApp")?.href ?? "/#contact",
+      },
+      secondaryCta: { label: "Voir les roads", href: "/trips" },
     },
     testimonials: {
+      eyebrow: "Voix du crew",
+      title: "Échos de la road.",
+      description:
+        "La confiance fonctionne mieux quand elle paraît vécue. Ce ne sont pas des avis trop polis, mais des fragments de ce que l'on ressent vraiment sur la road quand on a bougé avec le crew.",
       backgroundWord: "FSC",
+      items: siteData.testimonials.map((item) => ({ ...item })),
     },
   };
 }
@@ -204,6 +326,108 @@ function splitParagraphs(body: string | undefined, fallbackParagraphs: string[])
 
 function getBlock(page: CmsPage | null, type: string) {
   return page?.blocks?.find((block) => block._type === type);
+}
+
+function resolveMediaUrl(
+  media:
+    | {
+        imageUrl?: string;
+        image?: {
+          asset?: { _ref: string; _type: "reference" };
+          imageUrl?: string;
+        };
+      }
+    | undefined,
+  fallback: string,
+) {
+  if (media?.imageUrl) {
+    return media.imageUrl;
+  }
+
+  if (media?.image?.asset) {
+    try {
+      return urlFor(media.image).width(1800).auto("format").url();
+    } catch {
+      return fallback;
+    }
+  }
+
+  if (media?.image?.imageUrl) {
+    return media.image.imageUrl;
+  }
+
+  return fallback;
+}
+
+function mapBlockTrips(
+  items: CmsPageBlock["items"] | undefined,
+  locale: Locale,
+  fallback: DestinationPreview[],
+): DestinationPreview[] {
+  const mapped =
+    items
+      ?.filter((item) => item?._type === "trip")
+      .map((item) => {
+        const slug = item.slug?.[locale]?.current ?? item.slug?.fr?.current ?? item.slug?.en?.current;
+
+        if (!slug) {
+          return null;
+        }
+
+        return {
+          slug: slug as DestinationPreview["slug"],
+          city: localize(item.city, locale, "Destination"),
+          title: localize(item.title, locale, "Destination"),
+          eyebrow: localize(item.eyebrow, locale, ""),
+          description: localize(item.description, locale, ""),
+          image: resolveMediaUrl(item.image, fallback.find((entry) => entry.slug === slug)?.image ?? "/fsc-crew-1.jpg"),
+          imageAlt: localize(item.image?.alt, locale, "Trip image"),
+          badge: localize(item.badge, locale, ""),
+        };
+      })
+      .filter(Boolean) as DestinationPreview[] | undefined;
+
+  return mapped?.length ? mapped : fallback;
+}
+
+function mapBlockGallery(
+  items: CmsPageBlock["items"] | undefined,
+  locale: Locale,
+  fallback: GalleryItem[],
+): GalleryItem[] {
+  const mapped =
+    items
+      ?.filter((item) => item?._type === "galleryItem")
+      .map((item, index) => ({
+        id: item._id ?? `gallery-${index}`,
+        title: localize(item.title, locale, "Gallery item"),
+        category: localize(item.category, locale, "Parties") as GalleryItem["category"],
+        image: resolveMediaUrl(item.image, fallback[index]?.image ?? fallback[0]?.image ?? "/fsc-crew-1.jpg"),
+        alt: localize(item.alt ?? item.image?.alt, locale, "Gallery image"),
+        size: item.size ?? "landscape",
+      })) as GalleryItem[] | undefined;
+
+  return mapped?.length ? mapped : fallback;
+}
+
+function mapBlockTestimonials(
+  items: CmsPageBlock["items"] | undefined,
+  locale: Locale,
+  fallback: Testimonial[],
+): Testimonial[] {
+  const mapped =
+    items
+      ?.filter((item) => item?._type === "testimonial")
+      .map((item) => ({
+        name: localize(item.name, locale, "Crew member"),
+        role: localize(item.role, locale, ""),
+        quote: localize(item.quote, locale, ""),
+        city: localize(item.city, locale, ""),
+        moment: localize(item.moment, locale, ""),
+        accent: localize(item.accent, locale, ""),
+      })) as Testimonial[] | undefined;
+
+  return mapped?.length ? mapped : fallback;
 }
 
 async function safeFetch<T>(
@@ -254,7 +478,7 @@ export async function getGalleryItems(locale: Locale = defaultLocale): Promise<G
 
 export async function getHomePageContent(locale: Locale = defaultLocale): Promise<HomePageContent> {
   const fallback = fallbackHome(locale);
-  const page = await safeFetch<CmsPage>(pageBySlugQuery, { slug: "home", locale }, ["page", "page:home", `page:home:${locale}`]);
+  const page = await safeFetch<CmsPage>(pageByIdQuery, { id: "page.home", locale }, ["page", "page:home", `page:home:${locale}`]);
 
   if (!page?.blocks?.length) {
     return fallback;
@@ -263,6 +487,8 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
   const heroBlock = getBlock(page, "heroBlock");
   const aboutBlock = getBlock(page, "introBlock");
   const videoBlock = getBlock(page, "videoBlock");
+  const destinationsBlock = getBlock(page, "destinationsBlock");
+  const galleryBlock = getBlock(page, "galleryBlock");
   const testimonialsBlock = getBlock(page, "testimonialsBlock");
   const contactBlock = getBlock(page, "contactBlock");
 
@@ -285,7 +511,7 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
         fallback.hero.microLabel ?? (locale === "en" ? "French association" : "Association française"),
       ),
       backgroundWord: localize(heroBlock?.backgroundWord, locale, fallback.hero.backgroundWord ?? "ROAD"),
-      image: heroBlock?.media?.imageUrl ?? fallback.hero.image,
+      image: resolveMediaUrl(heroBlock?.media, fallback.hero.image),
       imageAlt: localize(heroBlock?.media?.alt, locale, fallback.hero.imageAlt),
       primaryCta: {
         label: localize(heroBlock?.primaryCta?.label, locale, fallback.hero.primaryCta.label),
@@ -319,6 +545,12 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
       mediaNote: localize(aboutBlock?.mediaNote, locale, fallback.about.mediaNote ?? ""),
       sideKicker: localize(aboutBlock?.sideKicker, locale, fallback.about.sideKicker ?? ""),
       sideTitle: localize(aboutBlock?.sideTitle, locale, fallback.about.sideTitle ?? ""),
+      image: resolveMediaUrl(aboutBlock?.media, fallback.about.image ?? "/London/nhc1.jpg"),
+      imageAlt: localize(
+        aboutBlock?.media?.alt,
+        locale,
+        fallback.about.imageAlt ?? (locale === "en" ? "French Soca Crew group moment" : "Moment de groupe French Soca Crew"),
+      ),
     },
     video: {
       ...fallback.video,
@@ -333,18 +565,104 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
         videoBlock?.items?.length
           ? videoBlock.items.map((item, index) => ({
               title: localize(item.caption ?? item.alt, locale, fallback.video.videos[index]?.title ?? `Reel ${index + 1}`),
-              poster: item.imageUrl ?? fallback.video.videos[index]?.poster ?? fallback.video.videos[0]?.poster ?? "/fsc-crew-1.jpg",
+              poster: resolveMediaUrl(item, fallback.video.videos[index]?.poster ?? fallback.video.videos[0]?.poster ?? "/fsc-crew-1.jpg"),
             }))
           : fallback.video.videos,
     },
+    destinations: {
+      eyebrow: localize(destinationsBlock?.eyebrow, locale, fallback.destinations.eyebrow),
+      title: localize(destinationsBlock?.title, locale, fallback.destinations.title),
+      description: localize(destinationsBlock?.body, locale, fallback.destinations.description),
+      cta: {
+        label: localize(destinationsBlock?.cta?.label, locale, fallback.destinations.cta.label),
+        href: destinationsBlock?.cta?.href ?? fallback.destinations.cta.href,
+      },
+      items: mapBlockTrips(destinationsBlock?.items, locale, fallback.destinations.items ?? []),
+    },
+    gallery: {
+      eyebrow: localize(galleryBlock?.eyebrow, locale, fallback.gallery.eyebrow),
+      title: localize(galleryBlock?.title, locale, fallback.gallery.title),
+      description: localize(galleryBlock?.body, locale, fallback.gallery.description),
+      cta: {
+        label: localize(galleryBlock?.cta?.label, locale, fallback.gallery.cta.label),
+        href: galleryBlock?.cta?.href ?? fallback.gallery.cta.href,
+      },
+      items: mapBlockGallery(galleryBlock?.items, locale, fallback.gallery.items ?? []),
+    },
     contact: {
       ...fallback.contact,
+      eyebrow: localize(contactBlock?.eyebrow, locale, fallback.contact.eyebrow ?? ""),
       title: localize(contactBlock?.title, locale, fallback.contact.title),
       description: localize(contactBlock?.body, locale, fallback.contact.description),
       backgroundWord: localize(contactBlock?.backgroundWord, locale, fallback.contact.backgroundWord ?? "Join"),
+      primaryCta: {
+        label: localize(contactBlock?.primaryCta?.label, locale, fallback.contact.primaryCta?.label ?? ""),
+        href: contactBlock?.primaryCta?.href ?? fallback.contact.primaryCta?.href ?? "/#contact",
+      },
+      secondaryCta: {
+        label: localize(contactBlock?.secondaryCta?.label, locale, fallback.contact.secondaryCta?.label ?? ""),
+        href: contactBlock?.secondaryCta?.href ?? fallback.contact.secondaryCta?.href ?? "/trips",
+      },
     },
     testimonials: {
+      eyebrow: localize(testimonialsBlock?.eyebrow, locale, fallback.testimonials.eyebrow ?? ""),
+      title: localize(testimonialsBlock?.title, locale, fallback.testimonials.title ?? ""),
+      description: localize(testimonialsBlock?.body, locale, fallback.testimonials.description ?? ""),
       backgroundWord: localize(testimonialsBlock?.backgroundWord, locale, fallback.testimonials.backgroundWord ?? "FSC"),
+      items: mapBlockTestimonials(testimonialsBlock?.items, locale, fallback.testimonials.items ?? []),
     },
+  };
+}
+
+export async function getListingPageContent(
+  slug: "trips" | "gallery",
+  locale: Locale = defaultLocale,
+): Promise<ListingPageContent | null> {
+  const pageId = slug === "trips" ? "page.trips" : "page.gallery";
+  const page = await safeFetch<CmsPage>(pageByIdQuery, { id: pageId, locale }, ["page", `page:${slug}`, `page:${slug}:${locale}`]);
+
+  if (!page?.blocks?.length) {
+    return null;
+  }
+
+  const introBlock = getBlock(page, "introBlock");
+  const destinationsBlock = getBlock(page, "destinationsBlock");
+  const galleryBlock = getBlock(page, "galleryBlock");
+
+  const fallbackIntro =
+    slug === "trips"
+      ? {
+          eyebrow: locale === "en" ? siteDataEnSeed.tripsPage.eyebrow : siteData.tripsPage.eyebrow,
+          title: locale === "en" ? siteDataEnSeed.tripsPage.title : siteData.tripsPage.title,
+          description: locale === "en" ? siteDataEnSeed.tripsPage.description : siteData.tripsPage.description,
+        }
+      : {
+          eyebrow: locale === "en" ? "Gallery" : "Galerie",
+          title: locale === "en" ? siteDataEnSeed.gallery.heroTitle : siteData.gallery.heroTitle,
+          description: locale === "en" ? siteDataEnSeed.gallery.heroDescription : siteData.gallery.heroDescription,
+        };
+
+  return {
+    intro: {
+      eyebrow: localize(introBlock?.eyebrow, locale, fallbackIntro.eyebrow),
+      title: localize(introBlock?.title, locale, fallbackIntro.title),
+      description: localize(introBlock?.body, locale, fallbackIntro.description),
+    },
+    destinations: destinationsBlock
+      ? {
+          eyebrow: localize(destinationsBlock.eyebrow, locale, fallbackIntro.eyebrow),
+          title: localize(destinationsBlock.title, locale, fallbackIntro.title),
+          description: localize(destinationsBlock.body, locale, fallbackIntro.description),
+          items: mapBlockTrips(destinationsBlock.items, locale, fallbackTrips(locale)),
+        }
+      : undefined,
+    gallery: galleryBlock
+      ? {
+          eyebrow: localize(galleryBlock.eyebrow, locale, fallbackIntro.eyebrow),
+          title: localize(galleryBlock.title, locale, fallbackIntro.title),
+          description: localize(galleryBlock.body, locale, fallbackIntro.description),
+          items: mapBlockGallery(galleryBlock.items, locale, fallbackGallery(locale)),
+        }
+      : undefined,
   };
 }

@@ -24,14 +24,22 @@ const sideNoteByLocale = {
   },
 } as const;
 
+type AboutContent = typeof siteData.about & {
+  mediaNote?: string;
+  sideKicker?: string;
+  sideTitle?: string;
+  image?: string;
+  imageAlt?: string;
+};
+
 export function AboutSection({
   locale = "fr",
   content,
 }: {
   locale?: Locale;
-  content?: typeof siteData.about & { mediaNote?: string; sideKicker?: string; sideTitle?: string };
+  content?: AboutContent;
 }) {
-  const fallbackAbout: typeof siteData.about & { mediaNote?: string; sideKicker?: string; sideTitle?: string } = locale === "en"
+  const fallbackAbout: AboutContent = locale === "en"
     ? {
       ...siteData.about,
       ...siteDataEnSeed.about,
@@ -80,8 +88,8 @@ export function AboutSection({
             <div className="relative">
               <div className="theme-border theme-panel-dark overflow-hidden rounded-[2.2rem] border">
                 <img
-                  src="/London/nhc1.jpg"
-                  alt={imageAltByLocale[locale]}
+                  src={about.image ?? "/London/nhc1.jpg"}
+                  alt={about.imageAlt ?? imageAltByLocale[locale]}
                   className="h-[28rem] w-full object-cover sm:h-[36rem] lg:h-[48rem]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.06),rgba(0,0,0,0.76))]" />

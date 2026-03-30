@@ -1,6 +1,7 @@
 import { siteData, destinationPages, type DestinationPageData, type DestinationPreview, type GalleryItem, type Testimonial } from "@/data/site";
 import { siteDataEnSeed } from "@/data/site-en-seed";
 import type { Locale } from "@/lib/i18n";
+import { urlFor } from "@/sanity/lib/image";
 import type { CmsGalleryItem, CmsSiteSettings, CmsTestimonial, CmsTrip, LocalizedString } from "@/sanity/lib/types";
 
 function localize(value: LocalizedString | undefined, locale: Locale, fallback = ""): string {
@@ -8,13 +9,23 @@ function localize(value: LocalizedString | undefined, locale: Locale, fallback =
 }
 
 function imageUrl(
-  value: { imageUrl?: string; alt?: LocalizedString } | undefined,
+  value: { imageUrl?: string; image?: { asset?: { _ref: string; _type: "reference" } }; alt?: LocalizedString } | undefined,
   locale: Locale,
   fallbackImage: string,
   fallbackAlt: string,
 ) {
+  let resolvedImage = value?.imageUrl;
+
+  if (!resolvedImage && value?.image?.asset) {
+    try {
+      resolvedImage = urlFor(value.image).width(1800).auto("format").url();
+    } catch {
+      resolvedImage = undefined;
+    }
+  }
+
   return {
-    image: value?.imageUrl ?? fallbackImage,
+    image: resolvedImage ?? fallbackImage,
     alt: localize(value?.alt, locale, fallbackAlt),
   };
 }
