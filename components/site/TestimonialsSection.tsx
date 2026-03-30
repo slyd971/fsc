@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Reveal } from "@/components/site/Reveal";
 import { siteData } from "@/data/site";
 
@@ -11,88 +11,114 @@ export function TestimonialsSection() {
   useEffect(() => {
     const timer = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % siteData.testimonials.length);
-    }, 4200);
+    }, 4600);
 
     return () => window.clearInterval(timer);
   }, []);
 
+  const activeTestimonial = siteData.testimonials[activeIndex];
+
   return (
-    <section className="relative overflow-hidden border-t border-white/10 px-4 py-14 sm:px-8 sm:py-18 lg:px-12 lg:py-22">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,#090909_0%,#120d0c_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(232,186,133,0.12),transparent_21%),radial-gradient(circle_at_80%_84%,rgba(144,80,50,0.16),transparent_22%)]" />
+    <section className="theme-border relative overflow-hidden border-t px-4 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
+      <div className="theme-section-testimonials-bg absolute inset-0" />
+      <div className="theme-section-testimonials-overlay absolute inset-0" />
       <div className="grain-overlay" />
 
       <div className="section-shell relative z-10">
         <Reveal>
-          <div className="grid gap-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+          <div className="grid gap-6 lg:grid-cols-[0.74fr_1.26fr] lg:items-end">
             <div>
               <div className="editorial-kicker">Testimonials</div>
-              <h2 className="section-title mt-4 max-w-[12ch] text-[clamp(1.5rem,3vw,2.5rem)] leading-[0.92]">
-                <span className="block whitespace-nowrap">Voices from</span>
+              <h2 className="section-title mt-4 max-w-[11ch] text-[clamp(1.7rem,6.6vw,4rem)] leading-[0.88]">
+                <span className="block whitespace-nowrap">Echoes from</span>
                 <span className="block whitespace-nowrap">the road.</span>
               </h2>
             </div>
-            <p className="max-w-2xl text-sm leading-6 text-white/60 md:text-base md:leading-7">
-              Social proof should feel like lived experience. These quotes are here to amplify the atmosphere, the trust and the feeling of moving with a real crew.
+            <p className="text-muted max-w-2xl text-sm leading-6 sm:text-base sm:leading-7 md:text-lg md:leading-8">
+              Social proof should feel embodied. Not ratings, not startup praise, but real traces of how the crew experience lands on people once they have actually lived it.
             </p>
           </div>
         </Reveal>
 
         <Reveal delay={0.08}>
-          <div className="mt-8 grid gap-6 lg:grid-cols-[0.68fr_1.32fr] lg:gap-10">
-            <div className="flex flex-col gap-2">
+          <div className="mt-8 grid gap-4 lg:grid-cols-[0.62fr_1.38fr] lg:gap-8">
+            <div className="grid gap-3">
               {siteData.testimonials.map((testimonial, index) => (
                 <button
                   key={testimonial.name}
                   type="button"
                   onClick={() => setActiveIndex(index)}
-                  className={`text-left transition ${
-                    activeIndex === index ? "opacity-100" : "opacity-45 hover:opacity-80"
+                  className={`group overflow-hidden rounded-[1.5rem] border p-3.5 text-left transition sm:rounded-[1.8rem] sm:p-5 ${
+                    activeIndex === index
+                      ? "border-[var(--accent)]/28 bg-white/[0.07]"
+                      : "theme-border theme-panel-soft"
                   }`}
                 >
-                  <div className="border-t border-white/10 py-3.5">
-                    <div className="text-[10px] uppercase tracking-[0.28em] text-white/36">
-                      0{index + 1}
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="text-muted-soft text-[10px] uppercase tracking-[0.28em]">
+                        0{index + 1}
+                      </div>
+                      <div className="display-font theme-text-strong mt-2 text-[1.05rem] uppercase leading-none sm:text-[1.4rem]">
+                        {testimonial.name}
+                      </div>
                     </div>
-                    <div className="display-font mt-2.5 text-[1.35rem] uppercase leading-none text-white md:text-[1.5rem]">
-                      {testimonial.name}
-                    </div>
-                    <div className="mt-1.5 text-[10px] uppercase tracking-[0.22em] text-[var(--accent)] md:text-[11px]">
-                      {testimonial.role}
+                    <div className="text-right text-[8px] uppercase tracking-[0.18em] text-[var(--accent)] sm:text-[10px] sm:tracking-[0.24em]">
+                      {testimonial.city}
                     </div>
                   </div>
+                  <div className="text-muted-soft mt-3 flex flex-wrap items-center gap-2.5 text-[9px] uppercase tracking-[0.18em] sm:mt-4 sm:gap-3 sm:text-[10px] sm:tracking-[0.24em]">
+                    <span>{testimonial.role}</span>
+                    <span className="h-px w-6 bg-[var(--line-strong)]" />
+                    <span>{testimonial.moment}</span>
+                  </div>
+                  <p className="text-muted mt-3 max-w-[34ch] text-xs leading-5 sm:mt-4 sm:text-sm sm:leading-6">
+                    {testimonial.accent}
+                  </p>
                 </button>
               ))}
             </div>
 
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-5 sm:p-6 lg:p-7">
-              <div className="pointer-events-none absolute -top-1 right-4 text-[clamp(3.2rem,8vw,5.5rem)] font-black tracking-[-0.08em] text-white/[0.05]">
+            <div className="theme-border theme-surface-elevated relative overflow-hidden rounded-[2rem] border p-4 sm:rounded-[2.4rem] sm:p-7 lg:p-8">
+              <div className="pointer-events-none absolute right-4 top-0 text-[clamp(4rem,10vw,8rem)] font-black uppercase tracking-[-0.08em] text-white/[0.05]">
                 FSC
               </div>
+              <div className="pointer-events-none absolute bottom-0 right-0 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(214,185,139,0.16),transparent_68%)] blur-2xl" />
 
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={siteData.testimonials[activeIndex].name}
+                  key={activeTestimonial.name}
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -18 }}
                   transition={{ duration: 0.38 }}
                   className="relative z-10"
                 >
-                  <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">
-                    Featured voice
+                  <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                    <div className="text-[9px] uppercase tracking-[0.22em] text-[var(--accent)] sm:text-[10px] sm:tracking-[0.3em]">
+                      Featured voice
+                    </div>
+                    <div className="h-px w-8 bg-[var(--line-strong)] sm:w-12" />
+                    <div className="text-muted-soft text-[9px] uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.26em]">
+                      {activeTestimonial.city}
+                    </div>
                   </div>
-                  <p className="display-font mt-4 max-w-[28ch] text-[clamp(1.2rem,2.2vw,2.1rem)] uppercase leading-[0.96] text-white">
-                    {siteData.testimonials[activeIndex].quote}
+
+                  <p className="display-font theme-text-strong mt-5 max-w-[18ch] text-[clamp(1.2rem,5.8vw,3rem)] uppercase leading-[0.94] sm:mt-6 sm:max-w-[21ch]">
+                    “{activeTestimonial.quote}”
                   </p>
-                  <div className="mt-7 border-t border-white/10 pt-5">
+
+                  <div className="theme-border mt-6 grid gap-3 border-t pt-5 sm:mt-8 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-4 sm:pt-6">
                     <div>
-                      <div className="display-font text-[1.5rem] uppercase leading-none text-[var(--accent)] md:text-[1.7rem]">
-                        {siteData.testimonials[activeIndex].name}
+                      <div className="display-font text-[1.15rem] uppercase leading-none text-[var(--accent)] sm:text-[1.8rem]">
+                        {activeTestimonial.name}
                       </div>
-                      <div className="mt-1.5 text-[10px] uppercase tracking-[0.22em] text-white/46 md:text-[11px]">
-                        {siteData.testimonials[activeIndex].role}
+                      <div className="text-muted-soft mt-1.5 text-[9px] uppercase tracking-[0.18em] sm:mt-2 sm:text-[11px] sm:tracking-[0.22em]">
+                        {activeTestimonial.role}
                       </div>
+                    </div>
+                    <div className="theme-border theme-panel-dark text-muted rounded-full border px-3 py-1.5 text-[9px] uppercase tracking-[0.18em] backdrop-blur-sm sm:px-4 sm:py-2 sm:text-[10px] sm:tracking-[0.24em]">
+                      {activeTestimonial.moment}
                     </div>
                   </div>
                 </motion.div>

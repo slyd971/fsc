@@ -7,7 +7,7 @@ export default function TripsPage() {
   return (
     <main className="pt-28 md:pt-36">
       <section className="section-divider relative overflow-hidden py-16 md:py-24">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(216,194,163,0.14),transparent_24%)]" />
+        <div className="theme-page-glow-top absolute inset-0" />
         <div className="section-shell relative">
           <Reveal>
             <div className="max-w-4xl">
@@ -17,7 +17,7 @@ export default function TripsPage() {
               <h1 className="display-font mt-4 text-5xl uppercase leading-[0.9] sm:text-6xl md:text-8xl">
                 {siteData.tripsPage.title}
               </h1>
-              <p className="mt-5 max-w-2xl text-sm leading-7 text-white/68 md:text-base">
+              <p className="text-muted mt-5 max-w-2xl text-sm leading-7 md:text-base">
                 {siteData.tripsPage.description}
               </p>
             </div>
@@ -25,11 +25,13 @@ export default function TripsPage() {
         </div>
       </section>
 
-      <section className="relative py-12 md:py-20">
+      <section className="relative overflow-hidden py-12 md:py-20">
+        <div className="theme-section-trips-bg absolute inset-0" />
+        <div className="theme-section-trips-overlay absolute inset-0 opacity-80" />
         <div className="section-shell grid gap-6 lg:grid-cols-2">
           {siteData.destinations.map((destination, index) => (
             <Reveal key={destination.slug} delay={0.08 * index}>
-              <article className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
+              <article className="theme-border theme-panel-soft relative z-10 overflow-hidden rounded-[2rem] border">
                 <img
                   src={destination.image}
                   alt={destination.imageAlt}
@@ -42,12 +44,12 @@ export default function TripsPage() {
                   <h2 className="display-font mt-3 text-4xl uppercase md:text-5xl">
                     {destination.title}
                   </h2>
-                  <p className="mt-4 text-sm leading-7 text-white/68 md:text-base">
+                  <p className="text-muted mt-4 text-sm leading-7 md:text-base">
                     {destination.description}
                   </p>
                   <Link
                     href={`/${destination.slug}`}
-                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-black transition hover:bg-[var(--accent-strong)]"
+                    className="theme-cta-solid mt-6 inline-flex items-center gap-2 rounded-full px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] transition"
                   >
                     View trip details
                     <ArrowUpRight className="h-4 w-4" />

@@ -31,8 +31,8 @@ export function GalleryGrid({ items }: GalleryGridProps) {
             onClick={() => setActiveFilter(filter)}
             className={`rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] transition ${
               activeFilter === filter
-                ? "bg-[var(--accent)] text-black"
-                : "border border-white/10 bg-white/5 text-white/70 hover:bg-white/10"
+                ? "theme-cta-solid"
+                : "theme-border theme-panel-soft border text-white/70 hover:bg-white/10"
             }`}
           >
             {filter}
@@ -46,7 +46,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
             <button
               type="button"
               onClick={() => setActiveItem(item)}
-              className="group w-full overflow-hidden rounded-[1.7rem] border border-white/10 text-left"
+              className="theme-border group w-full overflow-hidden rounded-[1.7rem] border text-left"
             >
               <img
                 src={item.image}
@@ -59,7 +59,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
                       : "h-[360px]"
                 }`}
               />
-              <div className="bg-white/[0.03] p-4">
+              <div className="theme-panel-soft p-4">
                 <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--accent)]">
                   {item.category}
                 </div>
@@ -76,12 +76,12 @@ export function GalleryGrid({ items }: GalleryGridProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/88 p-4 backdrop-blur-md"
+            className="theme-modal-backdrop fixed inset-0 z-[70] flex items-center justify-center p-4 backdrop-blur-md"
           >
             <button
               type="button"
               onClick={() => setActiveItem(null)}
-              className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/12 bg-white/[0.06]"
+              className="theme-border theme-panel-soft absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full border"
             >
               <X className="h-5 w-5" />
             </button>
@@ -90,7 +90,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 24, scale: 0.96 }}
               transition={{ duration: 0.28 }}
-              className="w-full max-w-5xl overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b0b0b]"
+              className="theme-border theme-modal-surface w-full max-w-5xl overflow-hidden rounded-[2rem] border"
             >
               <img src={activeItem.image} alt={activeItem.alt} className="max-h-[72vh] w-full object-cover" />
               <div className="p-5 md:p-6">

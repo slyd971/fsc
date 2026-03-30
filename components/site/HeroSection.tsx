@@ -30,7 +30,7 @@ export function HeroSection() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="hero-shell hero-luxury relative min-h-screen overflow-hidden bg-[#0d0907]">
+    <section className="hero-shell hero-luxury relative min-h-screen overflow-hidden bg-[var(--background)]">
       <div
         className="hero-image-drift absolute inset-0"
         style={{
@@ -42,7 +42,7 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_12%,rgba(255,214,167,0.26),transparent_22%),radial-gradient(circle_at_78%_18%,rgba(122,68,41,0.24),transparent_25%),linear-gradient(180deg,rgba(15,10,8,0.12),rgba(12,8,8,0.88)_88%)]" />
       <div className="hero-overlay-secondary absolute inset-0 bg-[linear-gradient(110deg,rgba(8,6,6,0.76)_0%,rgba(23,15,13,0.18)_42%,rgba(8,6,6,0.82)_100%)]" />
       <div className="ambient-shift absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(235,193,136,0.22),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(160,86,53,0.22),transparent_30%),linear-gradient(135deg,rgba(91,51,35,0.12),transparent_58%)]" />
-      <div className="hero-bottom-fade absolute inset-x-0 bottom-0 h-[48vh] bg-gradient-to-t from-[#070707] via-black/72 to-transparent" />
+      <div className="hero-bottom-fade absolute inset-x-0 bottom-0 h-[48vh] bg-gradient-to-t from-[var(--background)] via-black/72 to-transparent" />
       <div className="grain-overlay" />
       <div className="film-vignette" />
       <div className="paper-texture" />
@@ -63,17 +63,17 @@ export function HeroSection() {
               animate={reduceMotion ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.95, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="pointer-events-none absolute -top-7 left-0 text-[0.62rem] uppercase tracking-[0.42em] text-white/34 sm:text-[0.7rem]">
+              <div className="text-muted-soft pointer-events-none absolute -top-7 left-0 text-[0.62rem] uppercase tracking-[0.42em] sm:text-[0.7rem]">
                 French association
               </div>
-              <h1 className="hero-artist-title relative z-10 max-w-[10ch] text-[clamp(2.9rem,10.2vw,8.2rem)] text-white">
+              <h1 className="hero-artist-title theme-text-strong relative z-10 max-w-[10ch] text-[clamp(2.9rem,10.2vw,8.2rem)]">
                 FRENCH
                 <br />
                 SOCA
                 <br />
                 CREW
               </h1>
-              <div className="pointer-events-none absolute -right-[3vw] top-[12%] hidden text-[clamp(4.5rem,11vw,9rem)] font-black uppercase tracking-[-0.08em] text-white/[0.06] xl:block">
+              <div className="pointer-events-none absolute -right-[3vw] top-[12%] hidden text-[clamp(4.5rem,11vw,9rem)] font-black uppercase tracking-[-0.08em] text-white/[0.08] xl:block">
                 ROAD
               </div>
             </motion.div>
@@ -85,8 +85,8 @@ export function HeroSection() {
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="max-w-xl border-t border-white/18 pt-5">
-              <p className="max-w-[28rem] text-[1.02rem] leading-7 text-white/78 md:text-[1.15rem] md:leading-8 lg:text-[1.3rem]">
+            <div className="max-w-xl border-t border-[var(--line-strong)] pt-5">
+              <p className="text-muted max-w-[28rem] text-[1.02rem] leading-7 md:text-[1.15rem] md:leading-8 lg:text-[1.3rem]">
                 {hero.subtitle}
               </p>
             </div>
@@ -110,9 +110,9 @@ export function HeroSection() {
         </motion.div>
 
         <div className="grid gap-6 pt-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-          <div className="overflow-hidden rounded-full border border-white/10 bg-black/24 px-4 py-3 backdrop-blur-sm">
+          <div className="theme-border theme-panel-dark overflow-hidden rounded-full border px-4 py-3 backdrop-blur-sm">
             <motion.div
-              className="flex min-w-max gap-8 whitespace-nowrap text-[10px] uppercase tracking-[0.32em] text-white/58 sm:text-[11px]"
+              className="text-muted-soft flex min-w-max gap-8 whitespace-nowrap text-[10px] uppercase tracking-[0.32em] sm:text-[11px]"
               initial={reduceMotion ? undefined : { x: 0 }}
               animate={reduceMotion ? undefined : { x: ["0%", "-20%"] }}
               transition={{ duration: 16, ease: "linear", repeat: Infinity }}
@@ -126,26 +126,26 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-4">
             {hero.stats.map((stat, index) => {
               const Icon = iconMap[stat.icon as keyof typeof iconMap];
 
               return (
                 <motion.div
                   key={stat.label}
-                  className="rounded-[1.25rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03))] px-3 py-4 backdrop-blur-md"
+                  className="theme-border theme-surface-elevated rounded-[1rem] border px-3 py-3 backdrop-blur-md sm:rounded-[1.15rem] sm:px-3.5 sm:py-3.5"
                   initial={reduceMotion ? undefined : { opacity: 0, y: 16 }}
                   whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.6 }}
                   transition={{ duration: 0.55, delay: 0.12 + index * 0.06 }}
                 >
-                  <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full border border-white/12 bg-black/25 text-[var(--accent)]">
-                    <Icon className="h-4 w-4" />
+                  <div className="theme-border theme-panel-dark mb-2.5 flex h-7 w-7 items-center justify-center rounded-full border text-[var(--accent)] sm:mb-3 sm:h-8 sm:w-8">
+                    <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </div>
-                  <div className="text-[1.8rem] font-black tracking-[-0.08em] text-white">
+                  <div className="theme-text-strong text-[1.45rem] font-black tracking-[-0.08em] sm:text-[1.65rem]">
                     {stat.value}
                   </div>
-                  <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/58">
+                  <div className="text-muted-soft mt-1 text-[9px] uppercase tracking-[0.16em] sm:text-[10px] sm:tracking-[0.2em]">
                     {stat.label}
                   </div>
                 </motion.div>

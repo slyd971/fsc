@@ -2,19 +2,204 @@
 
 :root {
   --background: #050608;
+  --background-secondary: #0b0c10;
+  --background-tertiary: #09090d;
   --foreground: #f7f7f3;
+  --foreground-strong: rgba(247, 247, 243, 0.96);
   --muted: rgba(247, 247, 243, 0.68);
+  --muted-soft: rgba(247, 247, 243, 0.52);
   --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.16);
   --panel: rgba(255, 255, 255, 0.04);
   --panel-strong: rgba(255, 255, 255, 0.08);
+  --panel-dark: rgba(0, 0, 0, 0.24);
+  --panel-switcher: rgba(0, 0, 0, 0.42);
   --accent: #d6b98b;
   --accent-strong: #f0dcc0;
   --accent-deep: #b28b54;
   --accent-soft: rgba(214, 185, 139, 0.16);
+  --accent-rgb: 214, 185, 139;
+  --cta-bg: #f2eadc;
+  --cta-bg-hover: #e7dac4;
+  --cta-text: #120d0b;
+  --focus-ring: rgba(214, 185, 139, 0.72);
+  --body-top-glow: rgba(214, 185, 139, 0.08);
+  --body-side-glow: rgba(255, 255, 255, 0.045);
+  --site-top-glow: rgba(214, 185, 139, 0.045);
+  --site-side-glow: rgba(255, 255, 255, 0.04);
+  --selection-text: #050505;
   --display-font:
     "IvyPresto Display", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
   --body-font:
     "Suisse Intl", "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+}
+
+html[data-theme="default"] {
+  --background: #050608;
+  --background-secondary: #0b0c10;
+  --background-tertiary: #09090d;
+  --foreground: #f7f7f3;
+  --foreground-strong: rgba(247, 247, 243, 0.96);
+  --muted: rgba(247, 247, 243, 0.68);
+  --muted-soft: rgba(247, 247, 243, 0.52);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --panel: rgba(255, 255, 255, 0.04);
+  --panel-strong: rgba(255, 255, 255, 0.08);
+  --panel-dark: rgba(0, 0, 0, 0.24);
+  --panel-switcher: rgba(0, 0, 0, 0.42);
+  --accent: #d6b98b;
+  --accent-strong: #f0dcc0;
+  --accent-deep: #b28b54;
+  --accent-soft: rgba(214, 185, 139, 0.16);
+  --accent-rgb: 214, 185, 139;
+  --cta-bg: #f2eadc;
+  --cta-bg-hover: #e7dac4;
+  --cta-text: #120d0b;
+  --focus-ring: rgba(214, 185, 139, 0.72);
+  --body-top-glow: rgba(214, 185, 139, 0.08);
+  --body-side-glow: rgba(255, 255, 255, 0.045);
+  --site-top-glow: rgba(214, 185, 139, 0.045);
+  --site-side-glow: rgba(255, 255, 255, 0.04);
+  --selection-text: #050505;
+  --section-about-bg: linear-gradient(180deg, #130f0d 0%, #0a0a0a 100%);
+  --section-about-overlay: radial-gradient(circle at 12% 18%, rgba(223, 183, 129, 0.13), transparent 23%), radial-gradient(circle at 84% 74%, rgba(130, 76, 45, 0.14), transparent 24%), linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent 45%);
+  --section-video-bg: linear-gradient(180deg, #070707 0%, #140d0b 46%, #080808 100%);
+  --section-video-overlay: radial-gradient(circle at 18% 14%, rgba(216, 194, 163, 0.16), transparent 24%), radial-gradient(circle at 80% 28%, rgba(120, 63, 38, 0.18), transparent 20%), radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.04), transparent 28%);
+  --section-trips-bg: linear-gradient(180deg, #0e0b0b 0%, #15100f 46%, #090909 100%);
+  --section-trips-overlay: radial-gradient(circle at 18% 12%, rgba(214, 165, 108, 0.15), transparent 20%), radial-gradient(circle at 86% 84%, rgba(143, 77, 47, 0.16), transparent 24%);
+  --section-gallery-bg: linear-gradient(180deg, #120d0d 0%, #070707 100%);
+  --section-gallery-overlay: radial-gradient(circle at 14% 18%, rgba(232, 186, 133, 0.16), transparent 20%), radial-gradient(circle at 84% 80%, rgba(114, 62, 42, 0.18), transparent 22%);
+  --section-testimonials-bg: linear-gradient(180deg, #080808 0%, #140d0b 100%);
+  --section-testimonials-overlay: radial-gradient(circle at 18% 18%, rgba(232, 186, 133, 0.12), transparent 20%), radial-gradient(circle at 84% 70%, rgba(144, 80, 50, 0.18), transparent 22%);
+  --section-contact-bg: linear-gradient(180deg, #120d0d 0%, #050505 100%);
+  --section-contact-overlay: radial-gradient(circle at 18% 16%, rgba(241, 193, 136, 0.18), transparent 22%), radial-gradient(circle at 84% 76%, rgba(133, 73, 46, 0.2), transparent 24%), radial-gradient(circle at 54% 100%, rgba(255, 255, 255, 0.05), transparent 32%);
+}
+
+html[data-theme="sunset-carnival"] {
+  --background: #140706;
+  --background-secondary: #23100c;
+  --background-tertiary: #311510;
+  --foreground: #fff4ea;
+  --foreground-strong: rgba(255, 244, 234, 0.97);
+  --muted: rgba(255, 231, 214, 0.72);
+  --muted-soft: rgba(255, 231, 214, 0.56);
+  --line: rgba(255, 216, 191, 0.16);
+  --line-strong: rgba(255, 216, 191, 0.22);
+  --panel: rgba(255, 233, 215, 0.05);
+  --panel-strong: rgba(255, 216, 191, 0.1);
+  --panel-dark: rgba(29, 10, 8, 0.36);
+  --panel-switcher: rgba(34, 12, 9, 0.52);
+  --accent: #ff9d63;
+  --accent-strong: #ffd0a2;
+  --accent-deep: #d7633e;
+  --accent-soft: rgba(255, 157, 99, 0.18);
+  --accent-rgb: 255, 157, 99;
+  --cta-bg: #ffd09a;
+  --cta-bg-hover: #ffc184;
+  --cta-text: #2d120d;
+  --focus-ring: rgba(255, 157, 99, 0.76);
+  --body-top-glow: rgba(255, 157, 99, 0.12);
+  --body-side-glow: rgba(255, 204, 179, 0.05);
+  --site-top-glow: rgba(255, 157, 99, 0.08);
+  --site-side-glow: rgba(255, 204, 179, 0.04);
+  --selection-text: #1f0906;
+  --section-about-bg: linear-gradient(180deg, #24110d 0%, #140706 100%);
+  --section-about-overlay: radial-gradient(circle at 12% 18%, rgba(255, 176, 109, 0.18), transparent 23%), radial-gradient(circle at 84% 74%, rgba(193, 87, 54, 0.2), transparent 24%), linear-gradient(135deg, rgba(255, 236, 222, 0.03), transparent 45%);
+  --section-video-bg: linear-gradient(180deg, #1c0d0a 0%, #311510 46%, #160706 100%);
+  --section-video-overlay: radial-gradient(circle at 18% 14%, rgba(255, 157, 99, 0.18), transparent 24%), radial-gradient(circle at 80% 28%, rgba(182, 74, 47, 0.2), transparent 20%), radial-gradient(circle at 50% 100%, rgba(255, 232, 214, 0.04), transparent 28%);
+  --section-trips-bg: linear-gradient(180deg, #190c09 0%, #2c120e 46%, #140706 100%);
+  --section-trips-overlay: radial-gradient(circle at 18% 12%, rgba(255, 163, 93, 0.18), transparent 20%), radial-gradient(circle at 86% 84%, rgba(214, 99, 62, 0.18), transparent 24%);
+  --section-gallery-bg: linear-gradient(180deg, #24100c 0%, #130605 100%);
+  --section-gallery-overlay: radial-gradient(circle at 14% 18%, rgba(255, 181, 105, 0.18), transparent 20%), radial-gradient(circle at 84% 80%, rgba(184, 83, 55, 0.18), transparent 22%);
+  --section-testimonials-bg: linear-gradient(180deg, #170908 0%, #26100d 100%);
+  --section-testimonials-overlay: radial-gradient(circle at 18% 18%, rgba(255, 180, 109, 0.15), transparent 20%), radial-gradient(circle at 84% 70%, rgba(198, 89, 58, 0.19), transparent 22%);
+  --section-contact-bg: linear-gradient(180deg, #24100c 0%, #130605 100%);
+  --section-contact-overlay: radial-gradient(circle at 18% 16%, rgba(255, 186, 110, 0.2), transparent 22%), radial-gradient(circle at 84% 76%, rgba(201, 92, 63, 0.2), transparent 24%), radial-gradient(circle at 54% 100%, rgba(255, 233, 214, 0.05), transparent 32%);
+}
+
+html[data-theme="tropical-night"] {
+  --background: #071018;
+  --background-secondary: #0d1b25;
+  --background-tertiary: #15222c;
+  --foreground: #eef8f6;
+  --foreground-strong: rgba(238, 248, 246, 0.97);
+  --muted: rgba(215, 231, 227, 0.74);
+  --muted-soft: rgba(215, 231, 227, 0.56);
+  --line: rgba(180, 234, 224, 0.14);
+  --line-strong: rgba(180, 234, 224, 0.22);
+  --panel: rgba(212, 241, 235, 0.045);
+  --panel-strong: rgba(212, 241, 235, 0.1);
+  --panel-dark: rgba(5, 16, 24, 0.42);
+  --panel-switcher: rgba(6, 19, 28, 0.58);
+  --accent: #4dd5c1;
+  --accent-strong: #b7fff2;
+  --accent-deep: #22918f;
+  --accent-soft: rgba(77, 213, 193, 0.18);
+  --accent-rgb: 77, 213, 193;
+  --cta-bg: #aef1e7;
+  --cta-bg-hover: #8fe7db;
+  --cta-text: #08161c;
+  --focus-ring: rgba(77, 213, 193, 0.76);
+  --body-top-glow: rgba(77, 213, 193, 0.09);
+  --body-side-glow: rgba(137, 113, 214, 0.07);
+  --site-top-glow: rgba(77, 213, 193, 0.06);
+  --site-side-glow: rgba(137, 113, 214, 0.05);
+  --selection-text: #071018;
+  --section-about-bg: linear-gradient(180deg, #0d1720 0%, #071018 100%);
+  --section-about-overlay: radial-gradient(circle at 12% 18%, rgba(77, 213, 193, 0.13), transparent 23%), radial-gradient(circle at 84% 74%, rgba(107, 92, 201, 0.16), transparent 24%), linear-gradient(135deg, rgba(220, 246, 242, 0.02), transparent 45%);
+  --section-video-bg: linear-gradient(180deg, #09141b 0%, #10202a 46%, #071018 100%);
+  --section-video-overlay: radial-gradient(circle at 18% 14%, rgba(77, 213, 193, 0.16), transparent 24%), radial-gradient(circle at 80% 28%, rgba(116, 98, 215, 0.17), transparent 20%), radial-gradient(circle at 50% 100%, rgba(231, 255, 251, 0.04), transparent 28%);
+  --section-trips-bg: linear-gradient(180deg, #09131a 0%, #14232b 46%, #081118 100%);
+  --section-trips-overlay: radial-gradient(circle at 18% 12%, rgba(77, 213, 193, 0.16), transparent 20%), radial-gradient(circle at 86% 84%, rgba(118, 101, 219, 0.17), transparent 24%);
+  --section-gallery-bg: linear-gradient(180deg, #0b1620 0%, #081018 100%);
+  --section-gallery-overlay: radial-gradient(circle at 14% 18%, rgba(77, 213, 193, 0.16), transparent 20%), radial-gradient(circle at 84% 80%, rgba(102, 91, 189, 0.18), transparent 22%);
+  --section-testimonials-bg: linear-gradient(180deg, #09131a 0%, #122028 100%);
+  --section-testimonials-overlay: radial-gradient(circle at 18% 18%, rgba(77, 213, 193, 0.12), transparent 20%), radial-gradient(circle at 84% 70%, rgba(120, 104, 220, 0.18), transparent 22%);
+  --section-contact-bg: linear-gradient(180deg, #0b1620 0%, #070f16 100%);
+  --section-contact-overlay: radial-gradient(circle at 18% 16%, rgba(77, 213, 193, 0.17), transparent 22%), radial-gradient(circle at 84% 76%, rgba(122, 105, 223, 0.18), transparent 24%), radial-gradient(circle at 54% 100%, rgba(235, 255, 251, 0.04), transparent 32%);
+}
+
+html[data-theme="island-daylight"] {
+  --background: #32251d;
+  --background-secondary: #46362c;
+  --background-tertiary: #5c4638;
+  --foreground: #fff8ee;
+  --foreground-strong: rgba(255, 248, 238, 0.97);
+  --muted: rgba(249, 235, 216, 0.76);
+  --muted-soft: rgba(249, 235, 216, 0.58);
+  --line: rgba(255, 232, 198, 0.16);
+  --line-strong: rgba(255, 232, 198, 0.24);
+  --panel: rgba(255, 244, 224, 0.05);
+  --panel-strong: rgba(255, 232, 198, 0.1);
+  --panel-dark: rgba(50, 37, 29, 0.34);
+  --panel-switcher: rgba(58, 42, 33, 0.56);
+  --accent: #ffb866;
+  --accent-strong: #ffe0a8;
+  --accent-deep: #da7b33;
+  --accent-soft: rgba(255, 184, 102, 0.18);
+  --accent-rgb: 255, 184, 102;
+  --cta-bg: #ffe2b7;
+  --cta-bg-hover: #ffd59d;
+  --cta-text: #38251c;
+  --focus-ring: rgba(255, 184, 102, 0.76);
+  --body-top-glow: rgba(255, 184, 102, 0.12);
+  --body-side-glow: rgba(255, 228, 182, 0.05);
+  --site-top-glow: rgba(255, 184, 102, 0.08);
+  --site-side-glow: rgba(255, 228, 182, 0.04);
+  --selection-text: #2a1b14;
+  --section-about-bg: linear-gradient(180deg, #584334 0%, #32251d 100%);
+  --section-about-overlay: radial-gradient(circle at 12% 18%, rgba(255, 195, 117, 0.16), transparent 23%), radial-gradient(circle at 84% 74%, rgba(210, 126, 64, 0.16), transparent 24%), linear-gradient(135deg, rgba(255, 243, 223, 0.025), transparent 45%);
+  --section-video-bg: linear-gradient(180deg, #49362b 0%, #6a4f3d 46%, #37281f 100%);
+  --section-video-overlay: radial-gradient(circle at 18% 14%, rgba(255, 184, 102, 0.18), transparent 24%), radial-gradient(circle at 80% 28%, rgba(221, 124, 59, 0.18), transparent 20%), radial-gradient(circle at 50% 100%, rgba(255, 244, 224, 0.04), transparent 28%);
+  --section-trips-bg: linear-gradient(180deg, #443327 0%, #5f4939 46%, #34261e 100%);
+  --section-trips-overlay: radial-gradient(circle at 18% 12%, rgba(255, 184, 102, 0.17), transparent 20%), radial-gradient(circle at 86% 84%, rgba(211, 118, 63, 0.17), transparent 24%);
+  --section-gallery-bg: linear-gradient(180deg, #584233 0%, #34261d 100%);
+  --section-gallery-overlay: radial-gradient(circle at 14% 18%, rgba(255, 184, 102, 0.17), transparent 20%), radial-gradient(circle at 84% 80%, rgba(212, 122, 61, 0.18), transparent 22%);
+  --section-testimonials-bg: linear-gradient(180deg, #47362a 0%, #614838 100%);
+  --section-testimonials-overlay: radial-gradient(circle at 18% 18%, rgba(255, 184, 102, 0.14), transparent 20%), radial-gradient(circle at 84% 70%, rgba(216, 126, 68, 0.18), transparent 22%);
+  --section-contact-bg: linear-gradient(180deg, #574132 0%, #31241c 100%);
+  --section-contact-overlay: radial-gradient(circle at 18% 16%, rgba(255, 184, 102, 0.18), transparent 22%), radial-gradient(circle at 84% 76%, rgba(213, 122, 63, 0.18), transparent 24%), radial-gradient(circle at 54% 100%, rgba(255, 244, 224, 0.05), transparent 32%);
 }
 
 html[data-font-preset="default"] {
@@ -55,9 +240,9 @@ body {
   padding: 0;
   min-height: 100%;
   background:
-    radial-gradient(circle at top left, rgba(214, 185, 139, 0.08), transparent 20%),
-    radial-gradient(circle at 82% 12%, rgba(255, 255, 255, 0.045), transparent 16%),
-    linear-gradient(180deg, #0b0c10 0%, #050608 38%, #09090d 100%);
+    radial-gradient(circle at top left, var(--body-top-glow), transparent 20%),
+    radial-gradient(circle at 82% 12%, var(--body-side-glow), transparent 16%),
+    linear-gradient(180deg, var(--background-secondary) 0%, var(--background) 38%, var(--background-tertiary) 100%);
   color: var(--foreground);
 }
 
@@ -93,15 +278,15 @@ canvas {
 
 ::selection {
   background: var(--accent);
-  color: #050505;
+  color: var(--selection-text);
 }
 
 .site-shell {
   position: relative;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at 18% 0%, rgba(214, 185, 139, 0.045), transparent 28%),
-    radial-gradient(circle at 100% 18%, rgba(255, 255, 255, 0.04), transparent 18%),
+    radial-gradient(circle at 18% 0%, var(--site-top-glow), transparent 28%),
+    radial-gradient(circle at 100% 18%, var(--site-side-glow), transparent 18%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 18%);
 }
 
@@ -109,6 +294,7 @@ canvas {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.05),
     0 18px 50px rgba(0, 0, 0, 0.3);
+  background: var(--panel-switcher);
 }
 
 .page-main > section {
@@ -268,6 +454,134 @@ canvas {
   color: var(--muted);
 }
 
+.text-muted-soft {
+  color: var(--muted-soft);
+}
+
+.theme-border {
+  border-color: var(--line);
+}
+
+.theme-border-strong {
+  border-color: var(--line-strong);
+}
+
+.theme-panel-bg {
+  background:
+    linear-gradient(180deg, var(--panel-strong), var(--panel)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent 58%);
+}
+
+.theme-panel-soft {
+  background: var(--panel);
+}
+
+.theme-panel-dark {
+  background: var(--panel-dark);
+}
+
+.theme-surface-elevated {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--panel-strong) 130%, transparent), var(--panel)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent 58%);
+}
+
+.theme-text-strong {
+  color: var(--foreground-strong);
+}
+
+.theme-page-glow {
+  background:
+    radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 18%);
+}
+
+.theme-page-glow-top {
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--accent) 14%, transparent), transparent 24%);
+}
+
+.theme-section-about-bg {
+  background: var(--section-about-bg);
+}
+
+.theme-section-about-overlay {
+  background: var(--section-about-overlay);
+}
+
+.theme-section-video-bg {
+  background: var(--section-video-bg);
+}
+
+.theme-section-video-overlay {
+  background: var(--section-video-overlay);
+}
+
+.theme-section-trips-bg {
+  background: var(--section-trips-bg);
+}
+
+.theme-section-trips-overlay {
+  background: var(--section-trips-overlay);
+}
+
+.theme-media-overlay-wide {
+  background: linear-gradient(
+    110deg,
+    color-mix(in srgb, var(--background) 72%, transparent) 0%,
+    color-mix(in srgb, var(--background-secondary) 22%, transparent) 40%,
+    color-mix(in srgb, var(--background) 76%, transparent) 100%
+  );
+}
+
+.theme-media-overlay-deep {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--background) 4%, transparent),
+    color-mix(in srgb, var(--background) 58%, transparent)
+  );
+}
+
+.theme-section-gallery-bg {
+  background: var(--section-gallery-bg);
+}
+
+.theme-section-gallery-overlay {
+  background: var(--section-gallery-overlay);
+}
+
+.theme-section-testimonials-bg {
+  background: var(--section-testimonials-bg);
+}
+
+.theme-section-testimonials-overlay {
+  background: var(--section-testimonials-overlay);
+}
+
+.theme-section-contact-bg {
+  background: var(--section-contact-bg);
+}
+
+.theme-section-contact-overlay {
+  background: var(--section-contact-overlay);
+}
+
+.theme-modal-backdrop {
+  background: color-mix(in srgb, var(--background) 76%, black 24%);
+}
+
+.theme-modal-surface {
+  background: linear-gradient(180deg, var(--background-secondary), var(--background));
+}
+
+.theme-cta-solid {
+  background: var(--accent);
+  color: var(--cta-text);
+}
+
+.theme-cta-solid:hover {
+  background: var(--accent-strong);
+}
+
 .glass-panel {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02)),
@@ -331,7 +645,7 @@ canvas {
   width: min(92vw, 1180px);
   height: 1px;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
 }
 
 .premium-stroke {
@@ -354,8 +668,8 @@ canvas {
 }
 
 .premium-chip {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--panel-strong), var(--panel));
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
   backdrop-filter: blur(16px);
 }
@@ -366,9 +680,9 @@ canvas {
 
 .editorial-panel {
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--line);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    linear-gradient(180deg, var(--panel-strong), var(--panel)),
     linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent 58%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.04),
@@ -387,7 +701,7 @@ canvas {
   align-items: center;
   gap: 0.65rem;
   justify-content: center;
-  border: 1px solid rgba(255,255,255,0.16);
+  border: 1px solid var(--line-strong);
   padding: 0.9rem 1.45rem;
   font-size: 0.74rem;
   font-weight: 700;
@@ -399,15 +713,15 @@ canvas {
 }
 
 .button-editorial-primary {
-  background: #ffffff;
-  border-color: rgba(255, 255, 255, 0.32);
-  color: #090705;
+  background: var(--cta-bg);
+  border-color: color-mix(in srgb, var(--cta-bg) 72%, transparent);
+  color: var(--cta-text);
   box-shadow: 0 24px 90px rgba(0, 0, 0, 0.26);
 }
 
 .button-editorial-secondary {
-  background: rgba(255,255,255,0.08);
-  color: white;
+  background: var(--panel-strong);
+  color: var(--foreground);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
@@ -430,11 +744,11 @@ canvas {
 }
 
 .button-editorial-primary:hover {
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--cta-bg-hover);
 }
 
 .button-editorial-secondary:hover {
-  background: rgba(255,255,255,0.12);
+  background: color-mix(in srgb, var(--panel-strong) 115%, transparent);
 }
 
 @media (max-width: 767px) {
@@ -452,10 +766,10 @@ select {
 }
 
 .form-field {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--line);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
-    rgba(0, 0, 0, 0.2);
+    linear-gradient(180deg, var(--panel), color-mix(in srgb, var(--panel) 55%, transparent)),
+    var(--panel-dark);
   transition:
     border-color 220ms ease,
     transform 220ms ease,
@@ -464,9 +778,9 @@ select {
 }
 
 .form-field:focus {
-  border-color: rgba(214, 185, 139, 0.44);
+  border-color: color-mix(in srgb, var(--accent) 44%, transparent);
   box-shadow:
-    0 0 0 1px rgba(214, 185, 139, 0.14),
+    0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent),
     0 12px 30px rgba(0, 0, 0, 0.18);
   transform: translateY(-1px);
 }
@@ -484,7 +798,7 @@ a:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid rgba(214, 185, 139, 0.72);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 

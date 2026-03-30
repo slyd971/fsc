@@ -3,6 +3,7 @@ import "./globals.css";
 import { Footer } from "@/components/site/Footer";
 import { FontSwitcher } from "@/components/site/FontSwitcher";
 import { Navbar } from "@/components/site/Navbar";
+import { ScrollDock } from "@/components/site/ScrollDock";
 import { siteData } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
+    <html lang="fr" data-theme="default" data-font-preset="default">
       <body>
         <div className="site-shell">
           <Navbar navigation={siteData.navigation} brand={siteData.brand} />
@@ -26,6 +27,7 @@ export default function RootLayout({
             navigation={siteData.navigation}
             contact={siteData.contact}
           />
+          <ScrollDock />
           <FontSwitcher />
         </div>
       </body>

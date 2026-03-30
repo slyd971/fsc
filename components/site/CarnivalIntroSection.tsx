@@ -20,7 +20,7 @@ export function CarnivalIntroSection({
           </Reveal>
           <Reveal delay={0.08}>
             <div className="glass-panel rounded-[2rem] p-6 md:p-10">
-              <div className="space-y-5 text-sm leading-7 text-white/68 md:text-lg md:leading-8">
+              <div className="text-muted space-y-5 text-sm leading-7 md:text-lg md:leading-8">
                 {paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}

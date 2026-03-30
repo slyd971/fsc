@@ -45,6 +45,9 @@ export type Testimonial = {
   name: string;
   role: string;
   quote: string;
+  city: string;
+  moment: string;
+  accent: string;
 };
 
 export type GalleryItem = {
@@ -59,6 +62,7 @@ export type GalleryItem = {
 export type ContactMethod = {
   label: string;
   value: string;
+  detail: string;
   href: string;
   icon: "instagram" | "message-circle" | "phone" | "mail";
 };
@@ -164,22 +168,19 @@ export const siteData = {
     eyebrow: "Crew atmosphere",
     title: "See the vibe.",
     description:
-      "A placeholder feature film block ready for your future recap edits, teasers or destination announcements.",
+      "A rolling glimpse of the road: arrivals, costume color, late-night recall and the kind of moving archive that makes the next trip feel impossible to miss.",
     videos: [
       {
-        title: "Rotterdam teaser",
-        poster:
-          "https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1400&q=80",
+        title: "Rotterdam road file",
+        poster: "/Rotterdam/fsc-rotterdam-road.jpg",
       },
       {
-        title: "London teaser",
-        poster:
-          "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1400&q=80",
+        title: "London afterglow",
+        poster: "/London/nhc2.jpg",
       },
       {
-        title: "Crew recap",
-        poster:
-          "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1400&q=80",
+        title: "Crew memory tape",
+        poster: "/fsc-crew-1.jpg",
       },
     ],
     cta: {
@@ -193,18 +194,27 @@ export const siteData = {
       role: "Rotterdam traveler",
       quote:
         "Everything felt smooth, stylish and genuinely friendly. It was not just a trip. It felt like joining a real crew.",
+      city: "Rotterdam",
+      moment: "First road with FSC",
+      accent: "Smooth, stylish and genuinely friendly.",
     },
     {
       name: "Jordan M.",
       role: "London carnival attendee",
       quote:
         "The organization gave me peace of mind and the atmosphere never dropped. You feel supported from planning to the final event.",
+      city: "London",
+      moment: "Carnival weekend",
+      accent: "The atmosphere never dropped.",
     },
     {
       name: "Nadia T.",
       role: "Community member",
       quote:
         "French Soca Crew creates the kind of energy where people arrive as strangers and leave with stories, photos and new people in their circle.",
+      city: "Paris",
+      moment: "Crew linkup",
+      accent: "People leave with stories and new people in their circle.",
     },
   ] satisfies Testimonial[],
   gallery: {
@@ -319,23 +329,26 @@ export const siteData = {
   contact: {
     title: "Plan your next road.",
     description:
-      "Reach out for bookings, questions, partnerships or your next carnival departure.",
+      "Reach out for bookings, crew questions, destination details or the next road you want to secure with us.",
     methods: [
       {
         label: "Instagram",
         value: "@frenchsocacrew",
+        detail: "Daily road moments and event drops",
         href: "https://instagram.com/frenchsocacrew",
         icon: "instagram",
       },
       {
         label: "WhatsApp",
-        value: "+33 6 12 34 56 78",
+        value: "Bookings and fast trip questions",
+        detail: "Best channel to reserve your spot",
         href: "https://wa.me/33612345678",
         icon: "message-circle",
       },
       {
         label: "Email",
         value: "hello@frenchsocacrew.com",
+        detail: "Partnerships, media and detailed requests",
         href: "mailto:hello@frenchsocacrew.com",
         icon: "mail",
       },

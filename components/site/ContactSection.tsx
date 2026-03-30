@@ -1,4 +1,5 @@
 import {
+  ArrowUpRight,
   Instagram,
   Mail,
   MessageCircle,
@@ -17,32 +18,49 @@ const iconMap: Record<ContactMethod["icon"], typeof Instagram> = {
 
 export function ContactSection() {
   const { contact } = siteData;
+  const whatsappMethod = contact.methods.find((method) => method.label === "WhatsApp");
 
   return (
-    <section className="relative overflow-hidden border-t border-white/10 px-4 py-16 sm:px-8 sm:py-22 lg:px-12 lg:py-28" id="contact">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,#120d0d_0%,#060606_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(241,193,136,0.18),transparent_22%),radial-gradient(circle_at_82%_72%,rgba(133,73,46,0.18),transparent_22%)]" />
+    <section className="theme-border relative overflow-hidden border-t px-4 py-14 sm:px-8 sm:py-22 lg:px-12 lg:py-28" id="contact">
+      <div className="theme-section-contact-bg absolute inset-0" />
+      <div className="theme-section-contact-overlay absolute inset-0" />
       <div className="grain-overlay" />
       <div className="paper-texture opacity-60" />
 
       <div className="section-shell relative z-10">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[2.7rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] px-5 py-6 sm:px-8 sm:py-8 lg:px-10 lg:py-10">
-            <div className="pointer-events-none absolute right-4 top-2 text-[clamp(3.4rem,9vw,7rem)] font-black uppercase tracking-[-0.08em] text-white/[0.05]">
+          <div className="theme-border theme-surface-elevated relative overflow-hidden rounded-[2.2rem] border px-4 py-5 sm:rounded-[2.8rem] sm:px-8 sm:py-8 lg:px-10 lg:py-10">
+            <div className="pointer-events-none absolute right-4 top-2 text-[clamp(3.2rem,9vw,7.4rem)] font-black uppercase tracking-[-0.08em] text-white/[0.08]">
               Join
             </div>
 
-            <div className="grid gap-10 lg:grid-cols-[0.86fr_1.14fr] lg:gap-12">
+            <div className="grid gap-8 lg:grid-cols-[0.88fr_1.12fr] lg:gap-12">
               <div>
                 <div className="editorial-kicker">Final call</div>
-                <h2 className="display-font mt-4 max-w-[11ch] text-[clamp(2.3rem,5.5vw,4.6rem)] uppercase leading-[0.9] text-white">
-                  Join the road, not just the form.
+                <h2 className="display-font theme-text-strong mt-4 max-w-[8ch] text-[clamp(1.65rem,6.5vw,5rem)] uppercase leading-[0.9] sm:max-w-[9ch] sm:text-[clamp(1.8rem,7vw,5rem)] sm:leading-[0.88] lg:max-w-[7ch] lg:text-[clamp(2.2rem,4.2vw,4.1rem)]">
+                  Join the next road.
                 </h2>
-                <p className="mt-5 max-w-xl text-base leading-7 text-white/66 md:text-lg md:leading-8">
-                  {contact.description} This should feel like the start of a crew move, a destination plan and a real shared departure.
+                <p className="text-muted mt-4 max-w-xl text-sm leading-6 sm:mt-5 sm:text-base sm:leading-7 md:text-lg md:leading-8">
+                  {contact.description} This is where a trip turns into a crew move, a booking becomes a plan and the next memory starts taking shape.
                 </p>
 
-                <div className="mt-8 grid gap-3">
+                <div className="mt-6 flex flex-wrap gap-2.5 sm:mt-8 sm:gap-3">
+                  {whatsappMethod ? (
+                    <a
+                      href={whatsappMethod.href}
+                      className="button-editorial button-editorial-primary premium-sheen premium-hover-lift"
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      Book on WhatsApp
+                    </a>
+                  ) : null}
+                  <a href="/trips" className="button-editorial button-editorial-secondary premium-sheen">
+                    See the roads
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                </div>
+
+                <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2">
                   {contact.methods.map((method) => {
                     const Icon = iconMap[method.icon];
 
@@ -50,23 +68,24 @@ export function ContactSection() {
                       <a
                         key={method.label}
                         href={method.href}
-                        className="group flex items-center justify-between gap-4 border-t border-white/10 py-4 transition hover:border-[var(--accent)]/30"
+                        className="theme-border theme-panel-dark group overflow-hidden rounded-[1.45rem] border p-3.5 transition hover:border-[var(--accent)]/28 hover:bg-white/[0.03] sm:rounded-[1.7rem] sm:p-4"
                       >
-                        <div className="flex items-center gap-4">
-                          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/22 text-[var(--accent)]">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="theme-border theme-panel-soft flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-[var(--accent)] sm:h-11 sm:w-11">
                             <Icon className="h-4 w-4" />
                           </div>
-                          <div>
-                            <div className="text-[10px] uppercase tracking-[0.28em] text-white/40">
-                              {method.label}
-                            </div>
-                            <div className="mt-1 text-base text-white/92">
-                              {method.value}
-                            </div>
+                          <div className="text-muted-soft text-[8px] uppercase tracking-[0.18em] transition group-hover:text-[var(--accent)] sm:text-[9px] sm:tracking-[0.24em]">
+                            Open
                           </div>
                         </div>
-                        <div className="text-[10px] uppercase tracking-[0.28em] text-white/30 transition group-hover:text-[var(--accent)]">
-                          Open
+                        <div className="text-muted-soft mt-4 text-[9px] uppercase tracking-[0.2em] sm:mt-5 sm:text-[10px] sm:tracking-[0.28em]">
+                          {method.label}
+                        </div>
+                        <div className="theme-text-strong mt-2 text-sm leading-5 sm:text-base sm:leading-6">
+                          {method.value}
+                        </div>
+                        <div className="text-muted-soft mt-1.5 text-[11px] leading-4 sm:mt-2 sm:text-sm sm:leading-5">
+                          {method.detail}
                         </div>
                       </a>
                     );
@@ -76,6 +95,7 @@ export function ContactSection() {
 
               <Reveal delay={0.08}>
                 <div className="relative lg:pt-6">
+                  <div className="pointer-events-none absolute -left-4 top-3 hidden h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(214,185,139,0.18),transparent_68%)] blur-2xl lg:block" />
                   <ContactForm />
                 </div>
               </Reveal>
