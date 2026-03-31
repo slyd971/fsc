@@ -2,9 +2,13 @@ import { groq } from "next-sanity";
 
 const localizedField = (field: string) =>
   `coalesce(select($locale == "en" => ${field}.en, ${field}.fr), ${field}.fr, ${field}.en)`;
+
 const localizedSlug = (field: string) =>
   `coalesce(select($locale == "en" => ${field}.en.current, ${field}.fr.current), ${field}.fr.current, ${field}.en.current)`;
 
+// --------------------
+// SITE SETTINGS
+// --------------------
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0]{
     _id,
@@ -27,6 +31,9 @@ export const siteSettingsQuery = groq`
   }
 `;
 
+// --------------------
+// TRIPS
+// --------------------
 export const tripsQuery = groq`
   *[_type == "trip"] | order(orderRank asc, _createdAt desc){
     _id,
@@ -104,6 +111,9 @@ export const tripBySlugQuery = groq`
   }
 `;
 
+// --------------------
+// TESTIMONIALS
+// --------------------
 export const testimonialsQuery = groq`
   *[_type == "testimonial"] | order(featured desc, _createdAt desc){
     _id,
@@ -116,28 +126,39 @@ export const testimonialsQuery = groq`
   }
 `;
 
+// --------------------
+// 🔥 GALLERY (FIXED)
+// --------------------
 export const galleryItemsQuery = groq`
   *[_type == "galleryItem"] | order(_createdAt desc){
     _id,
-    title,
-    tag->{
+
+    // titre localisé
+    "title": coalesce(title[$locale], title.fr, title.en),
+
+    // TAG = source principale
+    "tag": tag->{
       _id,
-      title,
-      slug
+      "title": coalesce(title[$locale], title.fr, title.en),
+      "slug": coalesce(slug[$locale].current, slug.fr.current, slug.en.current)
     },
-    category,
-    image{
+
+    // IMAGE (mediaItem)
+    "image": image{
       alt,
       imageUrl,
       image{
         asset
       }
     },
-    alt,
+
     size
   }
 `;
 
+// --------------------
+// PAGES
+// --------------------
 export const pageBySlugQuery = groq`
   *[_type == "page" && ${localizedSlug("slug")} == $slug][0]{
     _id,
@@ -198,12 +219,14 @@ export const pageBySlugQuery = groq`
           quote,
           moment,
           accent,
-          tag->{
+
+          // 🔥 FIX TAG AUSSI ICI
+          "tag": tag->{
             _id,
             title,
             slug
           },
-          category,
+
           alt,
           size,
           image{
@@ -288,7 +311,14 @@ export const pageByIdQuery = groq`
           quote,
           moment,
           accent,
-          category,
+
+          // 🔥 FIX TAG AUSSI ICI
+          "tag": tag->{
+            _id,
+            title,
+            slug
+          },
+
           alt,
           size,
           image{
