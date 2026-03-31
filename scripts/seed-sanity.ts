@@ -33,9 +33,14 @@ async function seed() {
   const docs: any[] = [];
 
   const galleryTags = new Map<string, { fr: string; en: string }>();
+
   siteData.gallery.items.forEach((item, index) => {
     const en = siteDataEnSeed.gallery.items[index];
-    galleryTags.set(item.category, { fr: item.category, en: en.category });
+    const slug = item.tag?.slug ?? `gallery-${index}`;
+    const frTitle = item.tag?.title ?? "Parties";
+    const enTitle = en?.tag?.title ?? frTitle;
+
+    galleryTags.set(slug, { fr: frTitle, en: enTitle });
   });
 
   docs.push({
@@ -78,9 +83,9 @@ async function seed() {
     });
   });
 
-  galleryTags.forEach((tag, key) => {
+  galleryTags.forEach((tag, slug) => {
     docs.push({
-      _id: `galleryTag.${slugify(key)}`,
+      _id: `galleryTag.${slug}`,
       _type: "galleryTag",
       title: ls(tag.fr, tag.en),
       slug: lslug(slugify(tag.fr), slugify(tag.en)),
@@ -93,12 +98,19 @@ async function seed() {
 
   siteData.gallery.items.forEach((item, index) => {
     const en = siteDataEnSeed.gallery.items[index];
+    const tagSlug = item.tag?.slug ?? `gallery-${index}`;
+    const frTagTitle = item.tag?.title ?? "Parties";
+    const enTagTitle = en?.tag?.title ?? frTagTitle;
+
     docs.push({
       _id: `galleryItem.${item.id}`,
       _type: "galleryItem",
       title: ls(item.title, en.title),
-      tag: ref(`galleryTag.${slugify(item.category)}`),
-      category: ls(item.category, en.category),
+      tag: ref(`galleryTag.${tagSlug}`),
+
+      // Conservé pour compatibilité avec l'ancien champ caché
+      category: ls(frTagTitle, enTagTitle),
+
       image: media(item.alt, en.alt, item.image),
       size: item.size,
     });
@@ -205,7 +217,10 @@ async function seed() {
         _type: "introBlock",
         eyebrow: ls(siteData.about.eyebrow, siteDataEnSeed.about.eyebrow),
         title: ls(siteData.about.title, siteDataEnSeed.about.title),
-        body: lt([siteData.about.intro, ...siteData.about.paragraphs].join("\n\n"), [siteDataEnSeed.about.intro, ...siteDataEnSeed.about.paragraphs].join("\n\n")),
+        body: lt(
+          [siteData.about.intro, ...siteData.about.paragraphs].join("\n\n"),
+          [siteDataEnSeed.about.intro, ...siteDataEnSeed.about.paragraphs].join("\n\n"),
+        ),
         mediaNote: lt(
           "Logistique carnaval, chaleur, musique, communauté et énergie de road tenues ensemble dans une seule atmosphère.",
           "Carnival logistics, warmth, music, community and road energy held together as one atmosphere.",
