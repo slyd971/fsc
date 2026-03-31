@@ -3,7 +3,7 @@ import { documentGroups, readOnlyForContributors } from "@/sanity/lib/editorial"
 
 export default defineType({
   name: "galleryTag",
-  title: "Tag galerie",
+  title: "Sous-dossier galerie",
   type: "document",
   groups: documentGroups,
   preview: {
@@ -21,8 +21,8 @@ export default defineType({
   fields: [
     defineField({
       name: "title",
-      title: "Nom du tag",
-      description: "Exemples : London, Rotterdam, Geneva, Paris, Parties. Renseigne FR et EN.",
+      title: "Nom du sous-dossier / tag",
+      description: "Exemples : London, Rotterdam, Geneva, Paris, Parties. Ce nom sert aussi de tag / filtre côté front.",
       type: "localizedString",
       group: "content",
       validation: (Rule) => Rule.required().error("Ajoute un nom de tag."),
@@ -30,7 +30,7 @@ export default defineType({
     defineField({
       name: "slug",
       title: "Slug technique",
-      description: "Utilisé pour organiser les dossiers de galerie. Réservé aux admins.",
+      description: "Utilisé pour organiser les sous-dossiers de galerie. Réservé aux admins.",
       type: "localizedSlug",
       group: "settings",
       readOnly: readOnlyForContributors,

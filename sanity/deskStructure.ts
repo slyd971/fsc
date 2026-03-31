@@ -17,18 +17,14 @@ const singletonItem = (
 export const structure: StructureResolver = (S, context) => {
   const admin = isAdminUser(context.currentUser)
 
-  const galleryTags = S.listItem().title('Tags galerie').child(
-    S.documentTypeList('galleryTag').title('Tags galerie'),
-  )
-
-  const galleryByTag = S.listItem()
-    .title('Galerie par tag')
+  const gallerySection = S.listItem()
+    .title('Galerie')
     .child(
       S.documentTypeList('galleryTag')
-        .title('Galerie par tag')
+        .title('Galerie')
         .child((tagId) =>
           S.documentList()
-            .title('Photos du tag')
+            .title('Photos du sous-dossier')
             .apiVersion(API_VERSION)
             .filter('_type == "galleryItem" && references($tagId)')
             .params({tagId}),
@@ -49,9 +45,7 @@ export const structure: StructureResolver = (S, context) => {
           S.listItem().title('Destinations').child(S.documentTypeList('destination')),
           S.listItem().title('Événements').child(S.documentTypeList('event')),
           S.listItem().title('Témoignages').child(S.documentTypeList('testimonial')),
-          galleryTags,
-          galleryByTag,
-          S.listItem().title('Photos de galerie').child(S.documentTypeList('galleryItem')),
+          gallerySection,
           S.listItem()
             .title('Autres pages')
             .child(
@@ -83,6 +77,8 @@ export const structure: StructureResolver = (S, context) => {
             .items([
               S.listItem().title('Toutes les pages').child(S.documentTypeList('page')),
               S.listItem().title('Tous les réglages site').child(S.documentTypeList('siteSettings')),
+              S.listItem().title('Tous les sous-dossiers galerie').child(S.documentTypeList('galleryTag')),
+              S.listItem().title('Toutes les photos de galerie').child(S.documentTypeList('galleryItem')),
             ]),
         ),
     )

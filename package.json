@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "sync:gallery-folders": "sanity exec scripts/sync-gallery-folders.ts --with-user-token",
+    "sync:gallery-assets": "sanity exec scripts/sync-gallery-assets.ts --with-user-token"
   },
   "dependencies": {
     "@sanity/image-url": "^1.2.0",

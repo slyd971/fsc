@@ -32,7 +32,7 @@ export default defineType({
     defineField({
       name: "tag",
       title: "Dossier / tag",
-      description: "Choisis le dossier auquel cette photo appartient. Crée d'abord le tag si besoin.",
+      description: "Choisis le sous-dossier auquel cette photo appartient. Ce sous-dossier sert aussi de tag / filtre côté front.",
       type: "reference",
       to: [{ type: "galleryTag" }],
       group: "content",
