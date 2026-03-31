@@ -116,7 +116,7 @@ export const siteDataEnSeed = {
       {
         id: "trip-1",
         title: "Departure mood",
-        category: "Paris",
+        tag: { title: "Paris", slug: "paris" },
         image:
           "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1000&q=80",
         alt: "Travelers arriving together with luggage in a bright terminal",
@@ -125,7 +125,7 @@ export const siteDataEnSeed = {
       {
         id: "carnival-1",
         title: "West road",
-        category: "London",
+        tag: { title: "London", slug: "london" },
         image: "/London/nhc3.jpg",
         alt: "French Soca Crew road moment in London",
         size: "landscape",
@@ -133,7 +133,7 @@ export const siteDataEnSeed = {
       {
         id: "party-1",
         title: "Night session",
-        category: "Parties",
+        tag: { title: "Parties", slug: "parties" },
         image:
           "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=1000&q=80",
         alt: "Party crowd with haze and lights",
@@ -142,7 +142,7 @@ export const siteDataEnSeed = {
       {
         id: "crew-1",
         title: "Lake side linkup",
-        category: "Geneva",
+        tag: { title: "Geneva", slug: "geneva" },
         image:
           "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1000&q=80",
         alt: "Group smiling together at an event",
@@ -151,7 +151,7 @@ export const siteDataEnSeed = {
       {
         id: "trip-2",
         title: "City touch-down",
-        category: "Paris",
+        tag: { title: "Paris", slug: "paris" },
         image:
           "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1000&q=80",
         alt: "Travelers overlooking a cityscape",
@@ -160,7 +160,7 @@ export const siteDataEnSeed = {
       {
         id: "carnival-2",
         title: "Mas energy",
-        category: "London",
+        tag: { title: "London", slug: "london" },
         image: "/London/nhc1.jpg",
         alt: "French Soca Crew carnival energy in London",
         size: "portrait",
@@ -168,7 +168,7 @@ export const siteDataEnSeed = {
       {
         id: "party-2",
         title: "Late energy",
-        category: "Parties",
+        tag: { title: "Parties", slug: "parties" },
         image:
           "https://images.unsplash.com/photo-1499364615650-ec38552f4f34?auto=format&fit=crop&w=1000&q=80",
         alt: "DJ and party lights in an intimate venue",
@@ -177,7 +177,7 @@ export const siteDataEnSeed = {
       {
         id: "crew-2",
         title: "Crew escape",
-        category: "Geneva",
+        tag: { title: "Geneva", slug: "geneva" },
         image:
           "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1000&q=80",
         alt: "Friends laughing together outdoors",
@@ -186,7 +186,7 @@ export const siteDataEnSeed = {
       {
         id: "rotterdam-1",
         title: "Rotterdam crew",
-        category: "Rotterdam",
+        tag: { title: "Rotterdam", slug: "rotterdam" },
         image: "/Rotterdam/20250726_183436.jpg",
         alt: "French Soca Crew group moment in Rotterdam",
         size: "portrait",
@@ -194,7 +194,7 @@ export const siteDataEnSeed = {
       {
         id: "rotterdam-2",
         title: "Yellow energy",
-        category: "Rotterdam",
+        tag: { title: "Rotterdam", slug: "rotterdam" },
         image: "/Rotterdam/fsc-rotterdam-road.jpg",
         alt: "French Soca Crew smiling together in Rotterdam",
         size: "portrait",
@@ -202,7 +202,7 @@ export const siteDataEnSeed = {
       {
         id: "rotterdam-3",
         title: "Road side",
-        category: "Rotterdam",
+        tag: { title: "Rotterdam", slug: "rotterdam" },
         image: "/Rotterdam/20250727_162600(0).jpg",
         alt: "French Soca Crew carnival day in Rotterdam",
         size: "portrait",
@@ -210,7 +210,7 @@ export const siteDataEnSeed = {
       {
         id: "rotterdam-4",
         title: "Carnival stop",
-        category: "Rotterdam",
+        tag: { title: "Rotterdam", slug: "rotterdam" },
         image: "/Rotterdam/20250727_162632.jpg",
         alt: "French Soca Crew road moment in Rotterdam",
         size: "portrait",
