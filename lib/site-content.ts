@@ -7,8 +7,6 @@ import { mapGallery, mapSiteSettings, mapTestimonials, mapTripPage, mapTripPrevi
 import { galleryItemsQuery, pageByIdQuery, pageBySlugQuery, siteSettingsQuery, testimonialsQuery, tripBySlugQuery, tripsQuery } from "@/sanity/lib/queries";
 import type { CmsGalleryItem, CmsSiteSettings, CmsTestimonial, CmsTrip } from "@/sanity/lib/types";
 
-type ContactIcon = "instagram" | "message-circle" | "phone" | "mail";
-
 type HomePageContent = {
   hero: typeof siteData.hero & { microLabel?: string; backgroundWord?: string; chorusItems?: string[] };
   about: typeof siteData.about & {
@@ -148,10 +146,7 @@ function fallbackShell(locale: Locale) {
         items: siteDataEnSeed.navigation.items.map((item) => ({ ...item })),
       },
       contact: {
-        methods: siteDataEnSeed.contact.methods.map((method) => ({
-          ...method,
-          icon: method.icon as ContactIcon,
-        })),
+        methods: siteDataEnSeed.contact.methods,
       },
     };
   }
@@ -163,10 +158,7 @@ function fallbackShell(locale: Locale) {
       items: siteData.navigation.items.map((item) => ({ ...item })),
     },
     contact: {
-      methods: siteData.contact.methods.map((method) => ({
-        ...method,
-        icon: method.icon as ContactIcon,
-      })),
+      methods: siteData.contact.methods,
     },
   };
 }
@@ -256,10 +248,7 @@ function fallbackHome(locale: Locale): HomePageContent {
       contact: {
         ...siteData.contact,
         ...siteDataEnSeed.contact,
-        methods: siteDataEnSeed.contact.methods.map((method) => ({
-          ...method,
-          icon: method.icon as ContactIcon,
-        })),
+        methods: siteDataEnSeed.contact.methods,
         formInterests: [...siteDataEnSeed.contact.formInterests],
         eyebrow: "Final call",
         backgroundWord: "Join",
@@ -309,10 +298,7 @@ function fallbackHome(locale: Locale): HomePageContent {
     },
     contact: {
       ...siteData.contact,
-      methods: siteData.contact.methods.map((method) => ({
-        ...method,
-        icon: method.icon as ContactIcon,
-      })),
+      methods: siteData.contact.methods,
       eyebrow: "Dernier appel",
       backgroundWord: "Join",
       primaryCta: {
