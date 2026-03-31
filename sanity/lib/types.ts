@@ -48,6 +48,11 @@ export type CmsTestimonial = {
 export type CmsGalleryItem = {
   _id: string;
   title?: LocalizedString;
+  tag?: {
+    _id?: string;
+    title?: LocalizedString;
+    slug?: LocalizedSlug;
+  };
   category?: LocalizedString;
   image?: CmsImage;
   alt?: LocalizedString;

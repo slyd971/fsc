@@ -109,7 +109,7 @@ export function mapGallery(items: CmsGalleryItem[], locale: Locale): GalleryItem
   return items.map((item) => ({
     id: item._id,
     title: localize(item.title, locale, "Gallery item"),
-    category: (localize(item.category, locale, "Parties") as GalleryItem["category"]),
+    category: (localize(item.tag?.title ?? item.category, locale, "Parties") as GalleryItem["category"]),
     image: item.image?.imageUrl ?? "/fsc-crew-1.jpg",
     alt: localize(item.alt ?? item.image?.alt, locale, "Gallery image"),
     size: item.size ?? "landscape",

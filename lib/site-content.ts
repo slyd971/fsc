@@ -93,6 +93,11 @@ type CmsPageBlock = {
     moment?: Partial<Record<Locale, string>>;
     accent?: Partial<Record<Locale, string>>;
     category?: Partial<Record<Locale, string>>;
+    tag?: {
+      _id?: string;
+      title?: Partial<Record<Locale, string>>;
+      slug?: Partial<Record<Locale, { current: string }>>;
+    };
     size?: "portrait" | "landscape" | "square";
     imageUrl?: string;
     alt?: Partial<Record<Locale, string>>;
@@ -401,7 +406,7 @@ function mapBlockGallery(
       .map((item, index) => ({
         id: item._id ?? `gallery-${index}`,
         title: localize(item.title, locale, "Gallery item"),
-        category: localize(item.category, locale, "Parties") as GalleryItem["category"],
+        category: localize(item.tag?.title ?? item.category, locale, "Parties") as GalleryItem["category"],
         image: resolveMediaUrl(item.image, fallback[index]?.image ?? fallback[0]?.image ?? "/fsc-crew-1.jpg"),
         alt: localize(item.alt ?? item.image?.alt, locale, "Gallery image"),
         size: item.size ?? "landscape",

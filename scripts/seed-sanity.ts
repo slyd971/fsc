@@ -20,8 +20,23 @@ const media = (frAlt: string, enAlt: string, imageUrl: string) => ({
 });
 const ref = (_ref: string) => ({ _type: "reference", _ref });
 
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 async function seed() {
   const docs: any[] = [];
+
+  const galleryTags = new Map<string, { fr: string; en: string }>();
+  siteData.gallery.items.forEach((item, index) => {
+    const en = siteDataEnSeed.gallery.items[index];
+    galleryTags.set(item.category, { fr: item.category, en: en.category });
+  });
 
   docs.push({
     _id: "siteSettings.main",
@@ -63,12 +78,26 @@ async function seed() {
     });
   });
 
+  galleryTags.forEach((tag, key) => {
+    docs.push({
+      _id: `galleryTag.${slugify(key)}`,
+      _type: "galleryTag",
+      title: ls(tag.fr, tag.en),
+      slug: lslug(slugify(tag.fr), slugify(tag.en)),
+      description: lt(
+        `Dossier galerie pour les contenus liés à ${tag.fr}.`,
+        `Gallery folder for content related to ${tag.en}.`,
+      ),
+    });
+  });
+
   siteData.gallery.items.forEach((item, index) => {
     const en = siteDataEnSeed.gallery.items[index];
     docs.push({
       _id: `galleryItem.${item.id}`,
       _type: "galleryItem",
       title: ls(item.title, en.title),
+      tag: ref(`galleryTag.${slugify(item.category)}`),
       category: ls(item.category, en.category),
       image: media(item.alt, en.alt, item.image),
       size: item.size,

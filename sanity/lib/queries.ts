@@ -120,6 +120,11 @@ export const galleryItemsQuery = groq`
   *[_type == "galleryItem"] | order(_createdAt desc){
     _id,
     title,
+    tag->{
+      _id,
+      title,
+      slug
+    },
     category,
     image{
       alt,
@@ -193,6 +198,11 @@ export const pageBySlugQuery = groq`
           quote,
           moment,
           accent,
+          tag->{
+            _id,
+            title,
+            slug
+          },
           category,
           alt,
           size,

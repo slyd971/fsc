@@ -6,6 +6,7 @@ import trip from "./documents/trip";
 import event from "./documents/event";
 import testimonial from "./documents/testimonial";
 import galleryItem from "./documents/galleryItem";
+import galleryTag from "./documents/galleryTag";
 import siteSettings from "./documents/siteSettings";
 import cta from "./objects/cta";
 import localizedSlug from "./objects/localizedSlug";
@@ -32,6 +33,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     trip,
     event,
     testimonial,
+    galleryTag,
     galleryItem,
     siteSettings,
     cta,

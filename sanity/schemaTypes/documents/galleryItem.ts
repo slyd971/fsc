@@ -3,17 +3,74 @@ import { documentGroups } from "@/sanity/lib/editorial";
 
 export default defineType({
   name: "galleryItem",
-  title: "Gallery item",
+  title: "Photo de galerie",
   type: "document",
   groups: documentGroups,
+  preview: {
+    select: {
+      title: "title.fr",
+      subtitle: "category.fr",
+      media: "image.image",
+    },
+    prepare({ title, subtitle, media }) {
+      return {
+        title: title || "Photo sans titre",
+        subtitle: subtitle || "Catégorie non renseignée",
+        media,
+      };
+    },
+  },
   fields: [
-    defineField({ name: "title", type: "localizedString", group: "content" }),
-    defineField({ name: "category", type: "localizedString", group: "content" }),
-    defineField({ name: "image", type: "mediaItem", group: "media" }),
+    defineField({
+      name: "title",
+      title: "Titre visible",
+      description: "Petit titre affiché dans la galerie. Renseigne FR et EN.",
+      type: "localizedString",
+      group: "content",
+      validation: (Rule) => Rule.required().error("Ajoute un titre pour cette photo."),
+    }),
+    defineField({
+      name: "tag",
+      title: "Dossier / tag",
+      description: "Choisis le dossier auquel cette photo appartient. Crée d'abord le tag si besoin.",
+      type: "reference",
+      to: [{ type: "galleryTag" }],
+      group: "content",
+      validation: (Rule) => Rule.required().error("Sélectionne un tag de galerie."),
+    }),
+    defineField({
+      name: "category",
+      title: "Catégorie héritée",
+      description: "Ancien champ conservé pour compatibilité. Le tag galerie devient la source principale.",
+      type: "localizedString",
+      group: "internal",
+      hidden: true,
+    }),
+    defineField({
+      name: "image",
+      title: "Visuel de galerie",
+      description: "1. Ouvre ce bloc  2. Uploade la photo  3. Ajoute le texte alternatif. C’est ici que se gère le média.",
+      type: "mediaItem",
+      group: "media",
+      validation: (Rule) => Rule.required().error("Ajoute le visuel de galerie."),
+      options: {
+        collapsible: false,
+        collapsed: false,
+      },
+    }),
     defineField({
       name: "size",
+      title: "Format d’affichage",
+      description: "Choisis le cadrage principal utilisé dans la galerie.",
       type: "string",
-      options: { list: ["portrait", "landscape", "square"] },
+      options: {
+        list: [
+          { title: "Portrait", value: "portrait" },
+          { title: "Paysage", value: "landscape" },
+          { title: "Carré", value: "square" },
+        ],
+        layout: "radio",
+      },
       initialValue: "landscape",
       group: "settings",
     }),

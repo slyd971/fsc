@@ -1,6 +1,8 @@
 import type {StructureResolver} from 'sanity/structure'
 import {isAdminUser, singletonDocumentIds} from './lib/editorial'
 
+const API_VERSION = '2026-03-30'
+
 const singletonItem = (
   S: Parameters<StructureResolver>[0],
   title: string,
@@ -14,6 +16,24 @@ const singletonItem = (
 
 export const structure: StructureResolver = (S, context) => {
   const admin = isAdminUser(context.currentUser)
+
+  const galleryTags = S.listItem().title('Tags galerie').child(
+    S.documentTypeList('galleryTag').title('Tags galerie'),
+  )
+
+  const galleryByTag = S.listItem()
+    .title('Galerie par tag')
+    .child(
+      S.documentTypeList('galleryTag')
+        .title('Galerie par tag')
+        .child((tagId) =>
+          S.documentList()
+            .title('Photos du tag')
+            .apiVersion(API_VERSION)
+            .filter('_type == "galleryItem" && references($tagId)')
+            .params({tagId}),
+        ),
+    )
 
   const mainContent = S.listItem()
     .title('Contenu principal')
@@ -29,13 +49,15 @@ export const structure: StructureResolver = (S, context) => {
           S.listItem().title('Destinations').child(S.documentTypeList('destination')),
           S.listItem().title('Événements').child(S.documentTypeList('event')),
           S.listItem().title('Témoignages').child(S.documentTypeList('testimonial')),
-          S.listItem().title('Éléments de galerie').child(S.documentTypeList('galleryItem')),
+          galleryTags,
+          galleryByTag,
+          S.listItem().title('Photos de galerie').child(S.documentTypeList('galleryItem')),
           S.listItem()
             .title('Autres pages')
             .child(
               S.documentTypeList('page').filter(
                 `_type == "page" && !(_id in ["${singletonDocumentIds.homePage}", "${singletonDocumentIds.tripsPage}", "${singletonDocumentIds.galleryPage}"])`,
-              ),
+              ).apiVersion(API_VERSION),
             ),
         ]),
     )
