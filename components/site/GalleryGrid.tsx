@@ -61,7 +61,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
               />
               <div className="theme-panel-soft p-4">
                 <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--accent)]">
-                  {item.tag?.title ?? "Untagged"}
+                  {item.tag?.title ?? "Sans tag"}
                 </div>
                 <div className="display-font mt-2 text-2xl uppercase">{item.title}</div>
               </div>
@@ -95,7 +95,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
               <img src={activeItem.image} alt={activeItem.alt} className="max-h-[72vh] w-full object-cover" />
               <div className="p-5 md:p-6">
                 <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--accent)]">
-                  {activeItem.tag?.title ?? "Untagged"}
+                  {activeItem.tag?.title ?? "Sans tag"}
                 </div>
                 <div className="display-font mt-2 text-3xl uppercase md:text-4xl">
                   {activeItem.title}
