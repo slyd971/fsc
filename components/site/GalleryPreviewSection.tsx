@@ -48,6 +48,8 @@ export function GalleryPreviewSection({
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
+    if (curatedImages.length === 0) return;
+
     const interval = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % curatedImages.length);
     }, 3800);
@@ -63,7 +65,10 @@ export function GalleryPreviewSection({
   }
 
   return (
-    <section id="gallery-preview" className="theme-border relative overflow-hidden border-t px-4 py-14 sm:px-8 sm:py-22 lg:px-12 lg:py-28">
+    <section
+      id="gallery-preview"
+      className="theme-border relative overflow-hidden border-t px-4 py-14 sm:px-8 sm:py-22 lg:px-12 lg:py-28"
+    >
       <div className="theme-section-gallery-bg absolute inset-0" />
       <div className="theme-section-gallery-overlay absolute inset-0" />
       <div className="grain-overlay" />
@@ -87,7 +92,10 @@ export function GalleryPreviewSection({
               <p className="text-muted max-w-2xl text-sm leading-6 sm:text-base sm:leading-7 md:text-lg md:leading-8">
                 {section.description}
               </p>
-              <Link href={withLocalePath(section.cta.href, locale)} className="button-editorial button-editorial-secondary premium-sheen">
+              <Link
+                href={withLocalePath(section.cta.href, locale)}
+                className="button-editorial button-editorial-secondary premium-sheen"
+              >
                 {section.cta.label}
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
@@ -126,7 +134,7 @@ export function GalleryPreviewSection({
                     />
                     <div className="p-2.5 sm:p-3">
                       <div className="text-[8px] uppercase tracking-[0.2em] text-[var(--accent)] sm:text-[9px] sm:tracking-[0.24em]">
-                        {image.category}
+                        {image.tag?.title ?? "Sans tag"}
                       </div>
                       <div className="display-font theme-text-strong mt-1.5 text-[0.9rem] uppercase leading-none sm:mt-2 sm:text-[1rem]">
                         {image.title}
@@ -151,7 +159,7 @@ export function GalleryPreviewSection({
                     <div className="flex flex-col justify-between p-3.5 sm:p-4">
                       <div>
                         <div className="text-[8px] uppercase tracking-[0.2em] text-[var(--accent)] sm:text-[9px] sm:tracking-[0.24em]">
-                          {sideImages[2].category}
+                          {sideImages[2].tag?.title ?? "Sans tag"}
                         </div>
                         <div className="display-font theme-text-strong mt-1.5 text-[0.98rem] uppercase leading-none sm:mt-2 sm:text-[1.1rem]">
                           {sideImages[2].title}
@@ -195,7 +203,7 @@ export function GalleryPreviewSection({
                   <div className="max-w-3xl">
                     <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
                       <div className="text-[9px] uppercase tracking-[0.22em] text-[var(--accent)] sm:text-[11px] sm:tracking-[0.3em]">
-                        {activeImage.category}
+                        {activeImage.tag?.title ?? "Sans tag"}
                       </div>
                       <div className="h-px w-8 bg-[var(--line-strong)] sm:w-12" />
                       <div className="text-muted-soft text-[9px] uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.28em]">
