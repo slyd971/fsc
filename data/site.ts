@@ -1,3 +1,17 @@
+import type {
+  DestinationPreview,
+  DestinationPageData,
+  GalleryItem,
+  Testimonial,
+  NavItem,
+  Highlight,
+  ContactMethod,
+} from "@/types";
+
+/* =============================
+   SITE DATA (FR)
+============================= */
+
 export const siteData = {
   metadata: {
     title: "French Soca Crew",
@@ -18,7 +32,7 @@ export const siteData = {
       { label: "Trips", href: "/#trips" },
       { label: "Galerie", href: "/gallery" },
       { label: "Contact", href: "/#contact" },
-    ],
+    ] satisfies NavItem[],
   },
 
   hero: {
@@ -37,8 +51,6 @@ export const siteData = {
     ],
     image: "/fsc-crew-1.jpg",
     imageAlt: "Visuel de groupe French Soca Crew",
-    imageBadge: "Crew ensemble",
-    imageCaption: "Voyager ensemble. Fêter ensemble.",
   },
 
   about: {
@@ -47,9 +59,26 @@ export const siteData = {
     intro:
       "French Soca Crew réunit logistique de voyage, direction culturelle et vraie énergie de communauté.",
     paragraphs: [
-      "Du premier message à la fin du trip, tout est pensé avec précision.",
-      "Chaque expérience devient une atmosphère complète.",
+      "Nous organisons des voyages carnaval, des escapades de groupe et des expériences centrées sur la musique.",
+      "Chaque trip est imaginé comme une atmosphère complète : énergie, événements et crew.",
     ],
+    highlights: [
+      {
+        title: "Communauté",
+        description:
+          "Un crew de voyage pensé autour du lien et des souvenirs partagés.",
+      },
+      {
+        title: "Expériences carnaval",
+        description:
+          "Des trips construits autour de l’émotion et de la musique.",
+      },
+      {
+        title: "Vibes caribéennes",
+        description:
+          "Soca, diaspora et immersion culturelle dans chaque détail.",
+      },
+    ] satisfies Highlight[],
   },
 
   destinations: [
@@ -59,89 +88,37 @@ export const siteData = {
       title: "Rotterdam Carnival",
       eyebrow: "Énergie de road estivale",
       description:
-        "Un city break à haute vibration construit autour du carnaval.",
+        "Un city break à haute vibration construit autour des moments de parade.",
       image: "/Rotterdam/fsc-rotterdam-road.jpg",
-      imageAlt: "Photo FSC Rotterdam",
+      imageAlt: "Photo de groupe FSC à Rotterdam",
       badge: "Week-end carnaval",
     },
     {
       slug: "london-carnival",
       city: "London",
       title: "London Carnival",
-      eyebrow: "Énergie diaspora",
+      eyebrow: "Énergie de capitale diaspora",
       description:
-        "Une immersion complète dans le carnaval londonien.",
+        "Une expérience urbaine dense mêlant big road et moments crew.",
       image: "/London/nhc3.jpg",
-      imageAlt: "Photo FSC London",
-      badge: "Iconique",
+      imageAlt: "Moment de road FSC à Londres",
+      badge: "Destination iconique",
     },
-  ],
-
-  video: {
-    eyebrow: "Atmosphère du crew",
-    title: "Voir la vibe.",
-    description:
-      "Arrivées sur la road, couleurs, souvenirs et énergie collective.",
-    videos: [
-      {
-        title: "Arrivée à Rotterdam",
-        poster: "/Rotterdam/fsc-rotterdam-road.jpg",
-      },
-      {
-        title: "Road Londres",
-        poster: "/London/nhc2.jpg",
-      },
-      {
-        title: "Crew moment",
-        poster: "/fsc-crew-1.jpg",
-      },
-    ],
-    cta: {
-      label: "Voir l'énergie",
-      href: "https://www.instagram.com/frenchsocacrew/",
-    },
-  },
-
-  testimonials: [
-    {
-      name: "Camille R.",
-      role: "Voyageuse Rotterdam",
-      quote:
-        "Tout était fluide, chaleureux et organisé.",
-      city: "Rotterdam",
-      moment: "Première road FSC",
-      accent: "Fluide et chaleureux.",
-    },
-  ],
+  ] satisfies DestinationPreview[],
 
   gallery: {
     heroTitle: "Des moments qui restent.",
     heroDescription:
-      "Une archive visuelle de la road et du crew.",
-    items: [
-      {
-        id: "carnival-1",
-        title: "Road Londres",
-        tag: { title: "London", slug: "london" },
-        image: "/London/nhc3.jpg",
-        alt: "FSC London",
-        size: "landscape",
-      },
-      {
-        id: "rotterdam-1",
-        title: "Crew Rotterdam",
-        tag: { title: "Rotterdam", slug: "rotterdam" },
-        image: "/Rotterdam/fsc-rotterdam-road.jpg",
-        alt: "FSC Rotterdam",
-        size: "portrait",
-      },
-    ],
+      "Une archive visuelle des moments de road et de l’énergie du crew.",
+    items: [] satisfies GalleryItem[],
   },
+
+  testimonials: [] satisfies Testimonial[],
 
   contact: {
     title: "Prépare ta prochaine road.",
     description:
-      "Contacte-nous pour réserver ou poser tes questions.",
+      "Contacte-nous pour une réservation ou des infos sur les trips.",
     methods: [
       {
         label: "Instagram",
@@ -150,26 +127,57 @@ export const siteData = {
         href: "https://instagram.com/frenchsocacrew",
         icon: "instagram",
       },
-      {
-        label: "WhatsApp",
-        value: "Réservation rapide",
-        detail: "Le meilleur canal",
-        href: "https://wa.me/33612345678",
-        icon: "message-circle",
-      },
-    ],
+    ] satisfies ContactMethod[],
+
     formInterests: [
       "Rotterdam Carnival",
       "London Carnival",
       "Information générale",
-      "Partenariat",
     ],
   },
 
   tripsPage: {
     eyebrow: "Destinations",
     title: "Choisis ta road.",
-    description:
-      "Un aperçu premium des destinations FSC.",
+    description: "Découvre nos trips du moment.",
+  },
+};
+
+/* =============================
+   DESTINATION PAGES (FIX BUILD)
+============================= */
+
+export const destinationPages: Record<
+  DestinationPreview["slug"],
+  DestinationPageData
+> = {
+  "rotterdam-carnival": {
+    slug: "rotterdam-carnival",
+    title: "Rotterdam Carnival",
+    eyebrow: "Destination",
+    heroDescription: "Une expérience road vibrante à Rotterdam.",
+    heroImage: "/Rotterdam/fsc-rotterdam-road.jpg",
+    introTitle: "Un week-end en mouvement.",
+    introParagraphs: [
+      "Rotterdam est une destination dynamique.",
+      "FSC rend l’expérience fluide et immersive.",
+    ],
+    experiences: [],
+    packs: [],
+  },
+
+  "london-carnival": {
+    slug: "london-carnival",
+    title: "London Carnival",
+    eyebrow: "Destination",
+    heroDescription: "Une expérience carnaval iconique à Londres.",
+    heroImage: "/London/nhc3.jpg",
+    introTitle: "Énergie big road.",
+    introParagraphs: [
+      "London Carnival est une référence mondiale.",
+      "FSC structure toute l’expérience pour le crew.",
+    ],
+    experiences: [],
+    packs: [],
   },
 };
