@@ -9,20 +9,20 @@ import type {
 } from "./types";
 
 /* =========================
-   SITE DATA (FR DEFAULT)
+   SITE DATA (FR)
 ========================= */
 
 export const siteData = {
   metadata: {
     title: "French Soca Crew",
     description:
-      "Voyages carnaval premium, événements centrés sur la soca et expériences culturelles caribéennes imaginés par French Soca Crew.",
+      "Voyages carnaval premium, événements soca et expériences culturelles caribéennes.",
   },
 
   brand: {
     name: "French Soca Crew",
     mark: "FSC",
-    tagline: "Voyage, carnaval et énergie caribéenne réunis dans une même expérience partagée.",
+    tagline: "Voyage, carnaval et énergie caribéenne réunis.",
   },
 
   navigation: {
@@ -35,43 +35,43 @@ export const siteData = {
   },
 
   hero: {
-    eyebrow: "Association française dédiée aux voyages carnaval et aux expériences soca",
+    eyebrow: "Association française dédiée aux expériences carnaval",
     title: "French Soca Crew",
     subtitle:
-      "Nous imaginons des voyages de groupe premium, des expériences événementielles et des moments culturels portés par la soca, l’esprit carnaval et l’énergie de la communauté caribéenne.",
-    primaryCta: { label: "Découvrir nos trips", href: "/#trips" },
-    secondaryCta: { label: "Nous contacter", href: "/#contact" },
+      "Voyages de groupe premium et expériences culturelles autour de la soca et du carnaval.",
+    primaryCta: { label: "Voir les trips", href: "/#trips" },
+    secondaryCta: { label: "Contact", href: "/#contact" },
     stats: [
       { value: "10+", label: "Années d'expérience", icon: "sparkles" },
       { value: "25+", label: "Roads", icon: "map" },
       { value: "12+", label: "Jouvert", icon: "sunrise" },
-      { value: "500L+", label: "De rhum partagé", icon: "glass" },
+      { value: "500L+", label: "Rhum partagé", icon: "glass" },
     ],
     image: "/fsc-crew-1.jpg",
-    imageAlt: "Visuel de groupe French Soca Crew",
+    imageAlt: "French Soca Crew",
   },
 
   about: {
     eyebrow: "À propos",
     title: "Pensé pour la road.",
     intro:
-      "French Soca Crew réunit logistique de voyage, direction culturelle et vraie énergie de communauté.",
+      "Une organisation de voyages et d’expériences centrée sur la communauté et la culture.",
     paragraphs: [
-      "Une expérience pensée avec chaleur, précision et rythme.",
-      "Chaque trip devient une atmosphère complète.",
+      "Chaque détail est pensé pour fluidifier l’expérience.",
+      "Une énergie collective du début à la fin.",
     ],
     highlights: [
       {
         title: "Communauté",
-        description: "Un crew basé sur la connexion et les souvenirs.",
+        description: "Un crew basé sur la connexion.",
       },
       {
-        title: "Expériences carnaval",
-        description: "Des trips centrés sur l’émotion et la musique.",
+        title: "Carnaval",
+        description: "Des expériences immersives.",
       },
       {
-        title: "Vibes caribéennes",
-        description: "Immersion diaspora et culture soca.",
+        title: "Culture",
+        description: "Soca et diaspora.",
       },
     ] satisfies Highlight[],
   },
@@ -81,20 +81,20 @@ export const siteData = {
       slug: "rotterdam-carnival",
       city: "Rotterdam",
       title: "Rotterdam Carnival",
-      eyebrow: "Énergie de road estivale",
-      description: "Un week-end carnaval à haute vibration.",
+      eyebrow: "Road estivale",
+      description: "Week-end carnaval intense.",
       image: "/Rotterdam/fsc-rotterdam-road.jpg",
-      imageAlt: "FSC Rotterdam",
-      badge: "Week-end carnaval",
+      imageAlt: "Rotterdam FSC",
+      badge: "Carnaval",
     },
     {
       slug: "london-carnival",
       city: "London",
       title: "London Carnival",
       eyebrow: "Énergie diaspora",
-      description: "Une immersion dans la culture carnaval londonienne.",
+      description: "Carnaval iconique.",
       image: "/London/nhc3.jpg",
-      imageAlt: "FSC London",
+      imageAlt: "London FSC",
       badge: "Iconique",
     },
   ] satisfies DestinationPreview[],
@@ -103,7 +103,7 @@ export const siteData = {
 
   gallery: {
     heroTitle: "Des moments qui restent.",
-    heroDescription: "Une archive visuelle de la road.",
+    heroDescription: "Archive visuelle de la road.",
     items: [] satisfies GalleryItem[],
   },
 
@@ -116,12 +116,12 @@ export const siteData = {
   tripsPage: {
     eyebrow: "Destinations",
     title: "Choisis ta road.",
-    description: "Un aperçu premium de nos destinations.",
+    description: "Aperçu de nos destinations.",
   },
 };
 
 /* =========================
-   DESTINATION PAGES (FIX BUILD)
+   DESTINATION PAGES (FR)
 ========================= */
 
 export const destinationPages: Record<
@@ -132,29 +132,71 @@ export const destinationPages: Record<
     slug: "rotterdam-carnival",
     title: "Rotterdam Carnival",
     eyebrow: "Destination",
-    heroDescription: "Une road vibrante à Rotterdam.",
+    heroDescription:
+      "Une road vibrante entre parade, fête et énergie collective.",
     heroImage: "/Rotterdam/fsc-rotterdam-road.jpg",
+
     introTitle: "Un week-end en mouvement.",
     introParagraphs: [
-      "Rotterdam est une destination dynamique.",
-      "L'expérience FSC simplifie tout.",
+      "Rotterdam offre une vibe unique.",
+      "Le crew FSC rend tout plus simple.",
     ],
-    experiences: [],
-    packs: [],
+
+    experiences: [
+      {
+        title: "Parade principale",
+        date: "Samedi",
+        description: "Défilé carnaval au cœur de la ville.",
+        image: "/Rotterdam/fsc-rotterdam-road.jpg",
+        includes: ["Accès crew", "Coordination"],
+      },
+    ],
+
+    packs: [
+      {
+        name: "Pack Standard",
+        price: "À partir de 250€",
+        pitch: "Essentiel pour vivre la road.",
+        included: ["Accès événements"],
+        notIncluded: ["Transport"],
+        featured: false,
+      },
+    ],
   },
 
   "london-carnival": {
     slug: "london-carnival",
     title: "London Carnival",
     eyebrow: "Destination",
-    heroDescription: "Une expérience carnaval iconique.",
+    heroDescription:
+      "Une immersion dans l’un des plus grands carnavals du monde.",
     heroImage: "/London/nhc3.jpg",
+
     introTitle: "Énergie big road.",
     introParagraphs: [
       "London Carnival est une référence mondiale.",
       "FSC structure ton expérience.",
     ],
-    experiences: [],
-    packs: [],
+
+    experiences: [
+      {
+        title: "Parade Notting Hill",
+        date: "Week-end",
+        description: "Big road et soundsystems.",
+        image: "/London/nhc3.jpg",
+        includes: ["Crew", "Accès"],
+      },
+    ],
+
+    packs: [
+      {
+        name: "Pack Crew",
+        price: "À partir de 300€",
+        pitch: "Expérience complète.",
+        included: ["Events", "Support"],
+        notIncluded: ["Vol"],
+        featured: true,
+      },
+    ],
   },
 };
