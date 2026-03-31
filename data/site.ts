@@ -53,12 +53,14 @@ export type Testimonial = {
 export type GalleryItem = {
   id: string;
   title: string;
-  category: "London" | "Rotterdam" | "Geneva" | "Paris" | "Parties";
+  tag?: {
+    title: string;
+    slug: string;
+  };
   image: string;
   alt: string;
   size: "portrait" | "landscape" | "square";
 };
-
 export type ContactMethod = {
   label: string;
   value: string;
