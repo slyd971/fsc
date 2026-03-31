@@ -53,7 +53,6 @@ export type CmsGalleryItem = {
     title?: LocalizedString;
     slug?: LocalizedSlug;
   };
-  category?: LocalizedString;
   image?: CmsImage;
   alt?: LocalizedString;
   size?: "portrait" | "landscape" | "square";
