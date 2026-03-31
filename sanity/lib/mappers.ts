@@ -106,14 +106,27 @@ export function mapTestimonials(items: CmsTestimonial[], locale: Locale): Testim
 }
 
 export function mapGallery(items: CmsGalleryItem[], locale: Locale): GalleryItem[] {
-  return items.map((item) => ({
-    id: item._id,
-    title: localize(item.title, locale, "Gallery item"),
-    category: (localize(item.tag?.title ?? item.category, locale, "Parties") as GalleryItem["category"]),
-    image: item.image?.imageUrl ?? "/fsc-crew-1.jpg",
-    alt: localize(item.alt ?? item.image?.alt, locale, "Gallery image"),
-    size: item.size ?? "landscape",
-  }));
+  return items.map((item) => {
+    const media = imageUrl(item.image, locale, "/fsc-crew-1.jpg", "Gallery image");
+
+    return {
+      id: item._id,
+      title: localize(item.title, locale, "Gallery item"),
+      tag: item.tag
+        ? {
+            title: localize(item.tag.title, locale, "Parties"),
+            slug:
+              item.tag.slug?.[locale]?.current ??
+              item.tag.slug?.fr?.current ??
+              item.tag.slug?.en?.current ??
+              "parties",
+          }
+        : undefined,
+      image: media.image,
+      alt: localize(item.alt ?? item.image?.alt, locale, "Gallery image"),
+      size: item.size ?? "landscape",
+    };
+  });
 }
 
 export function mapSiteSettings(
