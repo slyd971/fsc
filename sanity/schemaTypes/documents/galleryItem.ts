@@ -7,19 +7,19 @@ export default defineType({
   type: "document",
   groups: documentGroups,
   preview: {
-    select: {
-      title: "title.fr",
-      subtitle: "category.fr",
-      media: "image.image",
-    },
-    prepare({ title, subtitle, media }) {
-      return {
-        title: title || "Photo sans titre",
-        subtitle: subtitle || "Catégorie non renseignée",
-        media,
-      };
-    },
+  select: {
+    title: "title.fr",
+    subtitle: "tag.title.fr",
+    media: "image.image",
   },
+  prepare({ title, subtitle, media }) {
+    return {
+      title: title || "Photo sans titre",
+      subtitle: subtitle || "Tag non renseigné",
+      media,
+    };
+  },
+},
   fields: [
     defineField({
       name: "title",
