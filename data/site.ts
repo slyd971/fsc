@@ -61,6 +61,7 @@ export type GalleryItem = {
   alt: string;
   size: "portrait" | "landscape" | "square";
 };
+
 export type ContactMethod = {
   label: string;
   value: string;
@@ -227,7 +228,7 @@ export const siteData = {
       {
         id: "trip-1",
         title: "Mood du départ",
-        category: "Paris",
+        tag: { title: "Paris", slug: "paris" },
         image:
           "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1000&q=80",
         alt: "Voyageurs arrivant ensemble avec leurs bagages dans un terminal lumineux",
@@ -236,7 +237,7 @@ export const siteData = {
       {
         id: "carnival-1",
         title: "Road de l'ouest",
-        category: "London",
+        tag: { title: "London", slug: "london" },
         image: "/London/nhc3.jpg",
         alt: "Moment de road French Soca Crew à Londres",
         size: "landscape",
@@ -244,7 +245,7 @@ export const siteData = {
       {
         id: "party-1",
         title: "Session de nuit",
-        category: "Parties",
+        tag: { title: "Parties", slug: "parties" },
         image:
           "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=1000&q=80",
         alt: "Foule en fête dans la brume et les lumières",
@@ -253,7 +254,7 @@ export const siteData = {
       {
         id: "crew-1",
         title: "Linkup au bord du lac",
-        category: "Geneva",
+        tag: { title: "Geneva", slug: "geneva" },
         image:
           "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1000&q=80",
         alt: "Groupe souriant ensemble pendant un événement",
@@ -262,7 +263,7 @@ export const siteData = {
       {
         id: "trip-2",
         title: "Arrivée en ville",
-        category: "Paris",
+        tag: { title: "Paris", slug: "paris" },
         image:
           "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1000&q=80",
         alt: "Voyageurs admirant une vue urbaine",
@@ -271,7 +272,7 @@ export const siteData = {
       {
         id: "carnival-2",
         title: "Énergie du mas",
-        category: "London",
+        tag: { title: "London", slug: "london" },
         image: "/London/nhc1.jpg",
         alt: "Énergie carnaval French Soca Crew à Londres",
         size: "portrait",
@@ -279,7 +280,7 @@ export const siteData = {
       {
         id: "party-2",
         title: "Énergie tardive",
-        category: "Parties",
+        tag: { title: "Parties", slug: "parties" },
         image:
           "https://images.unsplash.com/photo-1499364615650-ec38552f4f34?auto=format&fit=crop&w=1000&q=80",
         alt: "DJ et lumières de fête dans un lieu intimiste",
@@ -288,7 +289,7 @@ export const siteData = {
       {
         id: "crew-2",
         title: "Escapade du crew",
-        category: "Geneva",
+        tag: { title: "Geneva", slug: "geneva" },
         image:
           "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1000&q=80",
         alt: "Amis riant ensemble à l'extérieur",
@@ -297,7 +298,7 @@ export const siteData = {
       {
         id: "rotterdam-1",
         title: "Crew Rotterdam",
-        category: "Rotterdam",
+        tag: { title: "Rotterdam", slug: "rotterdam" },
         image: "/Rotterdam/20250726_183436.jpg",
         alt: "Moment de groupe French Soca Crew à Rotterdam",
         size: "portrait",
@@ -305,7 +306,7 @@ export const siteData = {
       {
         id: "rotterdam-2",
         title: "Énergie jaune",
-        category: "Rotterdam",
+        tag: { title: "Rotterdam", slug: "rotterdam" },
         image: "/Rotterdam/fsc-rotterdam-road.jpg",
         alt: "French Soca Crew souriant ensemble à Rotterdam",
         size: "portrait",
@@ -313,7 +314,7 @@ export const siteData = {
       {
         id: "rotterdam-3",
         title: "Bord de road",
-        category: "Rotterdam",
+        tag: { title: "Rotterdam", slug: "rotterdam" },
         image: "/Rotterdam/20250727_162600(0).jpg",
         alt: "Journée carnaval French Soca Crew à Rotterdam",
         size: "portrait",
@@ -321,7 +322,7 @@ export const siteData = {
       {
         id: "rotterdam-4",
         title: "Pause carnaval",
-        category: "Rotterdam",
+        tag: { title: "Rotterdam", slug: "rotterdam" },
         image: "/Rotterdam/20250727_162632.jpg",
         alt: "Moment de road French Soca Crew à Rotterdam",
         size: "portrait",
