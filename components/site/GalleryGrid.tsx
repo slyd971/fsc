@@ -18,7 +18,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
 
   const filteredItems = useMemo(() => {
     if (activeFilter === "All") return items;
-    return items.filter((item) => item.category === activeFilter);
+    return items.filter((item) => item.tag?.title === activeFilter);
   }, [activeFilter, items]);
 
   return (
@@ -61,7 +61,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
               />
               <div className="theme-panel-soft p-4">
                 <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--accent)]">
-                  {item.category}
+                  {item.tag?.title ?? "Untagged"}
                 </div>
                 <div className="display-font mt-2 text-2xl uppercase">{item.title}</div>
               </div>
@@ -95,7 +95,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
               <img src={activeItem.image} alt={activeItem.alt} className="max-h-[72vh] w-full object-cover" />
               <div className="p-5 md:p-6">
                 <div className="text-[10px] uppercase tracking-[0.28em] text-[var(--accent)]">
-                  {activeItem.category}
+                  {activeItem.tag?.title ?? "Untagged"}
                 </div>
                 <div className="display-font mt-2 text-3xl uppercase md:text-4xl">
                   {activeItem.title}
