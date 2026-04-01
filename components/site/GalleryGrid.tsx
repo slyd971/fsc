@@ -10,15 +10,26 @@ type GalleryGridProps = {
   items: GalleryItem[];
 };
 
-const filters = ["All", "London", "Rotterdam", "Geneva", "Paris", "Parties"] as const;
+const filters = [
+  { label: "All", slug: "all" },
+  { label: "London", slug: "london" },
+  { label: "Rotterdam", slug: "rotterdam" },
+  { label: "Geneva", slug: "geneva" },
+  { label: "Paris", slug: "paris" },
+  { label: "Parties", slug: "parties" },
+] as const;
 
 export function GalleryGrid({ items }: GalleryGridProps) {
-  const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]>("All");
+  const [activeFilter, setActiveFilter] = useState<(typeof filters)[number]["slug"]>("all");
   const [activeItem, setActiveItem] = useState<GalleryItem | null>(null);
 
   const filteredItems = useMemo(() => {
-    if (activeFilter === "All") return items;
-    return items.filter((item) => item.tag?.title === activeFilter);
+    if (activeFilter === "all") return items;
+
+    return items.filter((item) => {
+      const slug = item.tag?.slug?.trim().toLowerCase();
+      return slug === activeFilter;
+    });
   }, [activeFilter, items]);
 
   return (
@@ -26,16 +37,16 @@ export function GalleryGrid({ items }: GalleryGridProps) {
       <div className="flex flex-wrap gap-3">
         {filters.map((filter) => (
           <button
-            key={filter}
+            key={filter.slug}
             type="button"
-            onClick={() => setActiveFilter(filter)}
+            onClick={() => setActiveFilter(filter.slug)}
             className={`rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] transition ${
-              activeFilter === filter
+              activeFilter === filter.slug
                 ? "theme-cta-solid"
                 : "theme-border theme-panel-soft border text-white/70 hover:bg-white/10"
             }`}
           >
-            {filter}
+            {filter.label}
           </button>
         ))}
       </div>
