@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { DestinationPageTemplate } from "@/components/site/DestinationPageTemplate";
 import { getTripPage } from "@/lib/site-content";
 import { defaultLocale } from "@/lib/i18n";
 
@@ -14,5 +13,17 @@ export default async function TripPage({
     notFound();
   }
 
-  return <DestinationPageTemplate page={trip} locale={defaultLocale} />;
+  return (
+    <main className="pt-28 md:pt-36">
+      <div style={{ padding: 24, color: "white" }}>
+        <h1>{trip.title}</h1>
+        <p>{trip.eyebrow}</p>
+        <p>{trip.heroDescription}</p>
+
+        <pre style={{ whiteSpace: "pre-wrap", marginTop: 24 }}>
+          {JSON.stringify(trip, null, 2)}
+        </pre>
+      </div>
+    </main>
+  );
 }
