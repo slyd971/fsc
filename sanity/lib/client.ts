@@ -14,11 +14,12 @@ export const client = hasSanityEnv
 
 export function getSanityFetchOptions(tags: string[] = []) {
   if (process.env.NODE_ENV !== 'production') {
-    return {cache: 'no-store' as const}
+    return { cache: 'no-store' as const }
   }
 
   return {
     next: {
+      revalidate: 60,
       tags: ['sanity', ...tags],
     },
   }
