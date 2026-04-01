@@ -1,36 +1,18 @@
 import { notFound } from "next/navigation";
 import { DestinationPageTemplate } from "@/components/site/DestinationPageTemplate";
-import { PageBlocksRenderer } from "@/components/site/PageBlocksRenderer";
 import { getTripPage } from "@/lib/site-content";
-import { client } from "@/sanity/lib/client";
-import { pageBySlugQuery } from "@/sanity/lib/queries";
+import { defaultLocale } from "@/lib/i18n";
 
-export default async function LocalizedCmsPageFr({
+export default async function TripPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const { slug } = params;
+  const trip = await getTripPage(params.slug, defaultLocale);
 
-  const tripPage = await getTripPage(slug, "fr");
-  if (tripPage) {
-    return <DestinationPageTemplate page={tripPage} locale="fr" />;
-  }
-
-  let page = null;
-  try {
-    page = await client.fetch(pageBySlugQuery, { slug, locale: "fr" });
-  } catch {
-    page = null;
-  }
-
-  if (!page) {
+  if (!trip) {
     notFound();
   }
 
-  return (
-    <main className="pt-28 md:pt-36">
-      <PageBlocksRenderer blocks={page.blocks ?? []} locale="fr" />
-    </main>
-  );
+  return <DestinationPageTemplate page={trip} locale={defaultLocale} />;
 }
