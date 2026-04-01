@@ -6,11 +6,12 @@ export default async function TripPage({
 }: {
   params: { slug: string };
 }) {
+  const cleanSlug = params.slug.trim().toLowerCase();
   const trip = await getTripPage(params.slug, defaultLocale);
 
   return (
     <pre style={{ padding: 24, color: "white", background: "black", minHeight: "100vh" }}>
-      {JSON.stringify({ slug: params.slug, trip }, null, 2)}
+      {JSON.stringify({ slug: params.slug, cleanSlug, trip }, null, 2)}
     </pre>
   );
 }
