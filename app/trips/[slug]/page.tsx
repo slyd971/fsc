@@ -1,5 +1,3 @@
-import { notFound } from "next/navigation";
-import { DestinationPageTemplate } from "@/components/site/DestinationPageTemplate";
 import { getTripPage } from "@/lib/site-content";
 import { defaultLocale } from "@/lib/i18n";
 
@@ -10,16 +8,9 @@ export default async function TripPage({
 }) {
   const trip = await getTripPage(params.slug, defaultLocale);
 
-  if (!trip) {
-    notFound();
-  }
-
-  // 🔥 protection anti crash
-  const safeTrip = {
-    ...trip,
-    experiences: trip.experiences ?? [],
-    packs: trip.packs ?? [],
-  };
-
-  return <DestinationPageTemplate page={safeTrip} locale={defaultLocale} />;
+  return (
+    <pre style={{ padding: 24, color: "white", background: "black", minHeight: "100vh" }}>
+      {JSON.stringify({ slug: params.slug, trip }, null, 2)}
+    </pre>
+  );
 }
