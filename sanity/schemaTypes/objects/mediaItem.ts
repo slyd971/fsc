@@ -6,6 +6,7 @@ export default defineType({
   title: "Visuel",
   type: "object",
   fieldsets: objectFieldsets,
+
   preview: {
     select: {
       title: "caption.fr",
@@ -20,40 +21,54 @@ export default defineType({
       };
     },
   },
+
   fields: [
     defineField({
       name: "image",
       title: "Photo",
-      description: "Ajoute ici la photo affichée sur le site. C'est le champ principal à remplir.",
+      description: "Ajoute ici la photo affichée sur le site.",
       type: "image",
       fieldset: "media",
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.required().error("Ajoute une photo pour ce visuel."),
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const parent = context.parent as { imageUrl?: string } | undefined;
+
+          // ✅ OK si image OU imageUrl
+          if (value || parent?.imageUrl) {
+            return true;
+          }
+
+          return "Ajoute une photo ou une URL image externe.";
+        }),
     }),
+
     defineField({
       name: "alt",
       title: "Texte alternatif",
-      description: "Décris brièvement la photo pour l’accessibilité. Renseigne FR et EN.",
+      description: "Décris brièvement la photo pour l’accessibilité (FR + EN).",
       type: "localizedString",
       fieldset: "content",
       validation: (Rule) => Rule.required().error("Ajoute un texte alternatif."),
     }),
+
     defineField({
       name: "caption",
       title: "Légende optionnelle",
-      description: "Optionnelle. Utilisée seulement si une section a besoin d’un titre ou d’une légende image.",
+      description: "Utilisée si besoin d’un titre ou caption.",
       type: "localizedString",
       fieldset: "content",
     }),
+
     defineField({
       name: "imageUrl",
-      title: "URL image externe",
+      title: "URL image externe (legacy)",
       type: "string",
       fieldset: "internal",
       hidden: hideForContributors,
-      description: "URL de secours utilisée pendant les migrations ou le seed.",
+      description: "Fallback temporaire pour anciens contenus (à supprimer plus tard).",
     }),
   ],
 });
