@@ -8,13 +8,9 @@ export default async function TripPage({
 }) {
   const trip = await getTripPage(params.slug, defaultLocale);
 
-  if (!trip) {
-    return <div style={{ color: "white" }}>NO TRIP FOUND</div>;
-  }
-
   return (
     <pre style={{ padding: 24, color: "white", background: "black", minHeight: "100vh" }}>
-      {JSON.stringify(trip, null, 2)}
+      {JSON.stringify({ slug: params.slug, trip }, null, 2)}
     </pre>
   );
 }
