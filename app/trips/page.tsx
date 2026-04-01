@@ -62,7 +62,7 @@ export default async function TripsPage() {
                     {destination.description}
                   </p>
                   <Link
-                    href={`/${destination.slug}`}
+                    href={`/trips/${destination.slug}`}
                     className="theme-cta-solid mt-6 inline-flex items-center gap-2 rounded-full px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] transition"
                   >
                     {copy.detailCta}
