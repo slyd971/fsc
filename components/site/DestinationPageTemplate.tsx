@@ -17,8 +17,13 @@ export function DestinationPageTemplate({
   locale = "fr",
 }: DestinationPageTemplateProps) {
   const copy = getUiCopy(locale).destinationPage;
+
+  const introParagraphs = page.introParagraphs ?? [];
+  const experiences = page.experiences ?? [];
+  const packs = page.packs ?? [];
+
   return (
-    <main>
+    <main className="pt-28 md:pt-36">
       <DestinationHero
         title={page.title}
         eyebrow={page.eyebrow}
@@ -26,27 +31,40 @@ export function DestinationPageTemplate({
         image={page.heroImage}
         locale={locale}
       />
-      <CarnivalIntroSection title={page.introTitle} paragraphs={page.introParagraphs} />
-      <section className="section-divider relative py-16 md:py-28">
-        <div className="section-shell">
-          <Reveal>
-            <div className="max-w-3xl">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.34em] text-[var(--accent)]">
-                {copy.kicker}
+
+      <CarnivalIntroSection
+        title={page.introTitle}
+        paragraphs={introParagraphs}
+      />
+
+      {experiences.length > 0 ? (
+        <section className="section-divider relative py-16 md:py-28">
+          <div className="section-shell">
+            <Reveal>
+              <div className="max-w-3xl">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.34em] text-[var(--accent)]">
+                  {copy.kicker}
+                </div>
+                <h2 className="display-font mt-4 text-5xl uppercase leading-[0.9] sm:text-6xl md:text-8xl">
+                  {copy.title}
+                </h2>
               </div>
-              <h2 className="display-font mt-4 text-5xl uppercase leading-[0.9] sm:text-6xl md:text-8xl">
-                {copy.title}
-              </h2>
+            </Reveal>
+
+            <div className="mt-10 grid gap-6">
+              {experiences.map((event, index) => (
+                <EventBlock
+                  key={`${event.title}-${index}`}
+                  event={event}
+                  index={index}
+                />
+              ))}
             </div>
-          </Reveal>
-          <div className="mt-10 grid gap-6">
-            {page.experiences.map((event, index) => (
-              <EventBlock key={event.title} event={event} index={index} />
-            ))}
           </div>
-        </div>
-      </section>
-      <PricingComparison packs={page.packs} locale={locale} />
+        </section>
+      ) : null}
+
+      {packs.length > 0 ? <PricingComparison packs={packs} locale={locale} /> : null}
     </main>
   );
 }
