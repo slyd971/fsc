@@ -4,11 +4,11 @@ import { getGalleryItems, getListingPageContent } from "@/lib/site-content";
 import { getUiCopy } from "@/lib/ui-copy";
 
 export default async function GalleryPage() {
-  const [pageContent, fallbackItems] = await Promise.all([
+  const [pageContent, items] = await Promise.all([
     getListingPageContent("gallery", "fr"),
     getGalleryItems("fr"),
   ]);
-  const items = pageContent?.gallery?.items ?? fallbackItems;
+
   const copy = getUiCopy("fr").galleryPage;
   const intro = pageContent?.intro ?? {
     eyebrow: copy.kicker,
