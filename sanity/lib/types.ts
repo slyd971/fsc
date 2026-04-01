@@ -17,7 +17,7 @@ export type CmsImage = {
     asset?: CmsReference;
   };
   imageUrl?: string;
-  alt?: LocalizedString;
+  alt?: LocalizedString | string;
 };
 
 export type CmsCta = {
@@ -27,75 +27,75 @@ export type CmsCta = {
 };
 
 export type CmsPricingOption = {
-  name?: LocalizedString;
-  priceLabel?: LocalizedString;
-  pitch?: LocalizedString;
-  included?: LocalizedString[];
-  excluded?: LocalizedString[];
+  name?: LocalizedString | string;
+  priceLabel?: LocalizedString | string;
+  pitch?: LocalizedString | string;
+  included?: Array<LocalizedString | string>;
+  excluded?: Array<LocalizedString | string>;
   featured?: boolean;
 };
 
 export type CmsTestimonial = {
   _id: string;
-  name?: LocalizedString;
-  role?: LocalizedString;
-  quote?: LocalizedString;
-  city?: LocalizedString;
-  moment?: LocalizedString;
-  accent?: LocalizedString;
+  name?: LocalizedString | string;
+  role?: LocalizedString | string;
+  quote?: LocalizedString | string;
+  city?: LocalizedString | string;
+  moment?: LocalizedString | string;
+  accent?: LocalizedString | string;
 };
 
 export type CmsGalleryItem = {
   _id: string;
-  title?: LocalizedString;
+  title?: LocalizedString | string;
   tag?: {
     _id?: string;
-    title?: LocalizedString;
-    slug?: LocalizedSlug;
+    title?: LocalizedString | string;
+    slug?: LocalizedSlug | string;
   };
   image?: CmsImage;
-  alt?: LocalizedString;
+  alt?: LocalizedString | string;
   size?: "portrait" | "landscape" | "square";
 };
 
 export type CmsTrip = {
   _id: string;
-  title?: LocalizedString;
-  slug?: LocalizedSlug;
-  city?: LocalizedString;
-  eyebrow?: LocalizedString;
-  description?: LocalizedString;
-  heroDescription?: LocalizedString;
+  title?: LocalizedString | string;
+  slug?: LocalizedSlug | string;
+  city?: LocalizedString | string;
+  eyebrow?: LocalizedString | string;
+  description?: LocalizedString | string;
+  heroDescription?: LocalizedString | string;
   heroImage?: CmsImage;
   image?: CmsImage;
-  badge?: LocalizedString;
-  introTitle?: LocalizedString;
-  introParagraphs?: LocalizedString[];
+  badge?: LocalizedString | string;
+  introTitle?: LocalizedString | string;
+  introParagraphs?: Array<LocalizedString | string>;
   experiences?: Array<{
-    title?: LocalizedString;
-    dateLabel?: LocalizedString;
-    description?: LocalizedString;
+    title?: LocalizedString | string;
+    dateLabel?: LocalizedString | string;
+    description?: LocalizedString | string;
     image?: CmsImage;
-    includes?: LocalizedString[];
+    includes?: Array<LocalizedString | string>;
   }>;
   pricingOptions?: CmsPricingOption[];
 };
 
 export type CmsSiteSettings = {
   _id: string;
-  siteTitle?: LocalizedString;
-  siteDescription?: LocalizedString;
-  brandName?: LocalizedString;
-  brandTagline?: LocalizedString;
+  siteTitle?: LocalizedString | string;
+  siteDescription?: LocalizedString | string;
+  brandName?: LocalizedString | string;
+  brandTagline?: LocalizedString | string;
   brandMark?: string;
   navigation?: Array<{
-    label?: LocalizedString;
+    label?: LocalizedString | string;
     href?: string;
   }>;
   contactMethods?: Array<{
-    label?: LocalizedString;
-    value?: LocalizedString;
-    detail?: LocalizedString;
+    label?: LocalizedString | string;
+    value?: LocalizedString | string;
+    detail?: LocalizedString | string;
     href?: string;
     icon?: "instagram" | "message-circle" | "phone" | "mail";
   }>;
