@@ -88,25 +88,28 @@ export const siteData = {
     description:
       "Voyages carnaval premium, événements centrés sur la soca et expériences culturelles caribéennes imaginés par French Soca Crew.",
   },
+
   brand: {
     name: "French Soca Crew",
     mark: "FSC",
     tagline: "Voyage, carnaval et énergie caribéenne réunis dans une même expérience partagée.",
   },
+
   navigation: {
     items: [
       { label: "Accueil", href: "/" },
-      { label: "Trips", href: "/#trips" },
+      { label: "Trips", href: "/trips" },
       { label: "Galerie", href: "/gallery" },
       { label: "Contact", href: "/#contact" },
     ] satisfies NavItem[],
   },
+
   hero: {
     eyebrow: "Association française dédiée aux voyages carnaval et aux expériences soca",
     title: "French Soca Crew",
     subtitle:
       "Nous imaginons des voyages de groupe premium, des expériences événementielles et des moments culturels portés par la soca, l’esprit carnaval et l’énergie de la communauté caribéenne.",
-    primaryCta: { label: "Découvrir nos trips", href: "/#trips" },
+    primaryCta: { label: "Découvrir nos trips", href: "/trips" },
     secondaryCta: { label: "Nous contacter", href: "/#contact" },
     stats: [
       { value: "10+", label: "Années d'expérience", icon: "sparkles" },
@@ -119,6 +122,7 @@ export const siteData = {
     imageBadge: "Crew ensemble",
     imageCaption: "Voyager ensemble. Fêter ensemble.",
   },
+
   about: {
     eyebrow: "À propos",
     title: "Pensé pour la road.",
@@ -143,6 +147,7 @@ export const siteData = {
       },
     ] satisfies Highlight[],
   },
+
   destinations: [
     {
       slug: "rotterdam-carnival",
@@ -167,6 +172,7 @@ export const siteData = {
       badge: "Destination iconique",
     },
   ] satisfies DestinationPreview[],
+
   video: {
     eyebrow: "Atmosphère du crew",
     title: "Voir la vibe.",
@@ -191,6 +197,7 @@ export const siteData = {
       href: "https://www.instagram.com/frenchsocacrew/",
     },
   },
+
   testimonials: [
     {
       name: "Camille R.",
@@ -220,6 +227,7 @@ export const siteData = {
       accent: "Les gens repartent avec des histoires et de nouvelles personnes dans leur cercle.",
     },
   ] satisfies Testimonial[],
+
   gallery: {
     heroTitle: "Des moments qui restent.",
     heroDescription:
@@ -329,6 +337,7 @@ export const siteData = {
       },
     ] satisfies GalleryItem[],
   },
+
   contact: {
     title: "Prépare ta prochaine road.",
     description:
@@ -363,6 +372,7 @@ export const siteData = {
       "Partenariat",
     ],
   },
+
   tripsPage: {
     eyebrow: "Destinations",
     title: "Choisis ta road.",
@@ -371,7 +381,10 @@ export const siteData = {
   },
 };
 
-export const destinationPages: Record<DestinationPreview["slug"], DestinationPageData> = {
+export const destinationPages: Record<
+  DestinationPreview["slug"],
+  DestinationPageData
+> = {
   "rotterdam-carnival": {
     slug: "rotterdam-carnival",
     title: "Rotterdam Carnival",
@@ -419,14 +432,22 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
         name: "Basic Pack",
         price: "Détails sur demande",
         pitch: "Une formule simple et accessible pour rejoindre la road avec l'accompagnement du crew.",
-        included: ["Guidance du trip", "Accès aux meetups principaux", "Groupe de communication"],
+        included: [
+          "Guidance du trip",
+          "Accès aux meetups principaux",
+          "Groupe de communication",
+        ],
         notIncluded: ["Hébergement premium", "Transferts privés"],
       },
       {
         name: "Experience Pack",
         price: "Détails sur demande",
         pitch: "L'option la plus équilibrée pour les voyageurs qui veulent du confort et de l'ambiance.",
-        included: ["Coordination renforcée", "Accès à une sélection d'événements", "Extras crew"],
+        included: [
+          "Coordination renforcée",
+          "Accès à une sélection d'événements",
+          "Extras crew",
+        ],
         notIncluded: ["Surclassements luxe complets"],
         featured: true,
       },
@@ -434,18 +455,27 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
         name: "Premium Pack",
         price: "Détails sur demande",
         pitch: "Plus de confort, plus d'accompagnement et une expérience destination encore plus premium.",
-        included: ["Planification prioritaire", "Option d'hébergement premium", "Moments curated"],
+        included: [
+          "Planification prioritaire",
+          "Option d'hébergement premium",
+          "Moments curated",
+        ],
         notIncluded: ["Vols"],
       },
       {
         name: "Di Road Pack",
         price: "Détails sur demande",
         pitch: "Pensé autour de l'énergie de la road pour les voyageurs qui veulent vivre pleinement l'esprit carnaval.",
-        included: ["Planification orientée road", "Accompagnement dans les déplacements du crew", "Rythme centré événement"],
+        included: [
+          "Planification orientée road",
+          "Accompagnement dans les déplacements du crew",
+          "Rythme centré événement",
+        ],
         notIncluded: ["Upgrades de chambre luxe"],
       },
     ],
   },
+
   "london-carnival": {
     slug: "london-carnival",
     title: "London Carnival",
@@ -467,7 +497,11 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
           "Une séquence d'arrivée pour explorer la ville, retrouver le crew et sentir l'énergie pré-carnaval avant les grands moments de la road.",
         image:
           "https://images.unsplash.com/photo-1521335629791-ce4aec67dd53?auto=format&fit=crop&w=1200&q=80",
-        includes: ["Guidance d'arrivée", "Repères sur place", "Meetup communauté"],
+        includes: [
+          "Guidance d'arrivée",
+          "Repères sur place",
+          "Meetup communauté",
+        ],
       },
       {
         title: "Jour de road",
@@ -476,7 +510,11 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
           "Le grand temps du carnaval, pensé autour du parcours, des points de rendez-vous et d'une coordination en direct qui permet au crew de rester ensemble sans perdre la liberté de la road.",
         image:
           "https://images.unsplash.com/photo-1508979828023-2ab1d1f5f3d8?auto=format&fit=crop&w=1200&q=80",
-        includes: ["Stratégie de road", "Points de rendez-vous", "Coordination en direct"],
+        includes: [
+          "Stratégie de road",
+          "Points de rendez-vous",
+          "Coordination en direct",
+        ],
       },
       {
         title: "Session de nuit",
@@ -485,7 +523,11 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
           "Des soirées sélectionnées, des sessions tardives et des liens en plus qui prolongent l'expérience au-delà de la road de jour et gardent l'élan vivant après la tombée de la nuit.",
         image:
           "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
-        includes: ["Recommandations d'événements", "Accès optionnels aux soirées", "Suivi du crew"],
+        includes: [
+          "Recommandations d'événements",
+          "Accès optionnels aux soirées",
+          "Suivi du crew",
+        ],
       },
     ],
     packs: [
@@ -493,14 +535,22 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
         name: "Basic Pack",
         price: "Détails sur demande",
         pitch: "Une porte d'entrée accessible pour rejoindre la road de Londres avec guidance.",
-        included: ["Communication principale du trip", "Accès aux meetups", "Notes de préparation"],
+        included: [
+          "Communication principale du trip",
+          "Accès aux meetups",
+          "Notes de préparation",
+        ],
         notIncluded: ["Options de confort renforcé"],
       },
       {
         name: "Experience Pack",
         price: "Détails sur demande",
         pitch: "Une formule complète qui équilibre logistique, vibe et accès clés.",
-        included: ["Extras sélectionnés", "Coordination structurée", "Assistance du crew"],
+        included: [
+          "Extras sélectionnés",
+          "Coordination structurée",
+          "Assistance du crew",
+        ],
         notIncluded: ["Transport premium"],
         featured: true,
       },
@@ -508,14 +558,22 @@ export const destinationPages: Record<DestinationPreview["slug"], DestinationPag
         name: "Premium Pack",
         price: "Détails sur demande",
         pitch: "Pour les voyageurs qui veulent vivre la destination avec plus de confort, de fluidité et de style.",
-        included: ["Accompagnement premium", "Options centrées confort", "Guidance prioritaire"],
+        included: [
+          "Accompagnement premium",
+          "Options centrées confort",
+          "Guidance prioritaire",
+        ],
         notIncluded: ["Vols"],
       },
       {
         name: "Di Road Pack",
         price: "Détails sur demande",
         pitch: "Une option orientée road, pensée pour maximiser l'immersion carnaval.",
-        included: ["Planification road-first", "Programme à haute énergie", "Flow guidé par le crew"],
+        included: [
+          "Planification road-first",
+          "Programme à haute énergie",
+          "Flow guidé par le crew",
+        ],
         notIncluded: ["Upgrades hôtel"],
       },
     ],
