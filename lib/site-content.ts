@@ -536,20 +536,25 @@ export async function getTripPage(
 ): Promise<DestinationPageData | null> {
   const cleanSlug = normalizeSlug(slug);
 
+  // ✅ priorité au fallback local (safe)
+  const localPage =
+    destinationPages[cleanSlug as keyof typeof destinationPages] ?? null;
+
+  if (localPage) {
+    return localPage;
+  }
+
   const trip = await safeFetch<CmsTrip>(
     tripBySlugQuery,
     { slug: cleanSlug, locale },
     ["trip", `trip:${cleanSlug}`, `trip:${locale}:${cleanSlug}`],
   );
 
-  if (trip) {
-    const mapped = mapTripPage(trip, locale);
-    if (mapped) {
-      return mapped;
-    }
+  if (!trip) {
+    return null;
   }
 
-  return destinationPages[cleanSlug as keyof typeof destinationPages] ?? null;
+  return mapTripPage(trip, locale);
 }
 
 export async function getTestimonials(locale: Locale = defaultLocale): Promise<Testimonial[]> {
