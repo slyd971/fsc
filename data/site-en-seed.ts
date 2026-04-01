@@ -22,7 +22,7 @@ export const siteDataEnSeed = {
   navigation: {
     items: [
       { label: "Home", href: "/" },
-      { label: "Trips", href: "/#trips" },
+      { label: "Trips", href: "/trips" },
       { label: "Gallery", href: "/gallery" },
       { label: "Contact", href: "/#contact" },
     ] satisfies NavItem[],
@@ -32,7 +32,7 @@ export const siteDataEnSeed = {
     title: "French Soca Crew",
     subtitle:
       "We design premium group trips, event experiences and cultural moments around Soca, carnival spirit and Caribbean community energy.",
-    primaryCta: { label: "Discover our trips", href: "/#trips" },
+    primaryCta: { label: "Discover our trips", href: "/trips" },
     secondaryCta: { label: "Contact us", href: "/#contact" },
     stats: [
       { value: "10+", label: "Years of experience", icon: "sparkles" },
