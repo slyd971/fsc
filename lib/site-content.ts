@@ -1,14 +1,43 @@
-import { siteData, destinationPages, type DestinationPageData, type DestinationPreview, type GalleryItem, type Testimonial } from "@/data/site";
+import {
+  siteData,
+  destinationPages,
+  type DestinationPageData,
+  type DestinationPreview,
+  type GalleryItem,
+  type Testimonial,
+} from "@/data/site";
 import { siteDataEnSeed } from "@/data/site-en-seed";
 import { defaultLocale, type Locale } from "@/lib/i18n";
 import { client, getSanityFetchOptions } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import { mapGallery, mapSiteSettings, mapTestimonials, mapTripPage, mapTripPreview } from "@/sanity/lib/mappers";
-import { galleryItemsQuery, pageByIdQuery, pageBySlugQuery, siteSettingsQuery, testimonialsQuery, tripBySlugQuery, tripsQuery } from "@/sanity/lib/queries";
-import type { CmsGalleryItem, CmsSiteSettings, CmsTestimonial, CmsTrip } from "@/sanity/lib/types";
+import {
+  mapGallery,
+  mapSiteSettings,
+  mapTestimonials,
+  mapTripPage,
+  mapTripPreview,
+} from "@/sanity/lib/mappers";
+import {
+  galleryItemsQuery,
+  pageByIdQuery,
+  siteSettingsQuery,
+  testimonialsQuery,
+  tripBySlugQuery,
+  tripsQuery,
+} from "@/sanity/lib/queries";
+import type {
+  CmsGalleryItem,
+  CmsSiteSettings,
+  CmsTestimonial,
+  CmsTrip,
+} from "@/sanity/lib/types";
 
 type HomePageContent = {
-  hero: typeof siteData.hero & { microLabel?: string; backgroundWord?: string; chorusItems?: string[] };
+  hero: typeof siteData.hero & {
+    microLabel?: string;
+    backgroundWord?: string;
+    chorusItems?: string[];
+  };
   about: typeof siteData.about & {
     mediaNote?: string;
     sideKicker?: string;
@@ -59,6 +88,10 @@ type CmsPageBlock = {
   media?: {
     imageUrl?: string;
     alt?: Partial<Record<Locale, string>>;
+    image?: {
+      asset?: { _ref: string; _type: "reference" };
+      imageUrl?: string;
+    };
   };
   primaryCta?: {
     label?: Partial<Record<Locale, string>>;
@@ -104,6 +137,7 @@ type CmsPageBlock = {
     image?: {
       imageUrl?: string;
       alt?: Partial<Record<Locale, string>>;
+      asset?: { _ref: string; _type: "reference" };
     };
   }>;
 };
@@ -133,8 +167,16 @@ type ListingPageContent = {
   };
 };
 
-function localize(value: Partial<Record<Locale, string>> | undefined, locale: Locale, fallback: string) {
+function localize(
+  value: Partial<Record<Locale, string>> | undefined,
+  locale: Locale,
+  fallback: string,
+) {
   return value?.[locale] ?? value?.fr ?? value?.en ?? fallback;
+}
+
+function normalizeSlug(slug: string) {
+  return slug.trim().toLowerCase().replace(/^\/+|\/+$/g, "");
 }
 
 function fallbackShell(locale: Locale) {
@@ -164,27 +206,21 @@ function fallbackShell(locale: Locale) {
 }
 
 function fallbackTrips(locale: Locale): DestinationPreview[] {
-  if (locale === "en") {
-    return siteDataEnSeed.destinations.map((item) => ({ ...item })) as DestinationPreview[];
-  }
-
-  return siteData.destinations.map((item) => ({ ...item }));
+  return locale === "en"
+    ? (siteDataEnSeed.destinations.map((item) => ({ ...item })) as DestinationPreview[])
+    : siteData.destinations.map((item) => ({ ...item }));
 }
 
 function fallbackTestimonials(locale: Locale): Testimonial[] {
-  if (locale === "en") {
-    return siteDataEnSeed.testimonials.map((item) => ({ ...item })) as Testimonial[];
-  }
-
-  return siteData.testimonials.map((item) => ({ ...item }));
+  return locale === "en"
+    ? (siteDataEnSeed.testimonials.map((item) => ({ ...item })) as Testimonial[])
+    : siteData.testimonials.map((item) => ({ ...item }));
 }
 
 function fallbackGallery(locale: Locale): GalleryItem[] {
-  if (locale === "en") {
-    return siteDataEnSeed.gallery.items.map((item) => ({ ...item })) as GalleryItem[];
-  }
-
-  return siteData.gallery.items.map((item) => ({ ...item }));
+  return locale === "en"
+    ? (siteDataEnSeed.gallery.items.map((item) => ({ ...item })) as GalleryItem[])
+    : siteData.gallery.items.map((item) => ({ ...item }));
 }
 
 function fallbackHome(locale: Locale): HomePageContent {
@@ -205,7 +241,8 @@ function fallbackHome(locale: Locale): HomePageContent {
         ...siteData.about,
         ...siteDataEnSeed.about,
         paragraphs: [...siteDataEnSeed.about.paragraphs],
-        mediaNote: "Carnival logistics, warmth, music, community and road energy held together as one atmosphere.",
+        mediaNote:
+          "Carnival logistics, warmth, music, community and road energy held together as one atmosphere.",
         sideKicker: "Not just a booking",
         sideTitle: "A crew-first way to move.",
         image: "/London/nhc1.jpg",
@@ -274,7 +311,8 @@ function fallbackHome(locale: Locale): HomePageContent {
     },
     about: {
       ...siteData.about,
-      mediaNote: "Logistique carnaval, chaleur, musique, communauté et énergie de road tenues ensemble dans une seule atmosphère.",
+      mediaNote:
+        "Logistique carnaval, chaleur, musique, communauté et énergie de road tenues ensemble dans une seule atmosphère.",
       sideKicker: "Pas juste une réservation",
       sideTitle: "Une façon crew-first d'avancer.",
       image: "/London/nhc1.jpg",
@@ -303,7 +341,8 @@ function fallbackHome(locale: Locale): HomePageContent {
       backgroundWord: "Join",
       primaryCta: {
         label: "Réserver sur WhatsApp",
-        href: siteData.contact.methods.find((method) => method.label === "WhatsApp")?.href ?? "/#contact",
+        href:
+          siteData.contact.methods.find((method) => method.label === "WhatsApp")?.href ?? "/#contact",
       },
       secondaryCta: { label: "Voir les roads", href: "/trips" },
     },
@@ -385,7 +424,10 @@ function mapBlockTrips(
           title: localize(item.title, locale, "Destination"),
           eyebrow: localize(item.eyebrow, locale, ""),
           description: localize(item.description, locale, ""),
-          image: resolveMediaUrl(item.image, fallback.find((entry) => entry.slug === slug)?.image ?? "/fsc-crew-1.jpg"),
+          image: resolveMediaUrl(
+            item.image,
+            fallback.find((entry) => entry.slug === slug)?.image ?? "/fsc-crew-1.jpg",
+          ),
           imageAlt: localize(item.image?.alt, locale, "Trip image"),
           badge: localize(item.badge, locale, ""),
         };
@@ -416,7 +458,10 @@ function mapBlockGallery(
                 "parties",
             }
           : undefined,
-        image: resolveMediaUrl(item.image, fallback[index]?.image ?? fallback[0]?.image ?? "/fsc-crew-1.jpg"),
+        image: resolveMediaUrl(
+          item.image,
+          fallback[index]?.image ?? fallback[0]?.image ?? "/fsc-crew-1.jpg",
+        ),
         alt: localize(item.alt ?? item.image?.alt, locale, "Gallery image"),
         size: item.size ?? "landscape",
       })) as GalleryItem[] | undefined;
@@ -461,12 +506,22 @@ async function safeFetch<T>(
 }
 
 export async function getSiteShell(locale: Locale = defaultLocale) {
-  const settings = await safeFetch<CmsSiteSettings>(siteSettingsQuery, { locale }, ["siteSettings", `siteSettings:${locale}`]);
+  const settings = await safeFetch<CmsSiteSettings>(
+    siteSettingsQuery,
+    { locale },
+    ["siteSettings", `siteSettings:${locale}`],
+  );
+
   return mapSiteSettings(settings, locale) ?? fallbackShell(locale);
 }
 
 export async function getTrips(locale: Locale = defaultLocale): Promise<DestinationPreview[]> {
-  const trips = await safeFetch<CmsTrip[]>(tripsQuery, { locale }, ["trips", `trips:${locale}`]);
+  const trips = await safeFetch<CmsTrip[]>(
+    tripsQuery,
+    { locale },
+    ["trips", `trips:${locale}`],
+  );
+
   if (!trips?.length) {
     return fallbackTrips(locale);
   }
@@ -475,24 +530,55 @@ export async function getTrips(locale: Locale = defaultLocale): Promise<Destinat
   return mapped.length ? mapped : fallbackTrips(locale);
 }
 
-export async function getTripPage(slug: string, locale: Locale = defaultLocale): Promise<DestinationPageData | null> {
-  const trip = await safeFetch<CmsTrip>(tripBySlugQuery, { slug, locale }, ["trip", `trip:${slug}`, `trip:${locale}:${slug}`]);
-  return (trip && mapTripPage(trip, locale)) || destinationPages[slug as keyof typeof destinationPages] || null;
+export async function getTripPage(
+  slug: string,
+  locale: Locale = defaultLocale,
+): Promise<DestinationPageData | null> {
+  const cleanSlug = normalizeSlug(slug);
+
+  const trip = await safeFetch<CmsTrip>(
+    tripBySlugQuery,
+    { slug: cleanSlug, locale },
+    ["trip", `trip:${cleanSlug}`, `trip:${locale}:${cleanSlug}`],
+  );
+
+  if (trip) {
+    const mapped = mapTripPage(trip, locale);
+    if (mapped) {
+      return mapped;
+    }
+  }
+
+  return destinationPages[cleanSlug as keyof typeof destinationPages] ?? null;
 }
 
 export async function getTestimonials(locale: Locale = defaultLocale): Promise<Testimonial[]> {
-  const testimonials = await safeFetch<CmsTestimonial[]>(testimonialsQuery, { locale }, ["testimonials", `testimonials:${locale}`]);
+  const testimonials = await safeFetch<CmsTestimonial[]>(
+    testimonialsQuery,
+    { locale },
+    ["testimonials", `testimonials:${locale}`],
+  );
+
   return testimonials?.length ? mapTestimonials(testimonials, locale) : fallbackTestimonials(locale);
 }
 
 export async function getGalleryItems(locale: Locale = defaultLocale): Promise<GalleryItem[]> {
-  const items = await safeFetch<CmsGalleryItem[]>(galleryItemsQuery, { locale }, ["gallery", `gallery:${locale}`]);
+  const items = await safeFetch<CmsGalleryItem[]>(
+    galleryItemsQuery,
+    { locale },
+    ["gallery", `gallery:${locale}`],
+  );
+
   return items?.length ? mapGallery(items, locale) : fallbackGallery(locale);
 }
 
 export async function getHomePageContent(locale: Locale = defaultLocale): Promise<HomePageContent> {
   const fallback = fallbackHome(locale);
-  const page = await safeFetch<CmsPage>(pageByIdQuery, { id: "page.home", locale }, ["page", "page:home", `page:home:${locale}`]);
+  const page = await safeFetch<CmsPage>(
+    pageByIdQuery,
+    { id: "page.home", locale },
+    ["page", "page:home", `page:home:${locale}`],
+  );
 
   if (!page?.blocks?.length) {
     return fallback;
@@ -507,7 +593,11 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
   const contactBlock = getBlock(page, "contactBlock");
 
   const aboutParagraphs = splitParagraphs(
-    localize(aboutBlock?.body, locale, [fallback.about.intro, ...fallback.about.paragraphs].join("\n\n")),
+    localize(
+      aboutBlock?.body,
+      locale,
+      [fallback.about.intro, ...fallback.about.paragraphs].join("\n\n"),
+    ),
     fallback.about.paragraphs,
   );
 
@@ -524,7 +614,11 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
         locale,
         fallback.hero.microLabel ?? (locale === "en" ? "French association" : "Association française"),
       ),
-      backgroundWord: localize(heroBlock?.backgroundWord, locale, fallback.hero.backgroundWord ?? "ROAD"),
+      backgroundWord: localize(
+        heroBlock?.backgroundWord,
+        locale,
+        fallback.hero.backgroundWord ?? "ROAD",
+      ),
       image: resolveMediaUrl(heroBlock?.media, fallback.hero.image),
       imageAlt: localize(heroBlock?.media?.alt, locale, fallback.hero.imageAlt),
       primaryCta: {
@@ -540,7 +634,9 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
           ? heroBlock.stats.map((stat, index) => ({
               value: stat.value ?? fallback.hero.stats[index]?.value ?? "",
               label: localize(stat.label, locale, fallback.hero.stats[index]?.label ?? ""),
-              icon: (stat.icon ?? fallback.hero.stats[index]?.icon ?? "sparkles") as typeof fallback.hero.stats[number]["icon"],
+              icon: (stat.icon ??
+                fallback.hero.stats[index]?.icon ??
+                "sparkles") as typeof fallback.hero.stats[number]["icon"],
             }))
           : fallback.hero.stats,
       chorusItems:
@@ -550,6 +646,7 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
             )
           : fallback.hero.chorusItems,
     },
+
     about: {
       ...fallback.about,
       eyebrow: localize(aboutBlock?.eyebrow, locale, fallback.about.eyebrow),
@@ -563,9 +660,11 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
       imageAlt: localize(
         aboutBlock?.media?.alt,
         locale,
-        fallback.about.imageAlt ?? (locale === "en" ? "French Soca Crew group moment" : "Moment de groupe French Soca Crew"),
+        fallback.about.imageAlt ??
+          (locale === "en" ? "French Soca Crew group moment" : "Moment de groupe French Soca Crew"),
       ),
     },
+
     video: {
       ...fallback.video,
       eyebrow: localize(videoBlock?.eyebrow, locale, fallback.video.eyebrow),
@@ -578,11 +677,21 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
       videos:
         videoBlock?.items?.length
           ? videoBlock.items.map((item, index) => ({
-              title: localize(item.caption ?? item.alt, locale, fallback.video.videos[index]?.title ?? `Reel ${index + 1}`),
-              poster: resolveMediaUrl(item, fallback.video.videos[index]?.poster ?? fallback.video.videos[0]?.poster ?? "/fsc-crew-1.jpg"),
+              title: localize(
+                item.caption ?? item.alt,
+                locale,
+                fallback.video.videos[index]?.title ?? `Reel ${index + 1}`,
+              ),
+              poster: resolveMediaUrl(
+                item,
+                fallback.video.videos[index]?.poster ??
+                  fallback.video.videos[0]?.poster ??
+                  "/fsc-crew-1.jpg",
+              ),
             }))
           : fallback.video.videos,
     },
+
     destinations: {
       eyebrow: localize(destinationsBlock?.eyebrow, locale, fallback.destinations.eyebrow),
       title: localize(destinationsBlock?.title, locale, fallback.destinations.title),
@@ -593,6 +702,7 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
       },
       items: mapBlockTrips(destinationsBlock?.items, locale, fallback.destinations.items ?? []),
     },
+
     gallery: {
       eyebrow: localize(galleryBlock?.eyebrow, locale, fallback.gallery.eyebrow),
       title: localize(galleryBlock?.title, locale, fallback.gallery.title),
@@ -603,12 +713,17 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
       },
       items: mapBlockGallery(galleryBlock?.items, locale, fallback.gallery.items ?? []),
     },
+
     contact: {
       ...fallback.contact,
       eyebrow: localize(contactBlock?.eyebrow, locale, fallback.contact.eyebrow ?? ""),
       title: localize(contactBlock?.title, locale, fallback.contact.title),
       description: localize(contactBlock?.body, locale, fallback.contact.description),
-      backgroundWord: localize(contactBlock?.backgroundWord, locale, fallback.contact.backgroundWord ?? "Join"),
+      backgroundWord: localize(
+        contactBlock?.backgroundWord,
+        locale,
+        fallback.contact.backgroundWord ?? "Join",
+      ),
       primaryCta: {
         label: localize(contactBlock?.primaryCta?.label, locale, fallback.contact.primaryCta?.label ?? ""),
         href: contactBlock?.primaryCta?.href ?? fallback.contact.primaryCta?.href ?? "/#contact",
@@ -618,12 +733,25 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
         href: contactBlock?.secondaryCta?.href ?? fallback.contact.secondaryCta?.href ?? "/trips",
       },
     },
+
     testimonials: {
       eyebrow: localize(testimonialsBlock?.eyebrow, locale, fallback.testimonials.eyebrow ?? ""),
       title: localize(testimonialsBlock?.title, locale, fallback.testimonials.title ?? ""),
-      description: localize(testimonialsBlock?.body, locale, fallback.testimonials.description ?? ""),
-      backgroundWord: localize(testimonialsBlock?.backgroundWord, locale, fallback.testimonials.backgroundWord ?? "FSC"),
-      items: mapBlockTestimonials(testimonialsBlock?.items, locale, fallback.testimonials.items ?? []),
+      description: localize(
+        testimonialsBlock?.body,
+        locale,
+        fallback.testimonials.description ?? "",
+      ),
+      backgroundWord: localize(
+        testimonialsBlock?.backgroundWord,
+        locale,
+        fallback.testimonials.backgroundWord ?? "FSC",
+      ),
+      items: mapBlockTestimonials(
+        testimonialsBlock?.items,
+        locale,
+        fallback.testimonials.items ?? [],
+      ),
     },
   };
 }
@@ -633,7 +761,11 @@ export async function getListingPageContent(
   locale: Locale = defaultLocale,
 ): Promise<ListingPageContent | null> {
   const pageId = slug === "trips" ? "page.trips" : "page.gallery";
-  const page = await safeFetch<CmsPage>(pageByIdQuery, { id: pageId, locale }, ["page", `page:${slug}`, `page:${slug}:${locale}`]);
+  const page = await safeFetch<CmsPage>(
+    pageByIdQuery,
+    { id: pageId, locale },
+    ["page", `page:${slug}`, `page:${slug}:${locale}`],
+  );
 
   if (!page?.blocks?.length) {
     return null;
@@ -648,12 +780,18 @@ export async function getListingPageContent(
       ? {
           eyebrow: locale === "en" ? siteDataEnSeed.tripsPage.eyebrow : siteData.tripsPage.eyebrow,
           title: locale === "en" ? siteDataEnSeed.tripsPage.title : siteData.tripsPage.title,
-          description: locale === "en" ? siteDataEnSeed.tripsPage.description : siteData.tripsPage.description,
+          description:
+            locale === "en"
+              ? siteDataEnSeed.tripsPage.description
+              : siteData.tripsPage.description,
         }
       : {
           eyebrow: locale === "en" ? "Gallery" : "Galerie",
           title: locale === "en" ? siteDataEnSeed.gallery.heroTitle : siteData.gallery.heroTitle,
-          description: locale === "en" ? siteDataEnSeed.gallery.heroDescription : siteData.gallery.heroDescription,
+          description:
+            locale === "en"
+              ? siteDataEnSeed.gallery.heroDescription
+              : siteData.gallery.heroDescription,
         };
 
   return {
