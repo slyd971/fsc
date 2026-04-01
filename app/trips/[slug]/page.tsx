@@ -1,11 +1,18 @@
+import { notFound } from "next/navigation";
+import { DestinationPageTemplate } from "@/components/site/DestinationPageTemplate";
+import { getTripPage } from "@/lib/site-content";
+import { defaultLocale } from "@/lib/i18n";
+
 export default async function TripPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  return (
-    <pre style={{ padding: 24, color: "white", background: "black", minHeight: "100vh" }}>
-      {JSON.stringify({ slug: params.slug }, null, 2)}
-    </pre>
-  );
+  const trip = await getTripPage(params.slug, defaultLocale);
+
+  if (!trip) {
+    notFound();
+  }
+
+  return <DestinationPageTemplate page={trip} locale={defaultLocale} />;
 }
