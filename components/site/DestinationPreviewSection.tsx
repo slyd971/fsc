@@ -40,7 +40,10 @@ export function DestinationPreviewSection({
   const titleLines = getSectionTitleLines(section.title);
 
   return (
-    <section className="theme-border section-music relative overflow-hidden border-t px-4 py-16 sm:px-8 sm:py-22 lg:px-12 lg:py-28" id="trips">
+    <section
+      className="theme-border section-music relative overflow-hidden border-t px-4 py-16 sm:px-8 sm:py-22 lg:px-12 lg:py-28"
+      id="trips"
+    >
       <div className="theme-section-trips-bg absolute inset-0" />
       <div className="theme-section-trips-overlay absolute inset-0" />
       <div className="grain-overlay" />
@@ -109,7 +112,7 @@ export function DestinationPreviewSection({
                       </p>
                       <div className="mt-6">
                         <Link
-                          href={withLocalePath(`/${destination.slug}`, locale)}
+                          href={withLocalePath(`/trips/${destination.slug}`, locale)}
                           className="button-editorial button-editorial-secondary premium-sheen"
                         >
                           {section.cta.label}
