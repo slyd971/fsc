@@ -1,15 +1,57 @@
-import { siteData, destinationPages, type DestinationPageData, type DestinationPreview, type GalleryItem, type Testimonial } from "@/data/site";
+import {
+  siteData,
+  destinationPages,
+  type DestinationPageData,
+  type DestinationPreview,
+  type GalleryItem,
+  type Testimonial,
+} from "@/data/site";
 import { siteDataEnSeed } from "@/data/site-en-seed";
 import type { Locale } from "@/lib/i18n";
 import { urlFor } from "@/sanity/lib/image";
-import type { CmsGalleryItem, CmsSiteSettings, CmsTestimonial, CmsTrip, LocalizedString } from "@/sanity/lib/types";
+import type {
+  CmsGalleryItem,
+  CmsSiteSettings,
+  CmsTestimonial,
+  CmsTrip,
+  LocalizedString,
+} from "@/sanity/lib/types";
 
-function localize(value: LocalizedString | undefined, locale: Locale, fallback = ""): string {
+type MaybeLocalizedString = LocalizedString | string | undefined;
+
+type MaybeLocalizedSlug =
+  | string
+  | {
+      fr?: { current?: string };
+      en?: { current?: string };
+      current?: string;
+    }
+  | undefined;
+
+function localize(value: MaybeLocalizedString, locale: Locale, fallback = ""): string {
+  if (typeof value === "string") {
+    return value || fallback;
+  }
+
   return value?.[locale] ?? value?.fr ?? value?.en ?? fallback;
 }
 
+function resolveSlug(value: MaybeLocalizedSlug, locale: Locale, fallback = ""): string {
+  if (typeof value === "string") {
+    return value || fallback;
+  }
+
+  return value?.[locale]?.current ?? value?.fr?.current ?? value?.en?.current ?? value?.current ?? fallback;
+}
+
 function imageUrl(
-  value: { imageUrl?: string; image?: { asset?: { _ref: string; _type: "reference" } }; alt?: LocalizedString } | undefined,
+  value:
+    | {
+        imageUrl?: string;
+        image?: { asset?: { _ref: string; _type: "reference" } };
+        alt?: MaybeLocalizedString;
+      }
+    | undefined,
   locale: Locale,
   fallbackImage: string,
   fallbackAlt: string,
@@ -30,11 +72,8 @@ function imageUrl(
   };
 }
 
-export function mapTripPreview(
-  trip: CmsTrip,
-  locale: Locale,
-): DestinationPreview | null {
-  const slug = trip.slug?.[locale]?.current ?? trip.slug?.fr?.current ?? trip.slug?.en?.current;
+export function mapTripPreview(trip: CmsTrip, locale: Locale): DestinationPreview | null {
+  const slug = resolveSlug(trip.slug, locale);
 
   if (!slug) {
     return null;
@@ -54,11 +93,9 @@ export function mapTripPreview(
   };
 }
 
-export function mapTripPage(
-  trip: CmsTrip,
-  locale: Locale,
-): DestinationPageData | null {
-  const slug = trip.slug?.[locale]?.current ?? trip.slug?.fr?.current ?? trip.slug?.en?.current;
+export function mapTripPage(trip: CmsTrip, locale: Locale): DestinationPageData | null {
+  const slug = resolveSlug(trip.slug, locale);
+
   if (!slug) {
     return null;
   }
@@ -75,6 +112,7 @@ export function mapTripPage(
     introParagraphs: (trip.introParagraphs ?? []).map((item) => localize(item, locale)).filter(Boolean),
     experiences: (trip.experiences ?? []).map((item) => {
       const media = imageUrl(item.image, locale, "/fsc-crew-1.jpg", "Experience image");
+
       return {
         title: localize(item.title, locale, ""),
         date: localize(item.dateLabel, locale, ""),
@@ -115,11 +153,7 @@ export function mapGallery(items: CmsGalleryItem[], locale: Locale): GalleryItem
       tag: item.tag
         ? {
             title: localize(item.tag.title, locale, "Parties"),
-            slug:
-              item.tag.slug?.[locale]?.current ??
-              item.tag.slug?.fr?.current ??
-              item.tag.slug?.en?.current ??
-              "parties",
+            slug: resolveSlug(item.tag.slug, locale, "parties"),
           }
         : undefined,
       image: media.image,
@@ -129,23 +163,21 @@ export function mapGallery(items: CmsGalleryItem[], locale: Locale): GalleryItem
   });
 }
 
-export function mapSiteSettings(
-  settings: CmsSiteSettings | null,
-  locale: Locale,
-) {
+export function mapSiteSettings(settings: CmsSiteSettings | null, locale: Locale) {
   if (!settings) {
     return null;
   }
 
-  const fallbackShell = locale === "en"
-    ? {
-        metadata: siteDataEnSeed.metadata,
-        brand: siteDataEnSeed.brand,
-      }
-    : {
-        metadata: siteData.metadata,
-        brand: siteData.brand,
-      };
+  const fallbackShell =
+    locale === "en"
+      ? {
+          metadata: siteDataEnSeed.metadata,
+          brand: siteDataEnSeed.brand,
+        }
+      : {
+          metadata: siteData.metadata,
+          brand: siteData.brand,
+        };
 
   return {
     metadata: {
