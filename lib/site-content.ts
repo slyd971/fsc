@@ -529,18 +529,17 @@ export async function getTrips(locale: Locale = defaultLocale): Promise<Destinat
   const mapped = trips.map((trip) => mapTripPreview(trip, locale)).filter(Boolean) as DestinationPreview[];
   return mapped.length ? mapped : fallbackTrips(locale);
 }
+export async function getTripPage(
+  slug: string,
+  locale: Locale = defaultLocale,
+): Promise<DestinationPageData | null> {
+  const cleanSlug = slug.trim().toLowerCase() as DestinationPreview["slug"];
 
-export async function getTripPage() {
-  return {
-    title: "TEST",
-    eyebrow: "TEST",
-    heroDescription: "TEST",
-    heroImage: "/fsc-crew-1.jpg",
-    introTitle: "TEST",
-    introParagraphs: ["TEST"],
-    experiences: [],
-    packs: [],
-  };
+  if (locale === "en") {
+    return destinationPagesEnSeed[cleanSlug] ?? null;
+  }
+
+  return destinationPages[cleanSlug] ?? null;
 }
 
 export async function getTestimonials(locale: Locale = defaultLocale): Promise<Testimonial[]> {
