@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
-import { siteData, type GalleryItem } from "@/data/site";
+import type { GalleryItem } from "@/data/site";
 import type { Locale } from "@/lib/i18n";
 import { withLocalePath } from "@/lib/i18n";
 import { getUiCopy } from "@/lib/ui-copy";
@@ -22,7 +22,7 @@ function getSectionTitleLines(title: string) {
 
 export function GalleryPreviewSection({
   locale = "fr",
-  items = siteData.gallery.items,
+  items = [],
   content,
 }: {
   locale?: Locale;
@@ -35,27 +35,39 @@ export function GalleryPreviewSection({
   };
 }) {
   const copy = getUiCopy(locale).galleryPreview;
+
   const section = content ?? {
     eyebrow: copy.kicker,
     title: `${copy.titleLine1} ${copy.titleLine2}`,
     description: copy.description,
     cta: { label: copy.cta, href: "/gallery" },
   };
+
   const titleLines = getSectionTitleLines(section.title);
-  const featuredIds = ["carnival-1", "rotterdam-1", "crew-1", "party-1"];
-  const previewImages = items.filter((item) => featuredIds.includes(item.id));
-  const curatedImages = previewImages.length >= 4 ? previewImages : items.slice(0, 4);
+
+  const curatedImages = useMemo(() => {
+    if (!items.length) return [];
+
+    return items.slice(0, 4);
+  }, [items]);
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (curatedImages.length === 0) return;
+
+    const safeIndex = activeIndex >= curatedImages.length ? 0 : activeIndex;
+    if (safeIndex !== activeIndex) {
+      setActiveIndex(0);
+      return;
+    }
 
     const interval = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % curatedImages.length);
     }, 3800);
 
     return () => window.clearInterval(interval);
-  }, [curatedImages.length]);
+  }, [activeIndex, curatedImages.length]);
 
   const activeImage = curatedImages[activeIndex];
   const sideImages = curatedImages.filter((_, index) => index !== activeIndex).slice(0, 3);
