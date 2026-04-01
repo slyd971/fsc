@@ -127,32 +127,26 @@ export const testimonialsQuery = groq`
 `;
 
 // --------------------
-// 🔥 GALLERY (FIXED)
+// GALLERY
 // --------------------
 export const galleryItemsQuery = groq`
   *[_type == "galleryItem"] | order(_createdAt desc){
     _id,
-
-    // titre localisé
-    "title": coalesce(title[$locale], title.fr, title.en),
-
-    // TAG = source principale
-    "tag": tag->{
+    title,
+    size,
+    tag->{
       _id,
-      "title": coalesce(title[$locale], title.fr, title.en),
-      "slug": coalesce(slug[$locale].current, slug.fr.current, slug.en.current)
+      title,
+      slug
     },
-
-    // IMAGE (mediaItem)
-    "image": image{
+    image{
       alt,
       imageUrl,
       image{
         asset
       }
     },
-
-    size
+    alt
   }
 `;
 
@@ -219,14 +213,11 @@ export const pageBySlugQuery = groq`
           quote,
           moment,
           accent,
-
-          // 🔥 FIX TAG AUSSI ICI
-          "tag": tag->{
+          tag->{
             _id,
             title,
             slug
           },
-
           alt,
           size,
           image{
@@ -311,14 +302,11 @@ export const pageByIdQuery = groq`
           quote,
           moment,
           accent,
-
-          // 🔥 FIX TAG AUSSI ICI
-          "tag": tag->{
+          tag->{
             _id,
             title,
             slug
           },
-
           alt,
           size,
           image{
