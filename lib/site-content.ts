@@ -6,7 +6,7 @@ import {
   type GalleryItem,
   type Testimonial,
 } from "@/data/site";
-import { siteDataEnSeed } from "@/data/site-en-seed";
+import { siteDataEnSeed, destinationPagesEnSeed } from "@/data/site-en-seed";
 import { defaultLocale, type Locale } from "@/lib/i18n";
 import { client, getSanityFetchOptions } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
