@@ -4,6 +4,7 @@ import { LocaleHtmlController } from "@/components/site/LocaleHtmlController";
 import { SiteChrome } from "@/components/site/SiteChrome";
 import { siteData } from "@/data/site";
 import { getSiteShell } from "@/lib/site-content";
+import { SanityLive } from "@/sanity/lib/live";
 
 export const metadata: Metadata = {
   title: siteData.metadata.title,
@@ -24,6 +25,7 @@ export default async function RootLayout({
         <SiteChrome shellFr={shellFr} shellEn={shellEn}>
           {children}
         </SiteChrome>
+        <SanityLive />
       </body>
     </html>
   );

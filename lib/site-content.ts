@@ -10,6 +10,7 @@ import { siteDataEnSeed, destinationPagesEnSeed } from "@/data/site-en-seed";
 import { defaultLocale, type Locale } from "@/lib/i18n";
 import { client, getSanityFetchOptions } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
+import { sanityFetch } from "@/sanity/lib/live";
 import {
   mapGallery,
   mapSiteSettings,
@@ -233,7 +234,6 @@ function fallbackHome(locale: Locale): HomePageContent {
         secondaryCta: { ...siteDataEnSeed.hero.secondaryCta },
         imageBadge: siteData.hero.imageBadge,
         imageCaption: siteData.hero.imageCaption,
-        microLabel: "French association",
         backgroundWord: "ROAD",
         chorusItems: ["Soca movement", "Carnival emotion", "Diaspora energy", "Premium roads"],
       },
@@ -499,6 +499,16 @@ async function safeFetch<T>(
   }
 
   try {
+    if (sanityFetch) {
+      const { data } = await sanityFetch({
+        query,
+        params,
+        tags: ["sanity", ...tags],
+      });
+
+      return data as T;
+    }
+
     return await client.fetch<T>(query, params, getSanityFetchOptions(tags));
   } catch {
     return null;
@@ -535,11 +545,20 @@ export async function getTripPage(
 ): Promise<DestinationPageData | null> {
   const cleanSlug = slug.trim().toLowerCase() as DestinationPreview["slug"];
 
-  if (locale === "en") {
-    return destinationPagesEnSeed[cleanSlug] ?? null;
+  const trip = await safeFetch<CmsTrip>(
+    tripBySlugQuery,
+    { slug: cleanSlug, locale },
+    ["trip", "trips", `trip:${cleanSlug}`, `trip:${locale}`, `trip:${locale}:${cleanSlug}`],
+  );
+
+  const mapped = trip ? mapTripPage(trip, locale) : null;
+  if (mapped) {
+    return mapped;
   }
 
-  return destinationPages[cleanSlug] ?? null;
+  return locale === "en"
+    ? destinationPagesEnSeed[cleanSlug] ?? null
+    : destinationPages[cleanSlug] ?? null;
 }
 
 export async function getTestimonials(locale: Locale = defaultLocale): Promise<Testimonial[]> {
@@ -602,7 +621,7 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
       microLabel: localize(
         heroBlock?.microLabel,
         locale,
-        fallback.hero.microLabel ?? (locale === "en" ? "French association" : "Association française"),
+        fallback.hero.microLabel ?? "",
       ),
       backgroundWord: localize(
         heroBlock?.backgroundWord,

@@ -1,9 +1,18 @@
-// Querying with "sanityFetch" will keep content automatically updated
-// Before using it, import and render "<SanityLive />" in your layout, see
-// https://github.com/sanity-io/next-sanity#live-content-api for more information.
+// Querying with "sanityFetch" will keep content automatically updated.
+// When Sanity env vars are missing we fall back to inert helpers so the app
+// can still boot against local seed data.
+import { Fragment } from "react";
 import { defineLive } from "next-sanity/live";
-import { client } from './client'
+import { readToken } from "../env";
+import { client } from "./client";
 
-export const { sanityFetch, SanityLive } = defineLive({
-  client,
-});
+const live = client
+  ? defineLive({
+      client,
+      serverToken: readToken || false,
+      browserToken: false,
+    })
+  : null;
+
+export const sanityFetch = live?.sanityFetch;
+export const SanityLive = live?.SanityLive ?? Fragment;
