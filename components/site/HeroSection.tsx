@@ -62,7 +62,7 @@ export function HeroSection({
   const reduceMotion = useReducedMotion();
   const heroChorus = hero.chorusItems?.length ? hero.chorusItems : heroChorusByLocale[locale];
   const associationLabel =
-  typeof hero.microLabel === "string" ? hero.microLabel.trim() : "";
+    typeof hero.microLabel === "string" ? hero.microLabel.trim() : "";
   const heroTitleLines = getHeroTitleLines(hero.title);
   const backgroundWord = hero.backgroundWord ?? "ROAD";
 
@@ -100,11 +100,12 @@ export function HeroSection({
               animate={reduceMotion ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.95, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             >
-             {associationLabel && (
-  <div className="text-muted-soft pointer-events-none absolute -top-7 left-0 text-[0.62rem] uppercase tracking-[0.42em] sm:text-[0.7rem]">
-    {associationLabel}
-  </div>
-)}
+              {associationLabel && (
+                <div className="text-muted-soft pointer-events-none absolute -top-7 left-0 text-[0.62rem] uppercase tracking-[0.42em] sm:text-[0.7rem]">
+                  {associationLabel}
+                </div>
+              )}
+
               <h1 className="hero-artist-title theme-text-strong relative z-10 max-w-[10ch] text-[clamp(2.9rem,10.2vw,8.2rem)]">
                 {heroTitleLines.map((line, index) => (
                   <span key={`${line}-${index}`} className="block">
