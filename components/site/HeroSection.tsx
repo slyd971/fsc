@@ -61,8 +61,7 @@ export function HeroSection({
   const hero = content ?? fallbackHero;
   const reduceMotion = useReducedMotion();
   const heroChorus = hero.chorusItems?.length ? hero.chorusItems : heroChorusByLocale[locale];
-  const associationLabel =
-    hero.microLabel ?? (locale === "en" ? "French association" : "Association française");
+  const associationLabel = hero.microLabel ?? "";
   const heroTitleLines = getHeroTitleLines(hero.title);
   const backgroundWord = hero.backgroundWord ?? "ROAD";
 
