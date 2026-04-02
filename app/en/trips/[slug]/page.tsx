@@ -5,9 +5,9 @@ import { getTripPage } from "@/lib/site-content";
 export default async function TripPageEn({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params;
+  const { slug } = await params;
   const trip = await getTripPage(slug, "en");
 
   if (!trip) {

@@ -6,9 +6,10 @@ import { defaultLocale } from "@/lib/i18n";
 export default async function TripPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const trip = await getTripPage(params.slug, defaultLocale);
+  const { slug } = await params;
+  const trip = await getTripPage(slug, defaultLocale);
 
   if (!trip) {
     notFound();
