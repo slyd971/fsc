@@ -37,20 +37,20 @@ export function DestinationHero({
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.8))]" />
       </div>
 
-      <div className="section-shell relative flex min-h-[70vh] items-end pb-12 md:pb-16">
+      <div className="section-shell relative flex min-h-[66vh] items-end pb-10 md:pb-12">
         <Reveal>
           <div className="max-w-4xl">
-            <div className="inline-flex rounded-full border border-white/16 bg-black/25 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/82 backdrop-blur-md">
+            <div className="inline-flex rounded-full border border-white/16 bg-black/25 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-white/82 backdrop-blur-md md:px-4 md:py-2 md:text-[10px]">
               {eyebrow}
             </div>
 
-            <h1 className="section-title mt-5 max-w-4xl text-[clamp(3.8rem,9vw,8rem)]">
+            <h1 className="section-title mt-4 max-w-4xl text-[clamp(3.4rem,8vw,7rem)]">
               {title}
             </h1>
 
             {description ? (
-              <div className="mt-4 max-w-[27rem] rounded-[1.1rem] border border-white/12 bg-black/28 p-4.5 backdrop-blur-md md:max-w-[29rem] md:p-5 xl:max-w-[30rem]">
-                <p className="text-[0.92rem] leading-5 text-white/78 md:text-[0.95rem] md:leading-6">
+              <div className="mt-3 max-w-[22rem] rounded-[0.95rem] border border-white/10 bg-black/24 px-4 py-3.5 backdrop-blur-md md:max-w-[24rem] md:px-4.5 md:py-4 xl:max-w-[25rem]">
+                <p className="text-[0.85rem] leading-5 text-white/76 md:text-[0.9rem] md:leading-[1.45]">
                   {description}
                 </p>
               </div>
@@ -58,7 +58,7 @@ export function DestinationHero({
 
             <a
               href="#book-now"
-              className="button-editorial button-editorial-primary premium-sheen mt-8 inline-flex"
+              className="button-editorial button-editorial-primary premium-sheen mt-6 inline-flex"
             >
               <MessageCircle className="h-4 w-4" />
               {copy.cta}
