@@ -17,6 +17,7 @@ import pricingOption from "./objects/pricingOption";
 import seo from "./objects/seo";
 import socialLink from "./objects/socialLink";
 import statItem from "./objects/statItem";
+import videoMediaItem from "./objects/videoMediaItem";
 import contactBlock from "./blocks/contactBlock";
 import destinationsBlock from "./blocks/destinationsBlock";
 import galleryBlock from "./blocks/galleryBlock";
@@ -45,6 +46,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     seo,
     socialLink,
     statItem,
+    videoMediaItem,
     heroBlock,
     introBlock,
     destinationsBlock,

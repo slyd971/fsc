@@ -62,6 +62,12 @@ export type GalleryItem = {
   size: "portrait" | "landscape" | "square";
 };
 
+export type VideoShowcaseItem = {
+  title: string;
+  poster: string;
+  src?: string;
+};
+
 export type ContactMethod = {
   label: string;
   value: string;
@@ -191,7 +197,7 @@ export const siteData = {
         title: "Afterglow du crew",
         poster: "/fsc-crew-1.jpg",
       },
-    ],
+    ] satisfies VideoShowcaseItem[],
     cta: {
       label: "Voir l'énergie",
       href: "https://www.instagram.com/frenchsocacrew/",

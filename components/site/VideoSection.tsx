@@ -95,11 +95,25 @@ export function VideoSection({
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute inset-0"
                   >
-                    <img
-                      src={activeVideo.poster}
-                      alt={activeVideo.title}
-                      className="h-full w-full object-cover"
-                    />
+                    {activeVideo.src ? (
+                      <video
+                        key={activeVideo.src}
+                        src={activeVideo.src}
+                        poster={activeVideo.poster}
+                        className="h-full w-full object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                      />
+                    ) : (
+                      <img
+                        src={activeVideo.poster}
+                        alt={activeVideo.title}
+                        className="h-full w-full object-cover"
+                      />
+                    )}
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.06),rgba(0,0,0,0.75))]" />
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_24%,rgba(255,255,255,0.14),transparent_22%)]" />
                   </motion.div>
@@ -160,6 +174,11 @@ export function VideoSection({
                       <div className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full border border-white/14 bg-black/35 text-white/80 backdrop-blur-sm sm:bottom-4 sm:right-4 sm:h-10 sm:w-10">
                         <Play className="ml-0.5 h-3.5 w-3.5 sm:h-4 sm:w-4" fill="currentColor" />
                       </div>
+                      {item.src ? (
+                        <div className="absolute bottom-3 left-3 rounded-full border border-white/14 bg-black/45 px-2 py-1 text-[8px] uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm sm:bottom-4 sm:left-4 sm:text-[9px]">
+                          Vidéo
+                        </div>
+                      ) : null}
                     </div>
                     <div className="px-1 pb-1 pt-3 sm:pt-4">
                       <div className="text-[9px] uppercase tracking-[0.2em] text-[var(--accent)] sm:text-[10px] sm:tracking-[0.24em]">

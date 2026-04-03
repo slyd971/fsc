@@ -10,7 +10,7 @@ export default defineType({
     defineField({ name: "eyebrow", type: "localizedString", fieldset: "content" }),
     defineField({ name: "title", type: "localizedString", fieldset: "content" }),
     defineField({ name: "body", type: "localizedText", fieldset: "content" }),
-    defineField({ name: "items", type: "array", of: [{ type: "mediaItem" }], fieldset: "media" }),
+    defineField({ name: "items", type: "array", of: [{ type: "videoMediaItem" }], fieldset: "media" }),
     defineField({ name: "cta", type: "cta", fieldset: "content" }),
   ],
 });

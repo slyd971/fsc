@@ -6,6 +6,7 @@ import type {
   NavItem,
   Highlight,
   ContactMethod,
+  VideoShowcaseItem,
 } from "./site";
 
 export const siteDataEnSeed = {
@@ -102,7 +103,7 @@ export const siteDataEnSeed = {
       { title: "Rotterdam arrival", poster: "/Rotterdam/fsc-rotterdam-road.jpg" },
       { title: "London road call", poster: "/London/nhc2.jpg" },
       { title: "Crew afterglow", poster: "/fsc-crew-1.jpg" },
-    ],
+    ] satisfies VideoShowcaseItem[],
     cta: { label: "Watch the energy", href: "https://www.instagram.com/frenchsocacrew/" },
   },
   testimonials: [

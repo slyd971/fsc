@@ -232,7 +232,14 @@ export const pageBySlugQuery = groq`
           ...,
           alt,
           imageUrl,
+          videoUrl,
           caption,
+          videoFile{
+            asset->{
+              url,
+              originalFilename
+            }
+          },
           image{
             asset
           }
@@ -321,7 +328,14 @@ export const pageByIdQuery = groq`
           ...,
           alt,
           imageUrl,
+          videoUrl,
           caption,
+          videoFile{
+            asset->{
+              url,
+              originalFilename
+            }
+          },
           image{
             asset
           }

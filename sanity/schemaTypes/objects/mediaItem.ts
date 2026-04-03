@@ -29,7 +29,8 @@ export default defineType({
     defineField({
       name: "image",
       title: "Photo a importer",
-      description: "Glisse une image ici ou clique pour importer la photo.",
+      description:
+        "Glisse une image ici ou clique pour importer la photo. Formats conseilles: JPG, PNG, WebP. Poids recommande: 3 Mo max. Largeur recommandee: 2000 px minimum.",
       type: "image",
       options: {
         hotspot: true,
@@ -67,7 +68,7 @@ export default defineType({
       title: "URL image externe (legacy)",
       type: "string",
       hidden: hideForContributors,
-      description: "Fallback temporaire pour anciens contenus (à supprimer plus tard).",
+      description: "Fallback temporaire pour anciens contenus. Utiliser si possible une image JPG, PNG ou WebP.",
     }),
   ],
 });

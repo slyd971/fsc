@@ -5,6 +5,7 @@ import {
   type DestinationPreview,
   type GalleryItem,
   type Testimonial,
+  type VideoShowcaseItem,
 } from "@/data/site";
 import { siteDataEnSeed, destinationPagesEnSeed } from "@/data/site-en-seed";
 import { defaultLocale, type Locale } from "@/lib/i18n";
@@ -46,7 +47,9 @@ type HomePageContent = {
     image?: string;
     imageAlt?: string;
   };
-  video: typeof siteData.video;
+  video: typeof siteData.video & {
+    videos: VideoShowcaseItem[];
+  };
   destinations: {
     eyebrow: string;
     title: string;
@@ -139,6 +142,13 @@ type CmsPageBlock = {
       imageUrl?: string;
       alt?: Partial<Record<Locale, string>>;
       asset?: { _ref: string; _type: "reference" };
+    };
+    videoUrl?: string;
+    videoFile?: {
+      asset?: {
+        url?: string;
+        originalFilename?: string;
+      };
     };
   }>;
 };
@@ -415,6 +425,21 @@ function resolveMediaUrl(
   }
 
   return fallback;
+}
+
+function resolveVideoUrl(
+  media:
+    | {
+        videoUrl?: string;
+        videoFile?: {
+          asset?: {
+            url?: string;
+          };
+        };
+      }
+    | undefined,
+) {
+  return media?.videoFile?.asset?.url ?? media?.videoUrl ?? undefined;
 }
 
 function mapBlockTrips(
@@ -711,6 +736,7 @@ export async function getHomePageContent(locale: Locale = defaultLocale): Promis
                   fallback.video.videos[0]?.poster ??
                   "/fsc-crew-1.jpg",
               ),
+              src: resolveVideoUrl(item) ?? fallback.video.videos[index]?.src,
             }))
           : fallback.video.videos,
     },
