@@ -180,6 +180,20 @@ function normalizeSlug(slug: string) {
   return slug.trim().toLowerCase().replace(/^\/+|\/+$/g, "");
 }
 
+function resolveTripSlugAlias(slug: string) {
+  const cleanSlug = normalizeSlug(slug);
+
+  if (cleanSlug === "london") {
+    return "london-carnival";
+  }
+
+  if (cleanSlug === "rotterdam") {
+    return "rotterdam-carnival";
+  }
+
+  return cleanSlug;
+}
+
 function fallbackShell(locale: Locale) {
   if (locale === "en") {
     return {
@@ -384,16 +398,16 @@ function resolveMediaUrl(
     | undefined,
   fallback: string,
 ) {
-  if (media?.imageUrl) {
-    return media.imageUrl;
-  }
-
   if (media?.image?.asset) {
     try {
       return urlFor(media.image).width(1800).auto("format").url();
     } catch {
-      return fallback;
+      // Fall through to legacy URLs before using the final fallback.
     }
+  }
+
+  if (media?.imageUrl) {
+    return media.imageUrl;
   }
 
   if (media?.image?.imageUrl) {
@@ -543,7 +557,7 @@ export async function getTripPage(
   slug: string,
   locale: Locale = defaultLocale,
 ): Promise<DestinationPageData | null> {
-  const cleanSlug = slug.trim().toLowerCase() as DestinationPreview["slug"];
+  const cleanSlug = resolveTripSlugAlias(slug) as DestinationPreview["slug"];
 
   const trip = await safeFetch<CmsTrip>(
     tripBySlugQuery,
