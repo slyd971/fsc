@@ -379,8 +379,7 @@ export const destinationPagesEnSeed: Record<DestinationPreview["slug"], Destinat
         date: "Saturday · Warm-up day",
         description:
           "An arrival sequence for early city exploration, crew meetups and pre-carnival energy before the main road moments begin.",
-        image:
-          "https://images.unsplash.com/photo-1521335629791-ce4aec67dd53?auto=format&fit=crop&w=1200&q=80",
+        image: "/London/nhc1.jpg",
         includes: ["Arrival guidance", "Local orientation", "Community meetup"],
       },
       {
@@ -388,8 +387,7 @@ export const destinationPagesEnSeed: Record<DestinationPreview["slug"], Destinat
         date: "Sunday / Monday · Main road days",
         description:
           "The main carnival stretch, built around route flow, meetup points and the kind of live coordination that lets the crew stay together without losing the freedom of the road.",
-        image:
-          "https://images.unsplash.com/photo-1508979828023-2ab1d1f5f3d8?auto=format&fit=crop&w=1200&q=80",
+        image: "/London/nhc2.jpg",
         includes: ["Road strategy", "Meeting points", "Live coordination"],
       },
       {

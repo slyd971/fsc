@@ -110,10 +110,6 @@ export const uiCopy = {
     destinationPage: {
       kicker: "Événements & offres",
       title: "Flow du trip",
-      galleryKicker: "Photos du trip",
-      galleryTitle: "L'ambiance en images",
-      galleryDescription:
-        "Quelques moments visuels pour sentir la ville, la road et l'énergie du crew avant de passer au programme détaillé.",
     },
     tripsPage: {
       detailCta: "Voir le détail du trip",
@@ -231,10 +227,6 @@ export const uiCopy = {
     destinationPage: {
       kicker: "Events & offers",
       title: "Trip flow",
-      galleryKicker: "Trip gallery",
-      galleryTitle: "The atmosphere in frames",
-      galleryDescription:
-        "A quick visual pass through the city, the road and the crew energy before the detailed program starts.",
     },
     tripsPage: {
       detailCta: "View trip details",

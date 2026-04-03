@@ -495,8 +495,7 @@ export const destinationPages: Record<
         date: "Samedi · Jour de warm-up",
         description:
           "Une séquence d'arrivée pour explorer la ville, retrouver le crew et sentir l'énergie pré-carnaval avant les grands moments de la road.",
-        image:
-          "https://images.unsplash.com/photo-1521335629791-ce4aec67dd53?auto=format&fit=crop&w=1200&q=80",
+        image: "/London/nhc1.jpg",
         includes: [
           "Guidance d'arrivée",
           "Repères sur place",
@@ -508,8 +507,7 @@ export const destinationPages: Record<
         date: "Dimanche / Lundi · Grands jours de road",
         description:
           "Le grand temps du carnaval, pensé autour du parcours, des points de rendez-vous et d'une coordination en direct qui permet au crew de rester ensemble sans perdre la liberté de la road.",
-        image:
-          "https://images.unsplash.com/photo-1508979828023-2ab1d1f5f3d8?auto=format&fit=crop&w=1200&q=80",
+        image: "/London/nhc2.jpg",
         includes: [
           "Stratégie de road",
           "Points de rendez-vous",
