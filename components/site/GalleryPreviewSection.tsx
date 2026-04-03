@@ -182,7 +182,7 @@ export function GalleryPreviewSection({
                 {copy.featured}
               </div>
 
-              <div className="media-cut relative min-h-[24rem] overflow-hidden rounded-[1.7rem] sm:min-h-[38rem] sm:rounded-[2.1rem] lg:min-h-[46rem]">
+              <div className="media-cut relative min-h-[24rem] overflow-hidden rounded-[1.7rem] sm:min-h-[34rem] sm:rounded-[2.1rem] lg:min-h-[37.5rem]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeImage.id}
