@@ -1,13 +1,29 @@
 import { defineField, defineType } from "sanity";
-import { objectFieldsets } from "@/sanity/lib/editorial";
+import BilingualInput from "@/sanity/components/BilingualInput";
 
 export default defineType({
   name: "localizedString",
-  title: "Texte multilingue",
+  title: "Texte FR / EN",
   type: "object",
-  fieldsets: objectFieldsets,
+  options: {
+    collapsible: false,
+    collapsed: false,
+  },
+  components: {
+    input: BilingualInput,
+  },
   fields: [
-    defineField({ name: "fr", title: "French", type: "string", fieldset: "content" }),
-    defineField({ name: "en", title: "English", type: "string", fieldset: "content" }),
+    defineField({
+      name: "fr",
+      title: "Francais",
+      description: "Version francaise.",
+      type: "string",
+    }),
+    defineField({
+      name: "en",
+      title: "English",
+      description: "English version.",
+      type: "string",
+    }),
   ],
 });

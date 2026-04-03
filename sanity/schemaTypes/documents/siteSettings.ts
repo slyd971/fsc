@@ -7,8 +7,8 @@ export default defineType({
   type: "document",
   groups: documentGroups,
   fields: [
-    defineField({ name: "siteTitle", title: "Titre du site", type: "localizedString", group: ["content", "seo"] }),
-    defineField({ name: "siteDescription", title: "Description du site", type: "localizedText", group: ["content", "seo"] }),
+    defineField({ name: "siteTitle", title: "Titre du site", type: "localizedString", group: "seo" }),
+    defineField({ name: "siteDescription", title: "Description du site", type: "localizedText", group: "seo" }),
     defineField({ name: "brandName", title: "Nom de la marque", type: "localizedString", group: "content" }),
     defineField({ name: "brandTagline", title: "Signature de marque", type: "localizedText", group: "content" }),
     defineField({

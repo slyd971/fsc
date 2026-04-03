@@ -1,11 +1,14 @@
 import { defineField, defineType } from "sanity";
-import { hideForContributors, objectFieldsets } from "@/sanity/lib/editorial";
+import { hideForContributors } from "@/sanity/lib/editorial";
 
 export default defineType({
   name: "mediaItem",
   title: "Visuel",
   type: "object",
-  fieldsets: objectFieldsets,
+  options: {
+    collapsible: false,
+    collapsed: false,
+  },
 
   preview: {
     select: {
@@ -25,10 +28,9 @@ export default defineType({
   fields: [
     defineField({
       name: "image",
-      title: "Photo",
-      description: "Ajoute ici la photo affichée sur le site.",
+      title: "Photo a importer",
+      description: "Glisse une image ici ou clique pour importer la photo.",
       type: "image",
-      fieldset: "media",
       options: {
         hotspot: true,
       },
@@ -48,25 +50,22 @@ export default defineType({
     defineField({
       name: "alt",
       title: "Texte alternatif",
-      description: "Décris brièvement la photo pour l’accessibilité (FR + EN).",
+      description: "Decris simplement ce que montre la photo. Renseigne FR et EN.",
       type: "localizedString",
-      fieldset: "content",
       validation: (Rule) => Rule.required().error("Ajoute un texte alternatif."),
     }),
 
     defineField({
       name: "caption",
       title: "Légende optionnelle",
-      description: "Utilisée si besoin d’un titre ou caption.",
+      description: "Petit texte visible sous l'image si besoin. Facultatif.",
       type: "localizedString",
-      fieldset: "content",
     }),
 
     defineField({
       name: "imageUrl",
       title: "URL image externe (legacy)",
       type: "string",
-      fieldset: "internal",
       hidden: hideForContributors,
       description: "Fallback temporaire pour anciens contenus (à supprimer plus tard).",
     }),

@@ -24,7 +24,7 @@ export default defineType({
     defineField({
       name: "title",
       title: "Titre visible",
-      description: "Petit titre affiché dans la galerie. Renseigne FR et EN.",
+      description: "Petit titre affiche dans la galerie. Renseigne FR et EN.",
       type: "localizedString",
       group: "content",
       validation: (Rule) => Rule.required().error("Ajoute un titre pour cette photo."),
@@ -32,7 +32,7 @@ export default defineType({
     defineField({
       name: "tag",
       title: "Dossier / tag",
-      description: "Choisis le sous-dossier auquel cette photo appartient. Ce sous-dossier sert aussi de tag / filtre côté front.",
+      description: "Choisis le dossier de la photo. Il sert aussi de filtre sur le site.",
       type: "reference",
       to: [{ type: "galleryTag" }],
       group: "content",
@@ -49,7 +49,7 @@ export default defineType({
     defineField({
       name: "image",
       title: "Visuel de galerie",
-      description: "1. Ouvre ce bloc  2. Uploade la photo  3. Ajoute le texte alternatif. C’est ici que se gère le média.",
+      description: "1. Ouvre ce bloc. 2. Importe la photo. 3. Ajoute le texte alternatif. 4. Ajoute une legende si besoin.",
       type: "mediaItem",
       group: "media",
       validation: (Rule) => Rule.required().error("Ajoute le visuel de galerie."),
@@ -61,7 +61,7 @@ export default defineType({
     defineField({
       name: "size",
       title: "Format d’affichage",
-      description: "Choisis le cadrage principal utilisé dans la galerie.",
+      description: "Choisis la forme principale de la photo dans la galerie.",
       type: "string",
       options: {
         list: [

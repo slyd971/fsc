@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "import:gallery": "sanity exec scripts/import-gallery-drop.ts --with-user-token",
     "sync:gallery": "npm run sync:gallery-folders && npm run sync:gallery-assets",
     "sync:gallery-folders": "sanity exec scripts/sync-gallery-folders.ts --with-user-token",
     "sync:gallery-assets": "sanity exec scripts/sync-gallery-assets.ts --with-user-token"

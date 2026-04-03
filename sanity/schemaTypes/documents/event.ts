@@ -13,7 +13,13 @@ export default defineType({
     defineField({ name: "description", type: "localizedText", group: "content" }),
     defineField({ name: "dateLabel", type: "localizedString", group: "content" }),
     defineField({ name: "destination", type: "reference", to: [{ type: "destination" }, { type: "trip" }], group: "settings" }),
-    defineField({ name: "media", type: "mediaItem", group: "media" }),
+    defineField({
+      name: "media",
+      title: "Image de l'evenement",
+      description: "Photo principale utilisee pour presenter l'evenement.",
+      type: "mediaItem",
+      group: "media",
+    }),
     defineField({ name: "cta", type: "cta", group: "content" }),
   ],
 });
