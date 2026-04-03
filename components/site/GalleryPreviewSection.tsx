@@ -119,7 +119,7 @@ export function GalleryPreviewSection({
               </div>
 
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                {sideImages.slice(0, 2).map((image, index) => (
+                {sideImages.slice(0, 2).map((image) => (
                   <button
                     key={image.id}
                     type="button"
@@ -128,7 +128,7 @@ export function GalleryPreviewSection({
                       activeImage.id === image.id
                         ? "border-[var(--accent)]/30 bg-white/[0.06]"
                         : "theme-border theme-panel-soft"
-                    } ${index === 1 ? "translate-y-2 sm:translate-y-6" : ""}`}
+                    }`}
                   >
                     <img
                       src={image.image}

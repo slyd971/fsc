@@ -39,7 +39,7 @@ export function DestinationHero({
 
       <div className="section-shell relative flex min-h-[70vh] items-end pb-12 md:pb-16">
         <Reveal>
-          <div className="max-w-4xl xl:max-w-[72rem]">
+          <div className="max-w-4xl">
             <div className="inline-flex rounded-full border border-white/16 bg-black/25 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/82 backdrop-blur-md">
               {eyebrow}
             </div>
@@ -49,8 +49,8 @@ export function DestinationHero({
             </h1>
 
             {description ? (
-              <div className="mt-5 max-w-[32rem] rounded-[1.2rem] border border-white/12 bg-black/28 p-5 backdrop-blur-md md:max-w-[34rem] md:p-6 xl:mt-6 xl:max-w-[36rem] xl:p-7">
-                <p className="text-sm leading-6 text-white/78 md:text-[0.98rem] md:leading-6 xl:text-[1rem] xl:leading-[1.65]">
+              <div className="mt-4 max-w-[27rem] rounded-[1.1rem] border border-white/12 bg-black/28 p-4.5 backdrop-blur-md md:max-w-[29rem] md:p-5 xl:max-w-[30rem]">
+                <p className="text-[0.92rem] leading-5 text-white/78 md:text-[0.95rem] md:leading-6">
                   {description}
                 </p>
               </div>
