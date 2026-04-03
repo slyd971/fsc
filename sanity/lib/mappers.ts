@@ -28,6 +28,13 @@ type MaybeLocalizedSlug =
     }
   | undefined;
 
+const deprecatedImageUrlMap: Record<string, string> = {
+  "https://images.unsplash.com/photo-1521335629791-ce4aec67dd53?auto=format&fit=crop&w=1200&q=80":
+    "/London/nhc1.jpg",
+  "https://images.unsplash.com/photo-1508979828023-2ab1d1f5f3d8?auto=format&fit=crop&w=1200&q=80":
+    "/London/nhc2.jpg",
+};
+
 function localize(value: MaybeLocalizedString, locale: Locale, fallback = ""): string {
   if (typeof value === "string") {
     return value || fallback;
@@ -44,6 +51,14 @@ function resolveSlug(value: MaybeLocalizedSlug, locale: Locale, fallback = ""): 
   return value?.[locale]?.current ?? value?.fr?.current ?? value?.en?.current ?? value?.current ?? fallback;
 }
 
+function normalizeImageUrl(url: string | undefined, fallbackImage: string) {
+  if (!url) {
+    return fallbackImage;
+  }
+
+  return deprecatedImageUrlMap[url] ?? url;
+}
+
 function imageUrl(
   value:
     | {
@@ -56,9 +71,9 @@ function imageUrl(
   fallbackImage: string,
   fallbackAlt: string,
 ) {
-  let resolvedImage = value?.imageUrl;
+  let resolvedImage: string | undefined;
 
-  if (!resolvedImage && value?.image?.asset) {
+  if (value?.image?.asset) {
     try {
       resolvedImage = urlFor(value.image).width(1800).auto("format").url();
     } catch {
@@ -66,8 +81,12 @@ function imageUrl(
     }
   }
 
+  if (!resolvedImage && value?.imageUrl) {
+    resolvedImage = value.imageUrl;
+  }
+
   return {
-    image: resolvedImage ?? fallbackImage,
+    image: normalizeImageUrl(resolvedImage, fallbackImage),
     alt: localize(value?.alt, locale, fallbackAlt),
   };
 }
